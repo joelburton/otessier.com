@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'practicearea.list' %}">Practice Areas</a></li>
+    <li class="active">{{ practicearea.title }}</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>{{ practicearea.title }}</h1>
+    </div>
+    {{ practicearea.body|safe }}
+
+    Clients:
+    <ul>
+        {% for client in practicearea.client_set.all %}
+            <li><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

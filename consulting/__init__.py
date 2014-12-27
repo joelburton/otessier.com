@@ -1,0 +1,1 @@
+"""Consulting practice Django product."""

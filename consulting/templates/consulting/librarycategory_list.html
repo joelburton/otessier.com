@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Library{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="active">Library</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>Library</h1>
+    </div>
+
+    {% for cat in librarycategory_list %}
+        <h2>{{ cat.title }}</h2>
+        {% for file in cat.libraryfile_set.all %}
+            {# Handle workflow; ugh, we can't use our usual soution #}
+            {% if 'preview' in request.GET or file.status == 'published' %}
+                <li>
+                    <a href="{{ file.asset.url }}">{{ file.title }}</a>
+                    {{ file.description|safe }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+{% endblock %}

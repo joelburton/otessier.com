@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Clients{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="active">Clients</li>
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="page-header">
+        <h1>Clients</h1>
+    </div>
+
+    {% for client in client_list %}
+        <h2>{{ client.title }}</h2>
+        <p>{{ client.description|safe }}</p>
+        Practice Areas:
+        <ul>
+            {% for area in client.practiceareas.all %}
+                <li><a href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
+            {% endfor %}
+        </ul>
+        <a href="{{ client.get_absolute_url }}">more</a>
+    {% endfor %}
+
+{% endblock %}

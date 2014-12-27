@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Questions{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="active">Questions</li>
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Questions</h1>
+    </div>
+
+    {% for question in qanda_list.all %}
+        <h2>{{ question.title }}</h2>
+        <a href="{{ question.get_absolute_url }}">more</a>
+    {% endfor %}
+
+{% endblock %}

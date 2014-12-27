@@ -1,0 +1,120 @@
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tessier and Associates: {% block page_title %}{{ object.title }}{% endblock %}</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'otessier.css' %}">
+    <script src="//use.typekit.net/iuz7fik.js"></script>
+    <script>try {
+        Typekit.load();
+    } catch (e) {
+    }</script>
+
+
+</head>
+<body>
+
+{% block content_outer %}
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Oliver Tessier <i class="amp">&amp;</i> Associates</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'consultant.list' %}">Who We Are</a></li>
+                    <li><a href="{% url 'practicearea.list' %}">Practices</a></li>
+                    <li><a href="{% url 'client.list' %}">Clients</a></li>
+                    <li><a href="{% url 'qanda.list' %}">Questions</a></li>
+                    <li><a href="{% url 'librarycategory.list' %}">Library</a></li>
+                    <li><a href="{% url 'contact-us' %}">Contact</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+
+
+    <div class="container content-top">
+        <div class="row">
+
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    {% block breadcrumbs %}
+                    {% endblock %}
+                </ol>
+
+                {% bootstrap_messages %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-lg-9">
+                {% block content %}{% endblock %}
+            </div>
+            {% block portlets %}
+                <div class="col-lg-3 col-xs-12 portlets">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Our Clients Say</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>{{ random_quote.quote }}</p>
+                            <div class="quote-attrib">
+                                &mdash;&nbsp;
+                                {{ random_quote.name }}<br>
+                                {{ random_quote.job_title }}<br>
+                                {{ random_quote.organization }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Nonprofit Q&amp;A</h3>
+                        </div>
+                        <div class="panel-body">
+                            {{ random_qanda.title }}
+                            <a href="{{ random_qanda.get_absolute_url }}">Read the
+                                answer&hellip;</a>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+
+{% endblock %}
+
+<script src="{% bootstrap_jquery_url %}"></script>
+{% bootstrap_javascript %}
+
+
+<footer class="page-footer">
+    <div class="container">
+        <span>Copyright &copy; 2012 by Oliver Tessier. All rights reserved.</span>
+        <span>Contact Us:
+            <a href="mailto:ot@otessier.com">ot@otessier.com</a>,
+            via <a href="{% url 'contact-us' %}">web form</a>,
+            or at 301/588-1430.
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>
+

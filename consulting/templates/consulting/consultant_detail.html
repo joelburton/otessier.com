@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'consultant.list' %}">Who We Are</a></li>
+    <li class="active">{{ consultant.title }}</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>{{ consultant.name }}</h1>
+    </div>
+    <img src="{{ consultant.photo.url }}">
+    {{ consultant.body|safe }}
+
+{% endblock %}

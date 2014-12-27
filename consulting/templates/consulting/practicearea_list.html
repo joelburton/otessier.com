@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Practice Areas{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="active">Practice Areas</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>Practice Areas
+            <small>How We Work</small>
+        </h1>
+    </div>
+
+    {% for pa in practicearea_list %}
+        <h2>{{ pa.title }}</h2>
+        {{ pa.description|safe }}
+        <a href="{{ pa.get_absolute_url }}">more</a>
+
+        Clients:
+        <ul>
+            {% for client in pa.client_set.all %}
+                <li><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+    {% endfor %}
+
+{% endblock %}

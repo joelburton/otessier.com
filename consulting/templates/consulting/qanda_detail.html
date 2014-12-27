@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'qanda.list' %}">Questions</a></li>
+    <li class="active">{{ qanda.title }}</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>{{ qanda.title }}</h1>
+    </div>
+    {{ qanda.question|safe }}
+    {{ qanda.answer|safe }}
+
+{% endblock %}
