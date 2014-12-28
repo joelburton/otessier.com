@@ -36,3 +36,26 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 from django.core.mail.utils import DNS_NAME
 DNS_NAME._fqdn = "localhost"
+
+
+##################################################################################################
+# Logging & Error Reporting
+
+# Blather on about every little thing that happens. We programmers get lonely.
+
+LOGGING = {
+    'version': 1,
+
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
