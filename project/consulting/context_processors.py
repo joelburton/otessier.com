@@ -1,13 +1,17 @@
+from random import randint
+
 from consulting.models import Quote, QAndA
 
 
 def random_quote(request):
+    quotes = Quote.objects.all()
     return {
-        'random_quote': Quote.objects.first()  # FIXME
+        'random_quote': quotes[randint(0, quotes.count()-1)]
     }
 
 
 def random_qanda(request):
+    qandas = QAndA.objects.all()
     return {
-        'random_qanda': QAndA.objects.first()  # FIXME
+        'random_qanda': qandas[randint(0, qandas.count()-1)]
     }
