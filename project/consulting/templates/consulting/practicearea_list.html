@@ -19,13 +19,16 @@
         {{ pa.description|safe }}
         <a href="{{ pa.get_absolute_url }}">more</a>
 
-        Clients:
-        <ul>
-            {% for client in pa.client_set.all %}
-                <li><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></li>
-            {% endfor %}
-        </ul>
-
+        {% if pa.has_published_clients or 'preview' in request.GET %}
+            Clients:
+            <ul>
+                {% for client in pa.client_set.all %}
+                    {% if client.status == 'published' or 'preview' in request.GET %}
+                        <li><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}

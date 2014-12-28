@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.db.models import Count
+from django.utils.html import strip_tags
 
 from grappelli.forms import GrappelliSortableHiddenMixin
 
@@ -15,7 +15,26 @@ from .models import (
 )
 
 
-class PracticeAreaAdmin(admin.ModelAdmin):
+class ModelAdmin(admin.ModelAdmin):
+    """Common features of our admin models."""
+
+    def active(self, obj):
+        return obj.status == 'published'
+    active.boolean = True
+    active.short_description = "Active?"
+
+    class Media:
+        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+              '/static/tinymce_setup.js']
+
+    change_list_template = "admin/change_list_filter_sidebar.html"
+    change_list_filter_template = "admin/filter_listing.html"
+
+
+###################################################################################################
+
+
+class PracticeAreaAdmin(ModelAdmin):
 
     fieldsets = [
         ('', {
@@ -38,25 +57,15 @@ class PracticeAreaAdmin(admin.ModelAdmin):
 
     ordering = ['position', 'title']
 
-    def active(self, obj):
-        return obj.status == 'published'
-    active.boolean = True
-    active.short_description = "Active?"
-
     def num_clients(self, obj):
-        return obj.num_clients
+        return obj.client_set.count()
     num_clients.short_description = "# Clients"
 
-    def get_queryset(self, request):
-        qs = PracticeArea.objects.show_private()
-        return qs.annotate(num_clients=Count('client', distinct=True))
 
-    class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-              '/static/tinymce_setup.js']
+admin.site.register(PracticeArea, PracticeAreaAdmin)
 
-    change_list_template = "admin/change_list_filter_sidebar.html"
-    change_list_filter_template = "admin/filter_listing.html"
+
+###################################################################################################
 
 
 class ClientReferenceInline(GrappelliSortableHiddenMixin, admin.TabularInline):
@@ -64,6 +73,7 @@ class ClientReferenceInline(GrappelliSortableHiddenMixin, admin.TabularInline):
     extra = 0
     fields = ['name', 'job_title', 'phone', 'email', 'position']
     sortable_field_name = 'position'
+
     def get_queryset(self, request):
         return ClientReference.objects
 
@@ -73,11 +83,9 @@ class ClientWorkInline(GrappelliSortableHiddenMixin, admin.TabularInline):
     extra = 0
     fields = ['title', 'description', 'references', 'status', 'position']
     sortable_field_name = 'position'
-    def get_queryset(self, request):
-        return ClientWork.objects.show_private()
 
 
-class ClientAdmin(admin.ModelAdmin):
+class ClientAdmin(ModelAdmin):
     inlines = [ClientReferenceInline, ClientWorkInline]
 
     fieldsets = [
@@ -102,23 +110,14 @@ class ClientAdmin(admin.ModelAdmin):
 
     ordering = ['position', '-created']
 
-    def active(self, obj):
-        return obj.status == 'published'
-    active.boolean = True
-    active.short_description = "Active?"
 
-    class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-              '/static/tinymce_setup.js']
-
-    change_list_template = "admin/change_list_filter_sidebar.html"
-    change_list_filter_template = "admin/filter_listing.html"
-
-    def get_queryset(self, request):
-        return Client.objects.show_private()
+admin.site.register(Client, ClientAdmin)
 
 
-class ConsultantAdmin(admin.ModelAdmin):
+###################################################################################################
+
+
+class ConsultantAdmin(ModelAdmin):
     fieldsets = [
         ('', {
             'fields': ['name', 'slug', 'photo', 'description', 'body', 'status', 'position']}),
@@ -140,23 +139,14 @@ class ConsultantAdmin(admin.ModelAdmin):
 
     ordering = ['position', 'name']
 
-    def active(self, obj):
-        return obj.status == 'published'
-    active.boolean = True
-    active.short_description = "Active?"
 
-    class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-              '/static/tinymce_setup.js']
-
-    change_list_template = "admin/change_list_filter_sidebar.html"
-    change_list_filter_template = "admin/filter_listing.html"
-
-    def get_queryset(self, request):
-        return Consultant.objects.show_private()
+admin.site.register(Consultant, ConsultantAdmin)
 
 
-class QAndAAdmin(admin.ModelAdmin):
+###################################################################################################
+
+
+class QAndAAdmin(ModelAdmin):
 
     fieldsets = [
         ('', {
@@ -179,23 +169,14 @@ class QAndAAdmin(admin.ModelAdmin):
 
     ordering = ['position', '-created']
 
-    def active(self, obj):
-        return obj.status == 'published'
-    active.boolean = True
-    active.short_description = "Active?"
 
-    class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-              '/static/tinymce_setup.js']
-
-    change_list_template = "admin/change_list_filter_sidebar.html"
-    change_list_filter_template = "admin/filter_listing.html"
-
-    def get_queryset(self, request):
-        return QAndA.objects.show_private()
+admin.site.register(QAndA, QAndAAdmin)
 
 
-class QuoteAdmin(admin.ModelAdmin):
+###################################################################################################
+
+
+class QuoteAdmin(ModelAdmin):
     fieldsets = [
         ('', {
             'fields': ['quote', 'name', 'job_title', 'organization', 'status']}),
@@ -206,8 +187,8 @@ class QuoteAdmin(admin.ModelAdmin):
 
     readonly_fields = ['id', 'created', 'modified', 'status_changed']
 
-    list_display = ['quote', 'name', 'job_title', 'organization', 'active']
-    list_display_links = ['quote']
+    list_display = ['quote_no_html', 'name', 'job_title', 'organization', 'active']
+    list_display_links = ['quote_no_html']
 
     search_fields = ['quote', 'name', 'job_title', 'organization']
 
@@ -215,19 +196,17 @@ class QuoteAdmin(admin.ModelAdmin):
 
     ordering = ['-id']
 
-    def active(self, obj):
-        return obj.status == 'published'
-    active.boolean = True
-    active.short_description = "Active?"
-
-    change_list_template = "admin/change_list_filter_sidebar.html"
-    change_list_filter_template = "admin/filter_listing.html"
-
-    def get_queryset(self, request):
-        return Quote.objects
+    def quote_no_html(self, obj):
+        return strip_tags(obj.quote)
 
 
-class LibraryCategoryAdmin(admin.ModelAdmin):
+admin.site.register(Quote, QuoteAdmin)
+
+
+###################################################################################################
+
+
+class LibraryCategoryAdmin(ModelAdmin):
 
     fieldsets = [
         ('', {
@@ -246,15 +225,14 @@ class LibraryCategoryAdmin(admin.ModelAdmin):
 
     ordering = ['title']
 
-    class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-              '/static/tinymce_setup.js']
 
-    def get_queryset(self, request):
-        return LibraryCategory.objects
+admin.site.register(LibraryCategory, LibraryCategoryAdmin)
 
 
-class LibraryFileAdmin(admin.ModelAdmin):
+###################################################################################################
+
+
+class LibraryFileAdmin(ModelAdmin):
 
     fieldsets = [
         ('', {
@@ -278,26 +256,5 @@ class LibraryFileAdmin(admin.ModelAdmin):
 
     ordering = ['position', '-created']
 
-    def active(self, obj):
-        return obj.status == 'published'
-    active.boolean = True
-    active.short_description = "Active?"
 
-    class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-              '/static/tinymce_setup.js']
-
-    change_list_template = "admin/change_list_filter_sidebar.html"
-    change_list_filter_template = "admin/filter_listing.html"
-
-    def get_queryset(self, request):
-        return LibraryFile.objects.show_private()
-
-
-admin.site.register(PracticeArea, PracticeAreaAdmin)
-admin.site.register(Client, ClientAdmin)
-admin.site.register(QAndA, QAndAAdmin)
-admin.site.register(Quote, QuoteAdmin)
-admin.site.register(Consultant, ConsultantAdmin)
-admin.site.register(LibraryCategory, LibraryCategoryAdmin)
 admin.site.register(LibraryFile, LibraryFileAdmin)

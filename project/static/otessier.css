@@ -30,7 +30,7 @@ body {
 
 .jumbotron {
     color: white;
-    text-shadow: 0px 0px 3px hsl(112, 98%, 15%);
+    text-shadow: 0 0 3px hsl(112, 98%, 15%);
     background: url('/static/texture.png'), linear-gradient(45deg, hsl(112, 98%, 20%), hsl(112, 98%, 40%), hsl(112, 98%, 20%))
 }
 
@@ -40,7 +40,7 @@ body {
 }
 
 .jumbotron .lead {
-    font-family: "sorts-mill-goudy";
+    font-family: "sorts-mill-goudy", serif;
     font-style: italic;
     font-weight: 900;
     font-size: 300%;

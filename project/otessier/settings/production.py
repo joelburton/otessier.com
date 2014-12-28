@@ -2,8 +2,6 @@
 Deployment settings for otessier project.
 """
 
-import os
-
 from .base import *
 
 

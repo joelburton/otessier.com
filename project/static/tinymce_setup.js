@@ -37,7 +37,7 @@ tinyMCE.init({
     keep_styles: false,
     language: 'en',
     object_resizing: false,
-    plugins: 'advimage,advlink,fullscreen,paste,media,searchreplace,grappelli,template',
+    plugins: 'advlink,paste,media,grappelli',
     // directionality : "rtl",
     
     // Callbacks
@@ -62,24 +62,24 @@ tinyMCE.init({
     remove_script_host: true,
 
     // Layout
-    width: 758,
+    width: 658,
     height: 300,
     indentation: '10px',
     
     // Content CSS
     // customize your content ...
-    // content_css : "css/example.css",
+    content_css : "/static/otessier-tinymce.css",
     
     // Theme Advanced
     theme_advanced_toolbar_location: 'top',
     theme_advanced_toolbar_align: 'left',
     theme_advanced_statusbar_location: 'bottom',
-    theme_advanced_buttons1: 'formatselect,styleselect,|,bold,italic,underline,|,bullist,numlist,blockquote,|,justifyleft,justifycenter,justifyright,justifyfull,|,undo,redo,|,link,unlink,|,image,|,fullscreen,|,grappelli_adv',
-    theme_advanced_buttons2: 'search,|,pasteword,template,media,charmap,|,code,|,table,cleanup,grappelli_documentstructure',
+    theme_advanced_buttons1: 'formatselect,styleselect,|,bold,italic,underline,|,bullist,numlist,blockquote,|,undo,redo,|,link,unlink,|,grappelli_adv',
+    theme_advanced_buttons2: 'pasteword,template,media,charmap,|,code,|,table,cleanup,grappelli_documentstructure',
     theme_advanced_buttons3: '',
     theme_advanced_path: false,
     theme_advanced_blockformats: 'p,h1,h2,h3,h4,pre',
-    theme_advanced_resizing: true,
+    theme_advanced_resizing: false,
     theme_advanced_resize_horizontal: false,
     theme_advanced_resizing_use_cookie: true,
     
@@ -87,23 +87,23 @@ tinyMCE.init({
     // see http://www.tinymce.com/wiki.php/Plugin:template
     // please note that you need to add the URLs (src) to your url-patterns
     // with django.views.generic.simple.direct_to_template
-    template_templates : [
-        {
-            title : '2 Columns',
-            src : '/path/to/your/template/',
-            description : '2 Columns.'
-        },
-        {
-            title : '4 Columns',
-            src : '/path/to/your/template/',
-            description : '4 Columns.'
-        }
-    ],
+    //template_templates : [
+    //    {
+    //        title : '2 Columns',
+    //        src : '/path/to/your/template/',
+    //        description : '2 Columns.'
+    //    },
+    //    {
+    //        title : '4 Columns',
+    //        src : '/path/to/your/template/',
+    //        description : '4 Columns.'
+    //    }
+    //],
 
     // Image Plugin
     // see http://www.tinymce.com/wiki.php/Plugin:advimage
-    theme_advanced_styles: 'Image Left=img_left;Image Right=img_right;Image Block=img_block',
-    advimage_update_dimensions_onchange: true,
+    //theme_advanced_styles: 'Image Left=img_left;Image Right=img_right;Image Block=img_block',
+    //advimage_update_dimensions_onchange: true,
     
     // Link Settings
     // see http://www.tinymce.com/wiki.php/Plugin:advlink
@@ -111,10 +111,10 @@ tinyMCE.init({
 
     // Media Plugin
     // see http://www.tinymce.com/wiki.php/Plugin:media
-    media_strict: true,
+    //media_strict: true,
     
     // Grappelli Settings
-    grappelli_adv_hidden: false,
+    grappelli_adv_hidden: true,
     grappelli_show_documentstructure: 'on'
     
     // Elements

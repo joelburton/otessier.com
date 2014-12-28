@@ -18,36 +18,42 @@
         <p><a href="{{ client.url }}" target="_blank">{{ client.url }}</a></p>
     {% endif %}
 
-    {% for work in clientworks %}
-        <h2>{{ work.title }}</h2>
-        <div>{{ work.description|safe }}</div>
+    {% for work in client.clientwork_set.all %}
+        {% if work.status == 'published' %}
+            <h2>{{ work.title }}</h2>
+            <div>{{ work.description|safe }}</div>
 
-        {% if client.clientreference_set.all %}
-            <div>
-                References:
-                <ul>
-                    {% for ref in work.references.all %}
-                        <li>
-                            {{ ref.name }},
-                            {{ ref.job_title }},
-                            {{ ref.phone }},
-                            <a href="mailto:{{ ref.email }}">{{ ref.email }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+            {% with refs=work.references.all %}
+                {% if refs %}
+                    <div>
+                        References:
+                        <ul>
+                            {% for ref in refs %}
+                                <li>
+                                    {{ ref.name }},
+                                    {{ ref.job_title }},
+                                    {{ ref.phone }},
+                                    <a href="mailto:{{ ref.email }}">{{ ref.email }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endwith %}
         {% endif %}
     {% endfor %}
 
-    {% if practiceareas %}
+    {% if client.has_published_practiceareas or 'preview' in request.GET %}
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Practice Areas</h3>
             </div>
             <ul class="list-group">
                 {% for area in client.practiceareas.all %}
-                    <li class="list-group-item"><a
-                            href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
+                    {% if area.status == 'published' or 'preview' in request.GET %}
+                        <li class="list-group-item"><a
+                                href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>

@@ -5,9 +5,9 @@ Base settings for otessier project.
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-SETTINGS_DIR = os.path.dirname(__file__)  # /zana/zana/settings
-PROJECT_DIR = os.path.abspath(SETTINGS_DIR + "/../..")  # /zana
-GIT_DIR = os.path.abspath(PROJECT_DIR + "/..")  # /
+SETTINGS_DIR = os.path.dirname(__file__)
+PROJECT_DIR = os.path.abspath(SETTINGS_DIR + "/../..")
+GIT_DIR = os.path.abspath(PROJECT_DIR + "/..")
 
 # Where we want to store media files. This setting is ignored when we're using S3 storage.
 MEDIA_ROOT = GIT_DIR + "/media/"
@@ -18,10 +18,10 @@ STATIC_ROOT = GIT_DIR + "/static/"
 STATIC_URL = "/static/"
 
 # We keep our static source files in the "static" directory.
-STATICFILES_DIRS = [PROJECT_DIR + "/static/"]
+STATICFILES_DIRS = [os.path.join(PROJECT_DIR, "static")]
 
 # We keep our template files in the project "template" directory.
-TEMPLATE_DIRS = (PROJECT_DIR + "/templates/",)
+TEMPLATE_DIRS = (os.path.join(PROJECT_DIR, "templates"),)
 
 INSTALLED_APPS = (
     'grappelli',

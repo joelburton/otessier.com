@@ -7,7 +7,8 @@ from .views import HomepageView
 
 import consulting.urls
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
 
     url(r'^$', HomepageView.as_view(), name='homepage'),
     url(r'^', include(consulting.urls)),

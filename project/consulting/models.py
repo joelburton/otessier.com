@@ -1,6 +1,6 @@
-from pyexpat import model
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils.html import strip_tags
 
 from model_utils import Choices
 from model_utils.models import StatusModel
@@ -9,14 +9,7 @@ from model_utils.models import TimeStampedModel
 WORKFLOW_STATUS = Choices('private', 'published')
 
 
-class PublishedManager(models.Manager):
-    use_for_related_fields = True
-
-    def get_queryset(self):
-        return super(PublishedManager, self).get_queryset().filter(status='published')
-
-    def show_private(self):
-        return super(PublishedManager, self).get_queryset()
+###################################################################################################
 
 
 class PracticeArea(TimeStampedModel, StatusModel, models.Model):
@@ -47,14 +40,18 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
     class Meta:
         ordering = ['position', 'title']
 
-    objects = PublishedManager()
-
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('practicearea.detail', kwargs={'slug': self.slug}) + (
             "?preview" if self.status == 'private' else "")
+
+    def has_published_clients(self):
+        return any(c for c in self.client_set.all() if c.status == 'published')
+
+
+###################################################################################################
 
 
 class Client(TimeStampedModel, StatusModel, models.Model):
@@ -95,14 +92,18 @@ class Client(TimeStampedModel, StatusModel, models.Model):
     class Meta:
         pass
 
-    objects = PublishedManager()
-
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('client.detail', kwargs={'slug': self.slug}) + (
             "?preview" if self.status == 'private' else "")
+
+    def has_published_clientworks(self):
+        return any(c for c in self.clientwork_set.all() if c.status == 'published')
+
+    def has_published_practiceareas(self):
+        return any(c for c in self.practiceareas.all() if c.status == 'published')
 
 
 class ClientReference(TimeStampedModel, models.Model):
@@ -171,7 +172,8 @@ class ClientWork(StatusModel, TimeStampedModel, models.Model):
         unique_together = [['client', 'title']]
         ordering = ['position']
 
-    objects = PublishedManager()
+
+###################################################################################################
 
 
 class Consultant(TimeStampedModel, StatusModel, models.Model):
@@ -206,8 +208,6 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
     class Meta:
         ordering = ['position', 'name']
 
-    objects = PublishedManager()
-
     def __str__(self):
         return self.name
 
@@ -215,10 +215,12 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
         return reverse('consultant.detail', kwargs={'slug': self.slug}) + (
             "?preview" if self.status == 'private' else "")
 
-
     @property
     def title(self):
         return self.name
+
+
+###################################################################################################
 
 
 class QAndA(TimeStampedModel, StatusModel, models.Model):
@@ -246,14 +248,15 @@ class QAndA(TimeStampedModel, StatusModel, models.Model):
         verbose_name = 'Question and Answer'
         ordering = ['position', '-created']
 
-    objects = PublishedManager()
-
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('qanda.detail', kwargs={'slug': self.slug}) + (
             "?preview" if self.status == 'private' else "")
+
+
+###################################################################################################
 
 
 class Quote(TimeStampedModel, StatusModel, models.Model):
@@ -280,10 +283,11 @@ class Quote(TimeStampedModel, StatusModel, models.Model):
     class Meta:
         pass
 
-    objects = PublishedManager()
-
     def __str__(self):
-        return self.quote
+        return strip_tags(self.quote)
+
+
+###################################################################################################
 
 
 class LibraryCategory(models.Model):
@@ -299,6 +303,9 @@ class LibraryCategory(models.Model):
 
     def __str__(self):
         return self.title
+
+    def has_published_libraryfiles(self):
+        return any(c for c in self.libraryfile_set.all() if c.status == 'published')
 
 
 class LibraryFile(TimeStampedModel, StatusModel, models.Model):
@@ -337,12 +344,8 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
         default=100,
     )
 
-    # FIXME: type, size
-
     class Meta:
         ordering = ['title']
 
     def __str__(self):
         return self.title
-
-    objects = PublishedManager()

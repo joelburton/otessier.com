@@ -10,7 +10,8 @@
     <div class="page-header">
         <h1>{{ consultant.name }}</h1>
     </div>
-    <img src="{{ consultant.photo.url }}">
+
+    {% if consultant.photo %}<img src="{{ consultant.photo.url }}">{% endif %}
     {{ consultant.body|safe }}
 
 {% endblock %}
