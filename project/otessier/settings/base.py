@@ -5,9 +5,9 @@ Base settings for otessier project.
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-SETTINGS_DIR = os.path.dirname(__file__)               # /zana/zana/settings
-PROJECT_DIR = os.path.abspath(SETTINGS_DIR + "/../..") # /zana
-GIT_DIR = os.path.abspath(PROJECT_DIR + "/..")         # /
+SETTINGS_DIR = os.path.dirname(__file__)  # /zana/zana/settings
+PROJECT_DIR = os.path.abspath(SETTINGS_DIR + "/../..")  # /zana
+GIT_DIR = os.path.abspath(PROJECT_DIR + "/..")  # /
 
 # Where we want to store media files. This setting is ignored when we're using S3 storage.
 MEDIA_ROOT = GIT_DIR + "/media/"
@@ -65,23 +65,21 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-
+DEFAULT_FROM_EMAIL = 'joel@joelburton.com'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
-GRAPPELLI_ADMIN_TITLE = "Oliver Tessier And Associates Admin"
-
+GRAPPELLI_ADMIN_TITLE = "Oliver Tessier and Associates Admin"
 
 TEMPLATE_CONTEXT_PROCESSORS = [
-     'django.core.context_processors.request',
-     'django.contrib.auth.context_processors.auth',
-     'django.core.context_processors.debug',
-     'django.core.context_processors.i18n',
-     'django.core.context_processors.media',
-     'django.core.context_processors.static',
-     'django.core.context_processors.tz',
-     'django.contrib.messages.context_processors.messages',
-     'consulting.context_processors.random_quote',
-     'consulting.context_processors.random_qanda',
-    ]
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+    'consulting.context_processors.random_quote',
+    'consulting.context_processors.random_qanda',
+]

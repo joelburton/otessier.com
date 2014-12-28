@@ -71,8 +71,6 @@ LOGGING = {
 #
 # We use AWS SES for sending email (except on development, where we override this)
 
-DEFAULT_FROM_EMAIL = 'oliver@otessier.com'
-
 EMAIL_HOST = "email-smtp.us-east-1.amazonaws.com"
 EMAIL_HOST_USER = "AKIAIDQJEDLNTSM73G7A"
 EMAIL_HOST_PASSWORD = os.environ['AWS_EMAIL_PASSWORD']

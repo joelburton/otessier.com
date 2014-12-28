@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.views import generic
+from django.conf import settings
+
 from consulting.forms import ContactUsForm
 
 from .models import PracticeArea, Client, QAndA, Consultant, LibraryCategory
@@ -102,7 +104,7 @@ class ContactUsFormView(generic.FormView):
         message = EmailMessage(
             "[Contact Us Form] %s" % subject,
             body,
-            "joel@joelburton.com",
+            settings.DEFAULT_FROM_EMAIL,
             ["oliver@otessier.com"],
             headers=headers,
         )
