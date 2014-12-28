@@ -25,9 +25,11 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="panel panel-default">
-                    <div class="panel-body">
+                    <div class="panel-heading">
                         <div class="panel-icon">{% bootstrap_icon 'briefcase' %}</div>
-                        <h2><a href="{% url 'practicearea.list' %}">What We Do</a></h2>
+                        <h2 class="panel-titlex"><a href="{% url 'practicearea.list' %}">What We Do</a></h2>
+                    </div>
+                    <div class="panel-body">
                         <p class="lead">{% lorem 25 w %}</p>
                     </div>
                 </div>
@@ -39,7 +41,8 @@
                     <div class="panel-body">
                         <div class="panel-icon">{% bootstrap_icon 'user' %}</div>
                         <h2><a href="{% url 'consultant.list' %}">Who We Are</a></h2>
-                        <p  class="lead">{% lorem 25 w %}</p>
+
+                        <p class="lead">{% lorem 25 w %}</p>
                     </div>
                 </div>
 
@@ -50,7 +53,8 @@
                     <div class="panel-body">
                         <div class="panel-icon">{% bootstrap_icon 'heart' %}</div>
                         <h2><a href="{% url 'client.list' %}">Our Clients</a></h2>
-                                                <p class="lead">{% lorem 25 w %}</p>
+
+                        <p class="lead">{% lorem 25 w %}</p>
 
                     </div>
                 </div>
@@ -58,12 +62,13 @@
 
             </div>
         </div>
- <div class="row">
+        <div class="row">
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="panel-icon">{% bootstrap_icon 'folder-open' %}</div>
                         <h2><a href="{% url 'librarycategory.list' %}">Resource Library</a></h2>
+
                         <p class="lead">{% lorem 25 w %}</p>
                     </div>
                 </div>
@@ -75,7 +80,8 @@
                     <div class="panel-body">
                         <div class="panel-icon">{% bootstrap_icon 'bullhorn' %}</div>
                         <h2><a href="{% url 'qanda.list' %}">Questions &amp; Answers</a></h2>
-                        <p  class="lead">{% lorem 25 w %}</p>
+
+                        <p class="lead">{% lorem 25 w %}</p>
                     </div>
                 </div>
 
@@ -86,7 +92,8 @@
                     <div class="panel-body">
                         <div class="panel-icon">{% bootstrap_icon 'envelope' %}</div>
                         <h2><a href="{% url 'contact-us' %}">Contact Us</a></h2>
-                                                <p class="lead">{% lorem 25 w %}</p>
+
+                        <p class="lead">{% lorem 25 w %}</p>
 
                     </div>
                 </div>

@@ -27,6 +27,18 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
         unique=True,
     )
 
+    short_description = models.CharField(
+        max_length=100,
+        #unique=True,
+        help_text='Appears on home page carousel.',
+    )
+
+    icon_name = models.CharField(
+        max_length=15,
+        #unique=True,
+        help_text='Font Awesome icon name.',
+    )
+
     description = models.TextField(
         help_text='Appears on listing page, but not on detail page.',
     )

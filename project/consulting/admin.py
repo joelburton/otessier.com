@@ -38,7 +38,8 @@ class PracticeAreaAdmin(ModelAdmin):
 
     fieldsets = [
         ('', {
-            'fields': ['title', 'slug', 'description', 'body', 'status', 'position']}),
+            'fields': ['title', 'slug', 'short_description', 'icon_name',
+                       'description', 'body', 'status', 'position']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
             'classes': ['grp-collapse', 'grp-closed']})
@@ -47,7 +48,8 @@ class PracticeAreaAdmin(ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ['id', 'created', 'modified', 'status_changed']
 
-    list_display = ['slug', 'title', 'modified', 'num_clients', 'position', 'active']
+    list_display = ['slug', 'title', 'short_description', 'modified', 'num_clients',
+                    'position', 'active']
     list_display_links = ['slug', 'title']
     list_editable = ['position']
 

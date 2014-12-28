@@ -53,13 +53,22 @@ h1, h2 {
 .panel-icon {
     position: absolute;
     right: 10%;
-    top: 10%;
+    top: 5%;
     font-size: 300%;
-    color:  hsl(112, 98%, 20%);
+    color: white;
+    /*color:  hsl(112, 98%, 20%);*/
 }
 
 .homepage-panels .panel-body {
-    height: 20em;
+    height: 15em;
+}
+
+.homepage-panels .panel-heading {
+        background: url('/static/texture.png'), linear-gradient(45deg, hsl(112, 98%, 20%), hsl(112, 98%, 40%), hsl(112, 98%, 20%));
+}
+
+.homepage-panels .panel-heading a {
+    color: white;
 }
 
 .portlets {
@@ -71,7 +80,10 @@ h1, h2 {
 }
 
 .navbar {
-    background-color: hsl(112, 98%, 15%);
+            background: url('/static/texture.png'),
+ hsl(112, 98%, 20%);
+
+    /*background-color: hsl(112, 98%, 20%);*/
 }
 
 .navbar-inverse .navbar-nav>li>a,
