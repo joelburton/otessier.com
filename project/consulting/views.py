@@ -102,7 +102,7 @@ class ContactUsFormView(generic.FormView):
         message = EmailMessage(
             "[Contact Us Form] %s" % subject,
             body,
-            "oliver@otessier.com",
+            "joel@joelburton.com",
             ["oliver@otessier.com"],
             headers=headers,
         )
