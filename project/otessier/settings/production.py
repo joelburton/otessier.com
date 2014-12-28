@@ -15,7 +15,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'otessier',
-        'HOST': 'lekman.joelburton.com',
+        'HOST': 'localhost',
         'USER': 'otessier',
         'PASSWORD': os.environ['PG_PASSWORD'],
         'CONN_MAX_AGE': None,
