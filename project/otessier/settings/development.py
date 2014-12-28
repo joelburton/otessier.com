@@ -10,6 +10,11 @@ SECRET_KEY = 'i^ari$22!b+&pwhm=o7h-%vr-%us)#k=q0!g9qcaz*a#!h!k*c'
 DEBUG = True
 TEMPLATE_DEBUG = True
 
+INSTALLED_APPS += (
+    'debug_toolbar',
+    'django_extensions',
+)
+
 ##################################################################################################
 # Email
 #

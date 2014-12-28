@@ -32,8 +32,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.webdesign',
-    'debug_toolbar',
-    'django_extensions',
     'model_utils',
     'bootstrap3',
     'consulting',
