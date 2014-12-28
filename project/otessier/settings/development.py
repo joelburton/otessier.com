@@ -15,6 +15,15 @@ INSTALLED_APPS += (
     'django_extensions',
 )
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'otessier',
+        'HOST': 'localhost',
+    }
+}
+
+
 ##################################################################################################
 # Email
 #
