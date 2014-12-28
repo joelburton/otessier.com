@@ -1,2 +1,4 @@
 /media/
+/venv/
+__secret.ini
 *.pyc

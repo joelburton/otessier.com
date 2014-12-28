@@ -1,33 +1,27 @@
 """
-Django settings for otessier project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
+Base settings for otessier project.
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+SETTINGS_DIR = os.path.dirname(__file__)               # /zana/zana/settings
+PROJECT_DIR = os.path.abspath(SETTINGS_DIR + "/../..") # /zana
+GIT_DIR = os.path.abspath(PROJECT_DIR + "/..")         # /
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+# Where we want to store media files. This setting is ignored when we're using S3 storage.
+MEDIA_ROOT = GIT_DIR + "/media/"
+MEDIA_URL = "/media/"
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i^ari$22!b+&pwhm=o7h-%vr-%us)#k=q0!g9qcaz*a#!h!k*c'
+# Where we want to store static files. This settings is ignored when we're using S3 storage.
+STATIC_ROOT = GIT_DIR + "/static/"
+STATIC_URL = "/static/"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# We keep our static source files in the "static" directory.
+STATICFILES_DIRS = [PROJECT_DIR + "/static/"]
 
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
-# Application definition
+# We keep our template files in the project "template" directory.
+TEMPLATE_DIRS = (PROJECT_DIR + "/templates/",)
 
 INSTALLED_APPS = (
     'grappelli',
@@ -85,37 +79,12 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
-)
 
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 GRAPPELLI_ADMIN_TITLE = "Oliver Tessier And Associates Admin"
 
-
-##################################################################################################
-# Email
-#
-# We don't want to send real email, so just print to the console
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# Joel's MacBook can timeout when at a cafe with incorrectly-set DNS settings, as it doesn't know
-# the hostname of the laptop. So let's hack this in:
-
-from django.core.mail.utils import DNS_NAME
-DNS_NAME._fqdn = "localhost"
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = "/media/"
 
 TEMPLATE_CONTEXT_PROCESSORS = [
      'django.core.context_processors.request',
