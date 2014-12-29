@@ -7,7 +7,8 @@ from .base import *
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-ALLOWED_HOSTS = ['new.otessier.com', 'otessier.com']
+ALLOWED_HOSTS = ['new.otessier.com', 'otessier.com', 'www.otessier.com'
+                 'olivertessier.com', 'www.olivertessier.com']
 
 DATABASES = {
     'default': {
