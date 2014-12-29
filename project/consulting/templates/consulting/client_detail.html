@@ -19,7 +19,7 @@
     {% endif %}
 
     {% for work in client.clientwork_set.all %}
-        {% if work.status == 'published' %}
+        {% if work.status == 'published' or 'preview' in request.GET %}
             <h2>{{ work.title }}</h2>
             <div>{{ work.description|safe }}</div>
 
