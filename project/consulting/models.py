@@ -18,12 +18,12 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
     STATUS = WORKFLOW_STATUS
 
     slug = models.SlugField(
-        max_length=20,
+        max_length=25,
         unique=True,
     )
 
     title = models.CharField(
-        max_length=30,
+        max_length=40,
         unique=True,
     )
 
@@ -78,6 +78,12 @@ class Client(TimeStampedModel, StatusModel, models.Model):
     title = models.CharField(
         max_length=40,
         unique=True,
+    )
+
+    organization = models.CharField(
+        max_length=70,
+        unique=True,
+        help_text='Long name for organization',
     )
 
     description = models.TextField(
@@ -139,7 +145,7 @@ class ClientReference(TimeStampedModel, models.Model):
     )
 
     phone = models.CharField(
-        max_length=15,
+        max_length=20,
         blank=True
     )
 
@@ -168,10 +174,12 @@ class ClientWork(StatusModel, TimeStampedModel, models.Model):
     )
 
     title = models.CharField(
-        max_length=40,
+        max_length=50,
     )
 
     description = models.TextField()
+
+    body = models.TextField()
 
     references = models.ManyToManyField(
         ClientReference,
@@ -248,9 +256,17 @@ class QAndA(TimeStampedModel, StatusModel, models.Model):
         unique=True,
     )
 
+    description = models.TextField(
+    )
+
     question = models.TextField()
 
     answer = models.TextField()
+
+    credit = models.CharField(
+        max_length=100,
+        blank=True,
+    )
 
     position = models.PositiveSmallIntegerField(
         default=100,
@@ -276,20 +292,12 @@ class Quote(TimeStampedModel, StatusModel, models.Model):
 
     STATUS = WORKFLOW_STATUS
 
-    quote = models.TextField()
-
-    name = models.CharField(
-        max_length=40,
+    quote = models.CharField(
+        max_length=100,
     )
 
-    job_title = models.CharField(
-        max_length=40,
-        blank=True,
-    )
-
-    organization = models.CharField(
-        max_length=50,
-        blank=True,
+    author = models.CharField(
+        max_length=75,
     )
 
     class Meta:

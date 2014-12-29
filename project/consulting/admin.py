@@ -181,7 +181,7 @@ admin.site.register(QAndA, QAndAAdmin)
 class QuoteAdmin(ModelAdmin):
     fieldsets = [
         ('', {
-            'fields': ['quote', 'name', 'job_title', 'organization', 'status']}),
+            'fields': ['quote', 'author', 'status']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
             'classes': ['grp-collapse', 'grp-closed']})
@@ -189,17 +189,14 @@ class QuoteAdmin(ModelAdmin):
 
     readonly_fields = ['id', 'created', 'modified', 'status_changed']
 
-    list_display = ['quote_no_html', 'name', 'job_title', 'organization', 'active']
-    list_display_links = ['quote_no_html']
+    list_display = ['quote', 'author', 'active']
+    list_display_links = ['quote']
 
-    search_fields = ['quote', 'name', 'job_title', 'organization']
+    search_fields = ['quote', 'author']
 
     list_filter = ['status']
 
     ordering = ['-id']
-
-    def quote_no_html(self, obj):
-        return strip_tags(obj.quote)
 
 
 admin.site.register(Quote, QuoteAdmin)

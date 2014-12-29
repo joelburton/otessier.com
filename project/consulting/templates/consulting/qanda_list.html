@@ -13,6 +13,7 @@
 
     {% for question in qanda_list.all %}
         <h2>{{ question.title }}</h2>
+        {{ question.description|safe }}
         <a href="{{ question.get_absolute_url }}">more</a>
     {% endfor %}
 
