@@ -7,13 +7,13 @@ Licence: Creative Commons Attribution 3.0** - http://creativecommons.org/license
 */
 
 body {
-	font-family: "myriad-pro" !important;
+	font-family: "myriad-pro", "Myriad Pro", !important;
 }
 
 /*General*/
 h1, h2, h3, h4, h5, h6 {
 	/*font-family: "Open sans", Helvetica, Arial;*/
-	    font-family: "myriad-pro", sans-serif !important;
+	    font-family: "myriad-pro", "Myriad Pro", sans-serif !important;
 }
 p {
 	font-size: 15px;
@@ -89,7 +89,7 @@ background-image: linear-gradient(to bottom, #1ACEA9 0%, #149E82 100%);
 	color: rgb(128, 120, 104);
 	text-shadow: 5px 5px 10px white;
 	/*font-family: "Open sans", Helvetica, Arial;*/
-		    font-family: "myriad-pro", sans-serif;
+		    font-family: "myriad-pro", "Myriad Pro", sans-serif;
 
 	font-weight: 300;
 }
@@ -123,7 +123,7 @@ background-image: linear-gradient(to bottom, #1ACEA9 0%, #149E82 100%);
 }
 #head .lead {
 	/*font-family: "Open sans", Helvetica, Arial;*/
-	    font-family: "myriad-pro", sans-serif;
+	    font-family: "myriad-pro", "Myriad Pro", sans-serif;
 
 	font-size: 44px;
 	margin-bottom: 6px;
