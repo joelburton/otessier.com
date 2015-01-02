@@ -227,20 +227,21 @@ class LibraryCategoryAdmin(ModelAdmin):
 
     fieldsets = [
         ('', {
-            'fields': ['title']}),
+            'fields': ['title', 'slug', 'description', 'status', 'position']}),
         ('Advanced', {
-            'fields': ['id'],
+            'fields': ['id', 'created', 'modified', 'status_changed'],
             'classes': ['grp-collapse', 'grp-closed']})
     ]
 
-    readonly_fields = ['id']
+    readonly_fields = ['id', 'created', 'modified', 'status_changed']
 
-    list_display = ['title']
+    list_display = ['title', 'position', 'active']
     list_display_links = ['title']
+    list_editable = ['position']
 
-    search_fields = ['title']
+    search_fields = ['title', 'slug', 'description']
 
-    ordering = ['title']
+    ordering = ['position', 'title']
 
 
 admin.site.register(LibraryCategory, LibraryCategoryAdmin)

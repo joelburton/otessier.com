@@ -119,7 +119,18 @@ class ConsultantDetailView(generic.DetailView):
 
 
 class LibraryCategoryListView(generic.ListView):
-    queryset = LibraryCategory.objects.all().prefetch_related('libraryfile_set')
+    def get_queryset(self):
+        if "preview" in self.request.GET:
+            return LibraryCategory.objects
+        else:
+            return LibraryCategory.published
+
+class LibraryCategoryDetailView(generic.DetailView):
+    def get_queryset(self):
+        if "preview" in self.request.GET:
+            return LibraryCategory.objects.all().prefetch_related('libraryfile_set')
+        else:
+            return LibraryCategory.published.all().prefetch_related('libraryfile_set')
 
 
 ###################################################################################################

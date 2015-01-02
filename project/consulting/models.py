@@ -14,6 +14,9 @@ WORKFLOW_STATUS = Choices('private', 'published')
 
 
 class SearchAdapter(watson.SearchAdapter):
+    def get_url(self, obj):
+        return obj.get_absolute_url()
+
     def get_description(self, obj):
         return obj.description
 
@@ -343,22 +346,37 @@ class Quote(TimeStampedModel, StatusModel, models.Model):
 ###################################################################################################
 
 
-class LibraryCategory(models.Model):
+class LibraryCategory(TimeStampedModel, StatusModel, models.Model):
     """Category for library."""
+
+    STATUS = WORKFLOW_STATUS
+
+    slug = models.SlugField(
+        # unique=True,
+    )
 
     title = models.CharField(
         max_length=100,
         unique=True,
     )
 
+    description = models.TextField(
+    )
+
+    position = models.PositiveSmallIntegerField(
+        default=100,
+    )
+
     class Meta:
         verbose_name_plural = 'library categories'
+        ordering = ['position', 'title']
 
     def __str__(self):
         return self.title
 
-    def has_published_libraryfiles(self):
-        return any(c for c in self.libraryfile_set.all() if c.status == 'published')
+    def get_absolute_url(self):
+        return reverse('librarycategory.detail', kwargs={'slug': self.slug}) + (
+            "?preview" if self.status == 'private' else "")
 
 
 class LibraryFile(TimeStampedModel, StatusModel, models.Model):
@@ -402,3 +420,10 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        """Return the correct URL for this item."""
+
+        if self.asset:
+            return self.asset.url
+        return self.url

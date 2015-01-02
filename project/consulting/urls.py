@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from .views import ClientListView, ClientDetailView
+from .views import ClientListView, ClientDetailView, LibraryCategoryDetailView
 from .views import ConsultantListView, ConsultantDetailView
 from .views import LibraryCategoryListView
 from .views import ContactUsFormView
@@ -41,6 +41,9 @@ urlpatterns = patterns(
     url(r'^library/$',
         LibraryCategoryListView.as_view(),
         name='librarycategory.list'),
+    url(r'^library/(?P<slug>[a-z\d-]+)$',
+        LibraryCategoryDetailView.as_view(),
+        name='librarycategory.detail'),
 
     url(r'^contact-info/$',
         ContactUsFormView.as_view(),

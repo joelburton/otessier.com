@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Library{% endblock %}
+
+{% block breadcrumbs %}
+  <li><a href="{% url 'librarycategory.list' %}">Library</a></li>
+  <li class="active">{{ librarycategory.title }}</li>
+{% endblock %}
+
+{% block content %}
+
+  <div class="page-header">
+    <h1>{{ librarycategory.title }}</h1>
+    <div class="lead">{{ librarycategory.description | safe }}</div>
+  </div>
+
+  {% for file in librarycategory.libraryfile_set.all %}
+        {% if 'preview' in request.GET or file.status == 'published' %}
+          <h3><a href="{{ file.get_absolute_url }}">{{ file.title }}</a></h3>
+          {{ file.description|safe }}
+        {% endif %}
+  {% endfor %}
+
+{% endblock %}
+

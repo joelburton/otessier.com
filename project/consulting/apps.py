@@ -14,3 +14,4 @@ class ConsultingAppConfig(AppConfig):
         watson.register(self.get_model("Consultant").published.all(), SearchAdapter)
         watson.register(self.get_model("QAndA").published.all(), SearchAdapter)
         watson.register(self.get_model("LibraryFile").published.all(), SearchAdapter)
+        watson.register(self.get_model("LibraryCategory").published.all(), SearchAdapter)
