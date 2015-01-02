@@ -2,10 +2,13 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.html import strip_tags
 
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFit
 from model_utils import Choices
 from model_utils.models import StatusModel
 from model_utils.models import TimeStampedModel
 import watson
+
 
 WORKFLOW_STATUS = Choices('private', 'published')
 
@@ -35,13 +38,13 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
 
     short_description = models.CharField(
         max_length=100,
-        #unique=True,
+        # unique=True,
         help_text='Appears on home page carousel.',
     )
 
     icon_name = models.CharField(
         max_length=15,
-        #unique=True,
+        # unique=True,
         help_text='Font Awesome icon name.',
     )
 
@@ -73,7 +76,6 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
 
 
 class Client(TimeStampedModel, StatusModel, models.Model):
-
     STATUS = WORKFLOW_STATUS
 
     slug = models.SlugField(
@@ -90,6 +92,22 @@ class Client(TimeStampedModel, StatusModel, models.Model):
         max_length=70,
         unique=True,
         help_text='Long name for organization',
+    )
+
+    image = models.ImageField(
+        upload_to='clients',
+    )
+
+    image_display = ImageSpecField(
+        source='image',
+        processors=[ResizeToFit(180, 180)],
+        format='PNG',
+    )
+
+    image_thumbnail = ImageSpecField(
+        source='image',
+        processors=[ResizeToFit(50, 50)],
+        format='PNG',
     )
 
     description = models.TextField(
@@ -260,7 +278,6 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
 
 
 class QAndA(TimeStampedModel, StatusModel, models.Model):
-
     STATUS = WORKFLOW_STATUS
 
     slug = models.SlugField(

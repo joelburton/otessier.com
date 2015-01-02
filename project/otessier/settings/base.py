@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'consulting',
     'watson',
+    'imagekit',
 )
 
 MIDDLEWARE_CLASSES = (
