@@ -9,12 +9,16 @@
 {% block content %}
     <div class="page-header">
         <h1>Questions</h1>
+        <p class="lead">
+          These brief essays on a variety of topics relevant to nonprofit professionals appeared
+          in Oliver's monthly column, <i>Game Plan</i>, in <i>Associations Now</i>, published
+          by ASAE and the Center for Association Leadership.
+        </p>
     </div>
 
     {% for question in qanda_list.all %}
-        <h2>{{ question.title }}</h2>
+        <h2><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h2>
         {{ question.description|safe }}
-        <a href="{{ question.get_absolute_url }}">more</a>
     {% endfor %}
 
 {% endblock %}

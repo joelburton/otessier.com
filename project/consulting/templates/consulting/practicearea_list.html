@@ -15,9 +15,8 @@
     </div>
 
     {% for pa in practicearea_list %}
-        <h2>{{ pa.title }}</h2>
+        <h2><a href="{{ pa.get_absolute_url }}">{{ pa.title }}</a></h2>
         {{ pa.description|safe }}
-        <a href="{{ pa.get_absolute_url }}">more</a>
 
         {% if pa.has_published_clients or 'preview' in request.GET %}
             Clients:

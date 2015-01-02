@@ -13,7 +13,7 @@
     {{ practicearea.body|safe }}
 
     {% if practicearea.has_published_clients or 'preview' in request.GET %}
-        Clients:
+        <h2>Clients</h2>
         <ul>
             {% for client in practicearea.client_set.all %}
                 {% if client.status == 'published' or 'preview' in request.GET %}
@@ -23,4 +23,24 @@
         </ul>
     {% endif %}
 
+{% endblock %}
+
+{% block portlets %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Practices</h3>
+    </div>
+    <ul class="list-group">
+      {% for p in practicearea_list %}
+        <li class="list-group-item">
+          {% if p == practicearea %}
+            <b>{{ p }}</b>
+          {% else %}
+            <a href="{{ p.get_absolute_url }}">{{ p }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {{ block.super }}
 {% endblock %}

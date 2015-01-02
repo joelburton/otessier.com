@@ -14,7 +14,7 @@
     </div>
 
     {% for client in client_list %}
-        <h2>{{ client.title }}</h2>
+        <h2><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></h2>
         <p>{{ client.description|safe }}</p>
 
         {% if client.has_published_practiceareas or 'preview' in request.GET %}
@@ -28,7 +28,6 @@
             </ul>
         {% endif %}
 
-        <a href="{{ client.get_absolute_url }}">more</a>
     {% endfor %}
 
 {% endblock %}

@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.utils.html import strip_tags
 
 from grappelli.forms import GrappelliSortableHiddenMixin
 
@@ -8,7 +7,8 @@ from .models import (
     Client,
     ClientReference,
     ClientWork,
-    QAndA, Quote,
+    QAndA,
+    Quote,
     Consultant,
     LibraryFile,
     LibraryCategory,
@@ -25,7 +25,7 @@ class ModelAdmin(admin.ModelAdmin):
 
     class Media:
         js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-              '/static/tinymce_setup.js']
+              '/static/js/tinymce_setup.js']
 
     change_list_template = "admin/change_list_filter_sidebar.html"
     change_list_filter_template = "admin/filter_listing.html"
@@ -86,6 +86,17 @@ class ClientWorkInline(GrappelliSortableHiddenMixin, admin.TabularInline):
     fields = ['title', 'description', 'references', 'status', 'position']
     sortable_field_name = 'position'
 
+    def get_field_queryset(self, db, db_field, request):
+        """Get queryset for the references field that relies on references for this client."""
+
+        if db_field.name == 'references':
+            if request._obj:
+                return ClientReference.objects.filter(client_id=request._obj.id)
+            else:
+                # This is a new client, so show an empty list for references
+                return ClientReference.objects.none()
+        return super(ClientWorkInline, self).get_field_queryset(db, db_field, request)
+
 
 class ClientAdmin(ModelAdmin):
     inlines = [ClientReferenceInline, ClientWorkInline]
@@ -111,6 +122,12 @@ class ClientAdmin(ModelAdmin):
     list_filter = ['status', 'practiceareas']
 
     ordering = ['position', '-created']
+
+    def get_form(self, request, obj=None, **kwargs):
+        # Hook into this to put the client object on the request, so we can use it in
+        # ClientWorkInline's get_field_queryset
+        request._obj = obj
+        return super(ClientAdmin, self).get_form(request, obj, **kwargs)
 
 
 admin.site.register(Client, ClientAdmin)

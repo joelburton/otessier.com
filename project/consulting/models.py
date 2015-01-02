@@ -5,8 +5,14 @@ from django.utils.html import strip_tags
 from model_utils import Choices
 from model_utils.models import StatusModel
 from model_utils.models import TimeStampedModel
+import watson
 
 WORKFLOW_STATUS = Choices('private', 'published')
+
+
+class SearchAdapter(watson.SearchAdapter):
+    def get_description(self, obj):
+        return obj.description
 
 
 ###################################################################################################
@@ -122,6 +128,16 @@ class Client(TimeStampedModel, StatusModel, models.Model):
 
     def has_published_practiceareas(self):
         return any(c for c in self.practiceareas.all() if c.status == 'published')
+
+
+class ClientSearchAdapter(SearchAdapter):
+    def get_content(self, obj):
+        results = super(SearchAdapter, self).get_content(obj)
+        for ref in obj.clientreference_set.all():
+            results += " " + (" ".join([ref.name, ref.job_title, ref.phone, ref.email]))
+        for work in obj.clientwork_set.all():
+            results += " " + (" ".join([work.title, work.description, work.body]))
+        return results
 
 
 class ClientReference(TimeStampedModel, models.Model):

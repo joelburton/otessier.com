@@ -3,28 +3,32 @@
 {% block page_title %}Library{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="active">Library</li>
+  <li class="active">Library</li>
 {% endblock %}
 
 {% block content %}
 
-    <div class="page-header">
-        <h1>Library</h1>
-    </div>
+  <div class="page-header">
+    <h1>Library</h1>
 
-    {% for cat in librarycategory_list %}
-        {% if cat.has_published_libraryfiles or 'preview' in request.GET %}
-            <h2>{{ cat.title }}</h2>
-            {% for file in cat.libraryfile_set.all %}
-                {# Handle workflow; ugh, we can't use our usual soution #}
-                {% if 'preview' in request.GET or file.status == 'published' %}
-                    <li>
-                        <a href="{{ file.asset.url }}">{{ file.title }}</a>
-                        {{ file.description|safe }}
-                    </li>
-                {% endif %}
-            {% endfor %}
+    <p class="lead">All the items in this library were created by Oliver Tessier & Associates.
+      While we urge you to use them freely, we must ask that you respect of the rights of
+      publishers. Please be certain to credit the publication if you duplicate information that is
+      identified as published.</p>
+
+  </div>
+
+  {% for cat in librarycategory_list %}
+    {% if cat.has_published_libraryfiles or 'preview' in request.GET %}
+      <h2>{{ cat.title }}</h2>
+      {% for file in cat.libraryfile_set.all %}
+        {% if 'preview' in request.GET or file.status == 'published' %}
+          <h3><a href="{{ file.asset.url }}">{{ file.title }}</a></h3>
+          {{ file.description|safe }}
         {% endif %}
-    {% endfor %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
 
 {% endblock %}
+

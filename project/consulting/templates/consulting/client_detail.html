@@ -18,9 +18,22 @@
         <p><a href="{{ client.url }}" target="_blank">{{ client.url }}</a></p>
     {% endif %}
 
+      {% if client.has_published_practiceareas or 'preview' in request.GET %}
+                <h2>Practice Areas</h2>
+            <ul>
+                {% for area in client.practiceareas.all %}
+                    {% if area.status == 'published' or 'preview' in request.GET %}
+                        <li><a href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+    {% endif %}
+
+    {% if client.has_published_clientworks %}
+    <h2>Projects</h2>
     {% for work in client.clientwork_set.all %}
         {% if work.status == 'published' or 'preview' in request.GET %}
-            <h2>{{ work.title }}</h2>
+            <h3>{{ work.title }}</h3>
             <div>{{ work.description|safe }}</div>
 
             {% with refs=work.references.all %}
@@ -42,21 +55,26 @@
             {% endwith %}
         {% endif %}
     {% endfor %}
+  {% endif %}
 
-    {% if client.has_published_practiceareas or 'preview' in request.GET %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Practice Areas</h3>
-            </div>
-            <ul class="list-group">
-                {% for area in client.practiceareas.all %}
-                    {% if area.status == 'published' or 'preview' in request.GET %}
-                        <li class="list-group-item"><a
-                                href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
 
+{% endblock %}
+
+{% block portlets %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Clients</h3>
+    </div>
+    <ul class="list-group">
+      {% for c in client_list %}
+        <li class="list-group-item">
+          {% if c == client%}
+            <b>{{ c }}</b>
+          {% else %}
+            <a href="{{ c.get_absolute_url }}">{{ c }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}

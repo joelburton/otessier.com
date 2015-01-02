@@ -1,0 +1,456 @@
+@brand-color: hsl(87, 75%, 25%);
+//@brand-color: hsl(47, 75%, 25%);
+@alt1-color: spin(@brand-color, 300);
+@alt2-color: spin(@brand-color, 180);
+@opp-color: yellow;
+//@alt: #aa7539;
+
+@navbar-background-color: @brand-color;
+@navbar-link-color: white;
+@navbar-dropdown-active-background-color: darken(@navbar-background-color, 5%);
+
+//@footer1-background-color: #472e74;
+@footer1-background-color: darken(@alt2-color, 0%);
+@footer1-text-color: desaturate(lighten(@footer1-background-color, 60%), 25%);
+@footer1-link-color: desaturate(lighten(@footer1-background-color, 70%), 20%);
+@footer1-header-color: desaturate(lighten(@footer1-background-color, 80%), 25%);
+@footer1-link-hover-color: @opp-color;
+@footer2-background-color: darken(@footer1-background-color, 10%);
+@footer2-text-color: desaturate(lighten(@footer2-background-color, 40%), 45%);
+@footer2-link-color: desaturate(lighten(@footer1-background-color, 60%), 20%);
+@footer2-link-hover-color: @footer1-link-hover-color;
+
+body {
+  //  font-family: "myriad-pro", "Myriad-Pro", serif;
+  font-family: "opensans", "Open Sans", serif;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+i.amp,
+i.amp-white,
+i.amp-black {
+  //  font-family: "sorts-mill-goudy", serif;
+  /*font-weight: 700;*/
+  //  font-size: 90%;
+  color: transparent;
+  background-image: url(/static/images/amp.svg);
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: 20%;
+}
+
+i.amp-black {
+  background-image: url(/static/images/amp.svg);
+}
+
+i.amp-white {
+  background-image: url(/static/images/amp-white.svg);
+}
+
+.navbar-inverse .navbar-brand {
+  color: @navbar-link-color;
+  font-weight: 600;
+  @media (min-width: 768px) and (max-width: 991px) {
+    font-size: 14px;
+  }
+}
+
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-nav > .open ul > a {
+  color: @navbar-link-color;
+}
+
+.navbar-inverse {
+  background-color: @navbar-background-color;
+}
+
+.navbar-nav > li > a {
+  font-size: 14px;
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    font-size: 13px;
+  }
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  background-color: @navbar-dropdown-active-background-color;
+}
+
+/* Footer */
+
+#footer {
+  margin-top: 5em;
+  margin-bottom: 0;
+
+  ul li {
+    list-style: none;
+  }
+  z-index: 9999;
+}
+
+.footer1 {
+  background-color: @footer1-background-color;
+  padding: 0.25em 0 2em 0;
+  font-size: 12px;
+  color: @footer1-text-color;
+
+  h3 {
+    font-size: 150%;
+    font-weight: bold;
+    color: @footer1-header-color;
+    margin: 1.5em 0 0.75em 0;
+  }
+
+  p {
+    font-size: 120%;
+  }
+
+  .contact li {
+    padding-bottom: 0.9em;
+  }
+
+  .contact .fa {
+    margin-right: 0.5em;
+  }
+
+  .follow-me-icons a {
+    font-size: 200%;
+    color: @footer2-background-color !important;
+
+    &:hover .fa-inverse {
+      color: @footer1-link-hover-color;
+    }
+  }
+
+  a {
+    color: @footer1-link-color;
+
+    &:hover {
+      color: @footer1-link-hover-color;
+      border-bottom: none;
+    }
+  }
+
+}
+
+.footer2 {
+  background: @footer2-background-color;
+  padding: 1em 0 1em 0;
+  color: @footer2-text-color;
+
+  .simplenav {
+    padding: 0;
+
+    @media (min-width: 768px) {
+      padding: 0 0 0 0.75em;
+      border-left: solid 1px rgba(255, 255, 255, 0.5);
+      display: inline;
+    }
+
+    li {
+      display: inline;
+      padding: 0 0.75em;
+      border-left: solid 1px rgba(255, 255, 255, 0.5);
+    }
+
+    li:first-of-type {
+      padding-left: 0;
+      border-left: none;
+    }
+
+    &:first-of-type {
+      border-left: none;
+      padding: 0;
+    }
+
+  }
+
+  .copyright {
+    text-align: right;
+    font-size: 90%;
+  }
+
+  a {
+    color: @footer2-link-color;
+
+    &:hover {
+      color: @footer2-link-hover-color;
+      border-bottom: none;
+    }
+  }
+}
+
+#what-our-clients-say {
+  margin-top: 5em;
+  border-top: solid 1px fadeout(@alt1-color, 90%);
+}
+
+#quote-carousel {
+  padding: 0 10px 30px 10px;
+
+  // Control buttons
+  .carousel-control {
+    background: none;
+    color: #aaa;
+    font-size: 2.3em;
+    text-shadow: none;
+    margin-top: 0.5em;
+
+    &.left {
+      left: -2em;
+    }
+
+    &.right {
+      right: -2em !important;
+    }
+  }
+
+  blockquote {
+    border-left: none;
+    margin: 0;
+    text-align: center;
+
+    small {
+      margin-top: 0.6em;
+    }
+
+    small:before {
+      content: none;
+    }
+  }
+
+  .carousel-indicators {
+    bottom: 0;
+
+    li {
+      background: #ddd;
+      display: inline-block;
+      margin: 0 5px;
+      width: 25px;
+      height: 8px;
+      border-radius: 0 !important;
+    }
+
+    .active {
+      background: #bbb;
+    }
+  }
+
+}
+
+#practiceareas {
+  h2 {
+    font-size: 140%;
+    color: @alt1-color;
+    text-transform: uppercase;
+    letter-spacing: 0.75em;
+    border: solid 1px @alt1-color;
+    border-radius: 1em;
+    text-align: center;
+    width: 20em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+
+    a {
+      color: @alt1-color;
+    }
+  }
+
+  .practicearea {
+    //    height: 10em;
+    font-size: 115%;
+    text-align: center;
+    font-weight: 200;
+    margin: 1em 0 0 0;
+    color: #999;
+
+    a {
+      color: @alt1-color;
+
+      &:hover {
+        color: lighten(@alt1-color, 25%);
+      }
+    }
+
+    h4 {
+      font-weight: 400;
+      margin-bottom: 0.5em;
+    }
+
+    .fa {
+      display: block;
+      font-size: 250%;
+      margin-bottom: 0.2em;
+    }
+  }
+}
+
+#who-we-are {
+  text-align: right;
+  line-height: 1.6;
+  padding: 2em 0 0.5em 0;
+
+  h2 {
+    font-size: 200%;
+    font-weight: bold;
+    color: @brand-color;
+  }
+
+  p {
+    font-size: 140%;
+    //    margin: 0 5em;
+  }
+}
+
+#head {
+  background: black url(/static/images/bg_header.jpg) no-repeat;
+  background-size: cover;
+  height: 500px;
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.5),
+    1px -1px 1px rgba(255, 255, 255, 0.5),
+  -1px 1px 1px rgba(255, 255, 255, 0.5),
+  1px 1px 1px rgba(255, 255, 255, 0.5);
+  color: @alt1-color;
+  font-weight: bold;
+
+  h2 {
+    font-weight: bold;
+    font-size: 175%;
+  }
+
+  #practices-carousel {
+    width: 450px;
+    margin-top: 325px;
+    margin-left: auto;
+    margin-right: 15px;
+    font-size: 120%;
+
+    @media (min-width: 900px) {
+      margin-left: auto;
+      margin-right: 20px;
+      font-size: 150%;
+      width: 600px;
+      margin-top: 325px;
+    }
+    @media (min-width: 1300px) {
+      margin-top: 300px;
+      margin-left: auto;
+      margin-right: 50px;
+      font-size: 190%;
+      width: 950px;
+
+    }
+
+  }
+}
+
+.breadcrumb {
+  background-color: desaturate(lighten(@brand-color, 65%), 50%);
+
+  a {
+    color: @brand-color;
+    &:hover {
+      color: purple
+    }
+  }
+}
+
+.content-well {
+  font-size: 20px;
+  line-height: 1.8 !important;
+
+  a {
+    color: @brand-color;
+
+    &:hover {
+      border-bottom: solid 1px @brand-color;
+    }
+
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: @brand-color;
+  }
+
+  h2 {
+    margin-top: 1.5em;
+  }
+
+  h3 {
+    margin-top: 1.5em;
+  }
+
+}
+
+.consultant-photo {
+  float: right;
+}
+
+.lead {
+  font-weight: bold;
+  color: #666 !important;
+}
+
+.portlets {
+  .panel {
+    border-top-left-radius: 2em;
+    border-color: @brand-color;
+  }
+  .panel-heading {
+    border-top-left-radius: 2em;
+    background-color: @brand-color;
+    color: white;
+    text-transform: lowercase;
+    text-align: right;
+  }
+  .list-group-item {
+    border-top-color: @brand-color;
+  }
+  a {
+    color: @brand-color;
+    &:hover {
+      border-bottom: solid 1px @brand-color;
+    }
+  }
+}
+
+.portlets {
+  margin-top: 5em;
+}
+
+.quote-attrib {
+  text-align: right;
+  margin-top: 0.5em;
+  margin-left: 2em;
+  color: #666;
+}
+
+.search-results {
+  color: #666;
+  a {
+    font-weight: bold;
+  }
+}
+
+.searchbox input,
+.searchbox button {
+  background-color: darken(@brand-color, 10%);
+  color: white;
+  border: none;
+}
+
+.searchresults-searchform {
+  margin: 1em;
+}
+
+.content-well {
+  min-height: 700px
+}
+
+  .carousel-inner {
+    -webkit-transform-style: preserve-3d; // http://stackoverflow.com/questions/27591937/bootstrap-carousel-text-dim-in-safari
+  }

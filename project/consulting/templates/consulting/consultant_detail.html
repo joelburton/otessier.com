@@ -9,9 +9,31 @@
 
     <div class="page-header">
         <h1>{{ consultant.name }}</h1>
+        <div class="lead">{{ consultant.description | safe }}</div>
     </div>
 
-    {% if consultant.photo %}<img src="{{ consultant.photo.url }}">{% endif %}
+    {% if consultant.photo %}<img class="consultant-photo" src="{{ consultant.photo.url }}">{% endif %}
     {{ consultant.body|safe }}
+
+{% endblock %}
+
+{% block portlets %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Who We Are</h3>
+    </div>
+    <ul class="list-group">
+      {% for c in consultant_list %}
+        <li class="list-group-item">
+          {% if c == consultant %}
+            <b>{{ c }}</b>
+          {% else %}
+            <a href="{{ c.get_absolute_url }}">{{ c }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+    {{ block.super }}
 
 {% endblock %}

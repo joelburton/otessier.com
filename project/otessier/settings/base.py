@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     'model_utils',
     'bootstrap3',
     'consulting',
+    'watson',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,9 +52,6 @@ ROOT_URLCONF = 'otessier.urls'
 
 WSGI_APPLICATION = 'otessier.wsgi.application'
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -82,4 +80,5 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.contrib.messages.context_processors.messages',
     'consulting.context_processors.random_quote',
     'consulting.context_processors.random_qanda',
+    'consulting.context_processors.site_navigation',
 ]

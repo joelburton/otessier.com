@@ -13,9 +13,8 @@
     </div>
 
     {% for consultant in consultant_list.all %}
-        <h2>{{ consultant.name }}</h2>
+        <h2><a href="{{ consultant.get_absolute_url }}">{{ consultant.name }}</a></h2>
         <div>{{ consultant.description|safe }}</div>
-        <a href="{{ consultant.get_absolute_url }}">more</a>
     {% endfor %}
 
 {% endblock %}

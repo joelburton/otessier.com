@@ -4,114 +4,230 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tessier and Associates: {% block page_title %}{{ object.title }}{% endblock %}</title>
-    {% bootstrap_css %}
-    <link rel="stylesheet" href="{% static 'otessier.css' %}">
-    <script src="//use.typekit.net/iuz7fik.js"></script>
-    <script>try {
-        Typekit.load();
-    } catch (e) {
-    }</script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tessier and Associates: {% block page_title %}{{ object.title }}{% endblock %}</title>
+  {% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/otessier.css' %}">
+  <link
+      href="http://fonts.googleapis.com/css?family=Open+Sans:400,700"
+      rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
 </head>
+
 <body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Oliver Tessier <i class="amp-white">&amp;</i> Associates</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="{% url 'consultant.list' %}" class="dropdown-toggle" data-toggle="dropdown">
+            Who We Are
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            {% for consultant in site_consultants %}
+              <li><a href="{{ consultant.get_absolute_url }}">{{ consultant }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="{% url 'practicearea.list' %}" class="dropdown-toggle" data-toggle="dropdown">
+            Practices
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            {% for pa in site_practiceareas %}
+              <li><a href="{{ pa.get_absolute_url }}">{{ pa }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li><a href="{% url 'client.list' %}">Clients</a></li>
+        <li><a href="{% url 'qanda.list' %}">Nonprofit Q&amp;A</a></li>
+        <li><a href="{% url 'librarycategory.list' %}">Library</a></li>
+        <li class="hidden-sm"><a href="{% url 'contact-us' %}">Contact</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right hidden-lg hidden-xs">
+        <li><a href="/search/"><span class="fa fa-search"></span></a></li>
+      </ul>
+
+      <form class="hidden-sm hidden-md navbar-form pull-right searchbox"
+            action="{% url 'watson:search' %}">
+        <div class="input-group">
+          <input type="text" class="form-control input-sm" placeholder="Search" name="q"
+                 value="{{ request.GET.q }}">
+
+          <div class="input-group-btn">
+            <button class="btn btn-default input-sm" type="submit"><i
+                class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</nav>
+<div style="padding-top: 50px"></div>
 
 {% block content_outer %}
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Oliver Tessier <i class="amp">&amp;</i> Associates</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="{% url 'consultant.list' %}">Who We Are</a></li>
-                    <li><a href="{% url 'practicearea.list' %}">Practices</a></li>
-                    <li><a href="{% url 'client.list' %}">Clients</a></li>
-                    <li><a href="{% url 'qanda.list' %}">Questions</a></li>
-                    <li><a href="{% url 'librarycategory.list' %}">Library</a></li>
-                    <li><a href="{% url 'contact-us' %}">Contact</a></li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
-        </div>
-    </nav>
+  <div class="container content-top">
+    <div class="row">
 
+      <div class="col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="/">Home</a></li>
+          {% block breadcrumbs %}
+          {% endblock %}
+        </ol>
 
-    <div class="container content-top">
-        <div class="row">
-
-            <div class="col-xs-12">
-                <ol class="breadcrumb">
-                    <li><a href="/">Home</a></li>
-                    {% block breadcrumbs %}
-                    {% endblock %}
-                </ol>
-
-                {% bootstrap_messages %}
-            </div>
-        </div>
+        {% bootstrap_messages %}
+      </div>
     </div>
+  </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-lg-9">
-                {% block content %}{% endblock %}
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-lg-9 content-well">
+        {% block content %}{% endblock %}
+      </div>
+      <div class="col-lg-3 col-xs-12 portlets">
+        {% block portlets %}
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Our Clients Say</h3>
             </div>
-            {% block portlets %}
-                <div class="col-lg-3 col-xs-12 portlets">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Our Clients Say</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>{{ random_quote.quote|safe }}</div>
-                            <div class="quote-attrib">
-                                &mdash;&nbsp;
-                                {{ random_quote.author }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Nonprofit Q&amp;A</h3>
-                        </div>
-                        <div class="panel-body">
-                            {{ random_qanda.title }}
-                            <a href="{{ random_qanda.get_absolute_url }}">Read the
-                                answer&hellip;</a>
-                        </div>
-                    </div>
-                </div>
-            {% endblock %}
+            <div class="panel-body">
+              <div>{{ random_quote.quote|safe }}</div>
+              <div class="quote-attrib">
+                &mdash;&nbsp;
+                {{ random_quote.author }}
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Nonprofit Q&amp;A</h3>
+          </div>
+          <div class="panel-body">
+            <b><a href="random_qanda.get_absolute_url">{{ random_qanda.title }}</a></b>
+            {{ random_qanda.description | safe }}
+            <a href="{{ random_qanda.get_absolute_url }}">Read the
+              answer&hellip;</a>
+          </div>
+        {% endblock %}
         </div>
+      </div>
     </div>
+  </div>
 
 {% endblock %}
 
-{#<script src="{% bootstrap_jquery_url %}"></script>#}
-{#{% bootstrap_javascript %}#}
+<footer id="footer">
 
-<footer class="page-footer">
+  <div class="footer1">
     <div class="container">
-        <span>Copyright &copy; 2012 by Oliver Tessier. All rights reserved.</span>
-        <span>Contact Us:
-            <a href="mailto:ot@otessier.com">ot@otessier.com</a>,
-            via <a href="{% url 'contact-us' %}">web form</a>,
-            or at 301/588-1430.
-        </span>
+      <div class="row">
+
+        <div class="col-md-7">
+          <h3>About Oliver Tessier <i class="amp-white">&amp;</i> Associates</h3>
+
+          <p>
+            Oliver Tessier <i class="amp-white">&amp;</i> Associates is a full-service management
+            consulting firm focusing on nonprofits and associations. Headquartered in
+            Maryland, we serve clients around the country.
+            <nationwide class=""></nationwide>
+          </p>
+        </div>
+
+        <div class="col-md-3 col-sm-6 contact">
+          <h3>Contact Info</h3>
+
+          <p>We&rsquo;d love to hear from you.</p>
+          <ul class="list-unstyled">
+            <li>
+              <a href="tel:12022513855">
+                <i class="fa fa-fw fa-phone"></i>
+                (202) 251-3855</a>
+            </li>
+            <li>
+              <a href="mailto:oliver@otessier.com">
+                <i class="fa fa-fw fa-envelope-o"></i> oliver@otessier.com
+              </a>
+            </li>
+            <li><a href="{% url 'contact-us' %}"><i class="fa fa-fw fa-flag"></i> Contact Form</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-2 col-sm-6">
+          <h3>Follow Us</h3>
+
+          <div class="follow-me-icons">
+            <a href="FIXME">
+              <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            <a href="FIXME">
+              <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </div>
+
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="footer2">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 navigation">
+          <ul class="simplenav">
+            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'consultant.list' %}">Who We Are</a></li>
+            <li><a href="{% url 'practicearea.list' %}">Practices</a></li>
+          </ul>
+          <ul class="simplenav">
+            <li><a href="{% url 'client.list' %}">Clients</a></li>
+            <li><a href="{% url 'qanda.list' %}">Nonprofit Q&A</a></li>
+            <li><a href="{% url 'librarycategory.list' %}">Library</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-3 copyright">
+          &copy; {% now "Y" %} Oliver Tessier
+        </div>
+      </div>
+    </div>
+  </div>
+
 </footer>
 
+<script src="{% bootstrap_jquery_url %}"></script>
+{% bootstrap_javascript %}
 </body>
 </html>
 

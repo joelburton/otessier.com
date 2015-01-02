@@ -23,6 +23,15 @@ class PracticeAreaDetailView(generic.DetailView):
         else:
             return PracticeArea.published.prefetch_related('client_set')
 
+    def get_context_data(self, **kwargs):
+        context = super(PracticeAreaDetailView, self).get_context_data(**kwargs)
+        if "preview" in self.request.GET:
+            context['practicearea_list'] = PracticeArea.objects.all()
+        else:
+            context['practicearea_list'] = PracticeArea.published.all()
+        return context
+
+
 
 ###################################################################################################
 
@@ -41,6 +50,16 @@ class ClientDetailView(generic.DetailView):
             return Client.objects.prefetch_related('practiceareas', 'clientwork_set')
         else:
             return Client.published.prefetch_related('practiceareas', 'clientwork_set')
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientDetailView, self).get_context_data(**kwargs)
+        if "preview" in self.request.GET:
+            context['client_list'] = Client.objects.all()
+        else:
+            context['client_list'] = Client.published.all()
+        return context
+
+
 
 
 ###################################################################################################
@@ -61,6 +80,13 @@ class QAndADetailView(generic.DetailView):
         else:
             return QAndA.published
 
+    def get_context_data(self, **kwargs):
+        context = super(QAndADetailView, self).get_context_data(**kwargs)
+        if "preview" in self.request.GET:
+            context['qanda_list'] = QAndA.objects.all()
+        else:
+            context['qanda_list'] = QAndA.published.all()
+        return context
 
 ###################################################################################################
 
@@ -79,6 +105,14 @@ class ConsultantDetailView(generic.DetailView):
             return Consultant.objects
         else:
             return Consultant.published
+
+    def get_context_data(self, **kwargs):
+        context = super(ConsultantDetailView, self).get_context_data(**kwargs)
+        if "preview" in self.request.GET:
+            context['consultant_list'] = Consultant.objects.all()
+        else:
+            context['consultant_list'] = Consultant.published.all()
+        return context
 
 
 ###################################################################################################

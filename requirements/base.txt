@@ -3,6 +3,7 @@ Pillow==2.6.1
 django-bootstrap3==5.0.3
 django-grappelli==2.6.3
 django-model-utils==2.2
+django-watson==1.1.5
 psycopg2==2.5.4
 six==1.8.0
 wsgiref==0.1.2

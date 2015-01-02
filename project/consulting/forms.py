@@ -1,7 +1,4 @@
-from django import forms
 from django.forms import Form, CharField, EmailField, Textarea
-from consulting.models import PracticeArea
-from consulting.models import Client
 
 
 class ContactUsForm(Form):
