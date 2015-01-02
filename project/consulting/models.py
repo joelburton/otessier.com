@@ -404,11 +404,13 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
     asset = models.FileField(
         upload_to='library',
         blank=True,
-        null=True
+        null=True,
+        max_length=255,
     )
 
     url = models.URLField(
         blank=True,
+        max_length=255,
     )
 
     position = models.PositiveSmallIntegerField(
