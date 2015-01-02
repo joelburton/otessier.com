@@ -355,3 +355,7 @@ i.amp-white {
 .carousel-inner {
   -webkit-transform-style: preserve-3d;
 }
+.btn.btn-primary {
+  background-color: #457010;
+  border-color: #000000;
+}

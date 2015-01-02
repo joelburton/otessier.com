@@ -1,19 +1,8 @@
 {% extends 'base.html' %}
 
-<!-- Custom styles for our template -->
-<link rel="stylesheet" href="/static/css/bootstrap-theme.css" media="screen">
-<link rel="stylesheet" type="text/css" href="/static/css/da-slider.css"/>
-<link rel="stylesheet" href="/static/css/style.css">
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-	<script src="/static/js/html5shiv.js"></script>
-	<script src="/static//js/respond.min.js"></script>
-	<![endif]-->
-
-
-<body>
-
 {% block content_outer %}
+  {% load solo_tags %}
+  {% get_solo 'consulting.SiteConfiguration' as site_config %}
 
   <header id="head" class="hidden-xs">
     <div class="container-fluid">
@@ -37,13 +26,9 @@
           <h2>Welcome</h2>
 
           <p>
-            Oliver Tessier <i class="amp">&amp;</i> Associates is a full-service management
-            consulting firm focusing on nonprofits and associations.
+            {{ site_config.about_homepage }}
           </p>
 
-          <p>
-            FIXME We were founded in 456 AUC by Julius Caeser, Oscar the Grouch, and Edward Tufte.
-          </p>
         </section>
       </div>
 

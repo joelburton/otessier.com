@@ -276,3 +276,10 @@ class LibraryFileAdmin(ModelAdmin):
 
 
 admin.site.register(LibraryFile, LibraryFileAdmin)
+
+
+
+from solo.admin import SingletonModelAdmin
+from .models import SiteConfiguration
+
+admin.site.register(SiteConfiguration, SingletonModelAdmin)

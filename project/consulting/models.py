@@ -429,3 +429,38 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
         if self.asset:
             return self.asset.url
         return self.url
+
+
+###################################################################################################
+
+
+from solo.models import SingletonModel
+
+
+class SiteConfiguration(SingletonModel):
+    email = models.EmailField(
+        max_length=255,
+        default='oliver@otessier.com',
+    )
+
+    about_footer = models.TextField(
+        help_text='Appears in site footer.',
+    )
+
+    about_homepage = models.TextField(
+        help_text='Appears on home page.',
+    )
+
+    phone = models.CharField(
+        max_length=20,
+        help_text='Appears in footer.',
+    )
+
+    def __str__(self):
+        return u"Site Configuration"
+
+    class Meta:
+        verbose_name = "Site Configuration"
+
+    def phone_digits(self):
+        return "".join([c for c in self.phone if c in "0123456789"])

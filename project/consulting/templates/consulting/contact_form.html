@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load solo_tags %}
+{% get_solo 'conuslting.SiteConfiguration' as site_config %}
 
 {% block page_title %}Contact Us{% endblock %}
 {% block breadcrumbs %}
@@ -14,7 +16,7 @@
 
         <p class="lead">We&rsquo;d love to hear from you!
             You can reach us at
-            <a href="mailto:ot@otessier.com">ot@otessier.com</a>
+            <a href="mailto:{{ site_config.email }}">{{ site_config.email }}</a>
             or by using this form.
         </p>
     </div>

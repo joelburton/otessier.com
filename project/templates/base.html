@@ -1,5 +1,7 @@
 {% load bootstrap3 %}
 {% load static from staticfiles %}
+{% load solo_tags %}
+{% get_solo 'consulting.SiteConfiguration' as site_config %}
 
 <!doctype html>
 <html>
@@ -152,10 +154,7 @@
           <h3>About Oliver Tessier <i class="amp-white">&amp;</i> Associates</h3>
 
           <p>
-            Oliver Tessier <i class="amp-white">&amp;</i> Associates is a full-service management
-            consulting firm focusing on nonprofits and associations. Headquartered in
-            Maryland, we serve clients around the country.
-            <nationwide class=""></nationwide>
+            {{ site_config.about_footer }}
           </p>
         </div>
 
@@ -165,13 +164,13 @@
           <p>We&rsquo;d love to hear from you.</p>
           <ul class="list-unstyled">
             <li>
-              <a href="tel:12022513855">
+              <a href="tel:{{ site_config.phone_digits }}">
                 <i class="fa fa-fw fa-phone"></i>
-                (202) 251-3855</a>
+                {{ site_config.phone }}</a>
             </li>
             <li>
-              <a href="mailto:oliver@otessier.com">
-                <i class="fa fa-fw fa-envelope-o"></i> oliver@otessier.com
+              <a href="mailto:{{ site_config.email }}">
+                <i class="fa fa-fw fa-envelope-o"></i> {{ site_config.email }}
               </a>
             </li>
             <li><a href="{% url 'contact-us' %}"><i class="fa fa-fw fa-flag"></i> Contact Form</a>
