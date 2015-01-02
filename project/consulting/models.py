@@ -106,7 +106,7 @@ class Client(TimeStampedModel, StatusModel, models.Model):
 
     image_thumbnail = ImageSpecField(
         source='image',
-        processors=[ResizeToFit(50, 50)],
+        processors=[ResizeToFit(90, 90)],
         format='PNG',
     )
 

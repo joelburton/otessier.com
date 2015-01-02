@@ -15,7 +15,8 @@
 
     {% for client in client_list %}
         <h2><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></h2>
-        <p>{{ client.description|safe }}</p>
+        {% if client.image %}<img class='pull-right' src="{{ client.image_thumbnail.url }}">{% endif %}
+        <div>{{ client.description|safe }}</div>
 
         {% if client.has_published_practiceareas or 'preview' in request.GET %}
             Practice Areas:

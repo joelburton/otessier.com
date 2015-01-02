@@ -12,6 +12,7 @@
         <h1>{{ client.title }}</h1>
     </div>
     <div class="lead">{{ client.description|safe }}</div>
+    {% if client.image %}<img class='pull-right' src="{{ client.image_display.url }}">{% endif %}
     <div>{{ client.body|safe }}</div>
 
     {% if client.url %}

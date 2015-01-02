@@ -83,7 +83,7 @@ class ClientReferenceInline(GrappelliSortableHiddenMixin, admin.TabularInline):
 class ClientWorkInline(GrappelliSortableHiddenMixin, admin.TabularInline):
     model = ClientWork
     extra = 0
-    fields = ['title', 'description', 'references', 'status', 'position']
+    fields = ['title', 'description', 'body', 'references', 'status', 'position']
     sortable_field_name = 'position'
 
     def get_field_queryset(self, db, db_field, request):
@@ -103,8 +103,8 @@ class ClientAdmin(ModelAdmin):
 
     fieldsets = [
         ('', {
-            'fields': ['title', 'slug', 'description', 'body', 'practiceareas', 'url',
-                       'status', 'position']}),
+            'fields': ['title', 'slug', 'organization', 'image', 'description', 'body',
+                       'practiceareas', 'url', 'status', 'position']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
             'classes': ['grp-collapse', 'grp-closed']})
@@ -169,7 +169,8 @@ class QAndAAdmin(ModelAdmin):
 
     fieldsets = [
         ('', {
-            'fields': ['title', 'slug', 'question', 'answer', 'status', 'position']}),
+            'fields': ['title', 'slug', 'description', 'question', 'answer', 'credit',
+                       'status', 'position']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
             'classes': ['grp-collapse', 'grp-closed']})
