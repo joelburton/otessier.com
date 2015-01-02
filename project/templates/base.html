@@ -131,7 +131,7 @@
             <h3 class="panel-title">Nonprofit Q&amp;A</h3>
           </div>
           <div class="panel-body">
-            <p><b><a href="random_qanda.get_absolute_url">{{ random_qanda.title }}</a></b></p>
+            <p><b><a href="{{ random_qanda.get_absolute_url }}">{{ random_qanda.title }}</a></b></p>
             {{ random_qanda.description | safe }}
             <a href="{{ random_qanda.get_absolute_url }}">Read the
               answer&hellip;</a>
