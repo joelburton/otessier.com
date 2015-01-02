@@ -23,3 +23,23 @@
 
 {% endblock %}
 
+
+{% block portlets %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Library Categories</h3>
+    </div>
+    <ul class="list-group">
+      {% for c in librarycategory_list %}
+        <li class="list-group-item">
+          {% if c == object %}
+            <b>{{ c }}</b>
+          {% else %}
+            <a href="{{ c.get_absolute_url }}">{{ c }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+    {{ block.super }}
+{% endblock %}

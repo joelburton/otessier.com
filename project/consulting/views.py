@@ -125,12 +125,21 @@ class LibraryCategoryListView(generic.ListView):
         else:
             return LibraryCategory.published
 
+
 class LibraryCategoryDetailView(generic.DetailView):
     def get_queryset(self):
         if "preview" in self.request.GET:
             return LibraryCategory.objects.all().prefetch_related('libraryfile_set')
         else:
             return LibraryCategory.published.all().prefetch_related('libraryfile_set')
+
+    def get_context_data(self, **kwargs):
+        context = super(LibraryCategoryDetailView, self).get_context_data(**kwargs)
+        if "preview" in self.request.GET:
+            context['librarycategory_list'] = LibraryCategory.objects.all()
+        else:
+            context['librarycategory_list'] = LibraryCategory.published.all()
+        return context
 
 
 ###################################################################################################
