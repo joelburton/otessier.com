@@ -1,10 +1,9 @@
+import random
+
+
 class PreviewMiddleware(object):
     """Notes on the request when we are in preview mode.
     """
-
-    # Keep these out here so they can be modified in Django settings.
-
-    REQUEST_ANNOTATION_KEY = "_timing"
 
     def process_request(self, request):
         """Add current time to the request."""

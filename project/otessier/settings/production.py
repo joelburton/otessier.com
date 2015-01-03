@@ -96,3 +96,13 @@ TEMPLATE_LOADERS = (
         'django.template.loaders.app_directories.Loader',
     )),
 )
+
+MIDDLEWARE_CLASSES = (
+    ('otessier.cache.PreviewAwareUpdateCacheMiddleware',) +
+    MIDDLEWARE_CLASSES +
+    ('django.middleware.cache.FetchFromCacheMiddleware',)
+)
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 600
+CACHE_MIDDLEWARE_KEY_PREFIX = 'otessier-com-site'
