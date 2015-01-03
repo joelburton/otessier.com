@@ -350,7 +350,7 @@ i.amp-white {
   margin: 1em;
 }
 .content-well {
-  min-height: 700px;
+  min-height: 500px;
 }
 .carousel-inner {
   -webkit-transform-style: preserve-3d;
