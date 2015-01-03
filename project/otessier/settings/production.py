@@ -76,3 +76,6 @@ EMAIL_HOST_USER = "AKIAIDQJEDLNTSM73G7A"
 EMAIL_HOST_PASSWORD = os.environ['AWS_EMAIL_PASSWORD']
 EMAIL_USE_TLS = True
 
+MIDDLEWARE_CLASSES += (
+    'otessier.timing.TimingMiddleware',
+)

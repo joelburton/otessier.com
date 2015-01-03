@@ -1,6 +1,6 @@
 from random import choice
 
-from consulting.models import Quote, QAndA, Consultant, PracticeArea
+from consulting.models import Quote, QAndA
 
 from django.core.cache import cache
 
