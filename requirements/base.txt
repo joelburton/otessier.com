@@ -1,5 +1,5 @@
 Django==1.7.2
-Pillow==2.6.1
+Pillow==2.7.0
 django-bootstrap3==5.0.3
 django-grappelli==2.6.3
 django-imagekit==3.2.4
