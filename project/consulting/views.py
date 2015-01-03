@@ -47,19 +47,18 @@ class PortletListMixin(object):
 class PortletCommonMixin(object):
     """Mixin to show random quotes/Q&A; used on many views."""
 
-    def random_quote(request):
-        quotes = cache.get('quotes')
-        if not quotes:
-            quotes = Quote.published.values('quote', 'author').order_by()
-            cache.set('quotes', quotes)
-        return choice(quotes)
+    def _get_random(self, name, qs):
+        objs = cache.get(name)
+        if not objs:
+            objs = qs.order_by()  # don't waste time sorting
+            cache.set(name, objs)
+        return choice(objs)
 
-    def random_qanda(request):
-        qandas = cache.get('qandas')
-        if not qandas:
-            qandas = QAndA.published.only('title', 'slug', 'description').order_by()
-            cache.set('qandas', qandas)
-        return choice(qandas)
+    def random_quote(self):
+        return self._get_random('quotes', Quote.published.values('quote', 'author'))
+
+    def random_qanda(self):
+        return self._get_random('qandas', QAndA.published.only('title', 'slug', 'description'))
 
 
 ###################################################################################################
