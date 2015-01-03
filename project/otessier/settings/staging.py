@@ -1,19 +1,14 @@
 """
-Development settings for otessier project.
+Staging settings for otessier project.
+
+For this project, "staging" means "running on dev environment, but with caching and such set up
+like production."
 """
 
 from .base import *
 
 
 SECRET_KEY = 'i^ari$22!b+&pwhm=o7h-%vr-%us)#k=q0!g9qcaz*a#!h!k*c'
-
-DEBUG = True
-TEMPLATE_DEBUG = True
-
-INSTALLED_APPS += (
-    'debug_toolbar',
-    'django_extensions',
-)
 
 MIDDLEWARE_CLASSES += (
     'otessier.timing.TimingMiddleware',
@@ -30,6 +25,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'otessier',
         'HOST': 'localhost',
+        'CONN_MAX_AGE': None,
     }
 }
 
@@ -51,21 +47,43 @@ DNS_NAME._fqdn = "localhost"
 ##################################################################################################
 # Logging & Error Reporting
 
-# Blather on about every little thing that happens. We programmers get lonely.
+# Be moderately chatty
 
 LOGGING = {
     'version': 1,
 
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
         },
     },
     'loggers': {
         '': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': 'INFO',
         },
     },
 }
+
+##################################################################################################
+# Caches
+#
+# We use AWS SES for sending email (except on development, where we override this)
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+SOLO_CACHE = 'default'
+SOLO_CACHE_TIMEOUT = 60 * 5
+
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+)

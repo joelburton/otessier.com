@@ -85,20 +85,3 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'consulting.context_processors.random_qanda',
 ]
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        # 'LOCATION': 'unix:/tmp/memcached.sock',
-        'LOCATION': '127.0.0.1:11211',
-    }
-}
-
-SOLO_CACHE = 'default'
-SOLO_CACHE_TIMEOUT = 60 * 5
-
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
-)

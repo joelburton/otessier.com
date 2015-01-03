@@ -11,6 +11,11 @@ ALLOWED_HOSTS = ['new.otessier.com', 'otessier.com', 'www.otessier.com',
                  'olivertessier.com', 'www.olivertessier.com', 'preview.otessier.com',
 ]
 
+##################################################################################################
+# Database
+
+# Use production PG database
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -31,8 +36,8 @@ DATABASES = {
 ADMINS = (('Joel', 'joel@joelburton.com'), )
 SERVER_EMAIL = "joel@joelburton.com"
 
-# By default, we write reasonably important things (INFO and above) to the console (Heroku shows
-# us this in its logs). We email admins on a site error or a security issue and also propagate
+# By default, we write reasonably important things (INFO and above) to the console
+# We email admins on a site error or a security issue and also propagate
 # this up to the Heroku logs. This is obviously overriden in the development settings.
 
 LOGGING = {
@@ -78,4 +83,27 @@ EMAIL_USE_TLS = True
 
 MIDDLEWARE_CLASSES += (
     'otessier.timing.TimingMiddleware',
+)
+
+
+##################################################################################################
+# Caches
+#
+# We use AWS SES for sending email (except on development, where we override this)
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+SOLO_CACHE = 'default'
+SOLO_CACHE_TIMEOUT = 60 * 5
+
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
 )
