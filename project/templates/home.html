@@ -7,8 +7,6 @@
 {% block content_outer %}
   {% bootstrap_messages %}
 
-  {% cache 600 homepage %}
-
     <header id="head" class="hidden-xs">
       <div class="container-fluid">
         <div class="carousel slide" data-ride="carousel" id="practices-carousel">
@@ -111,7 +109,5 @@
         </div>
       </div>
     </section>
-
-  {% endcache %}
 
 {% endblock %}
