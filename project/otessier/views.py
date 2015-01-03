@@ -8,7 +8,7 @@ class HomepageView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomepageView, self).get_context_data(**kwargs)
 
-        if "preview" in self.request.GET:
+        if self.request.preview_mode:
             context['practicearea_list'] = PracticeArea.objects.prefetch_related('client_set')
             context['quote_list'] = Quote.objects.all
         else:

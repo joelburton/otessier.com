@@ -80,7 +80,7 @@ class ClientReferenceInline(GrappelliSortableHiddenMixin, admin.TabularInline):
         return ClientReference.objects
 
 
-class ClientWorkInline(GrappelliSortableHiddenMixin, admin.TabularInline):
+class ClientWorkInline(GrappelliSortableHiddenMixin, admin.StackedInline):
     model = ClientWork
     extra = 0
     fields = ['title', 'description', 'body', 'references', 'status', 'position']
@@ -233,6 +233,7 @@ class LibraryCategoryAdmin(ModelAdmin):
             'classes': ['grp-collapse', 'grp-closed']})
     ]
 
+    prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ['id', 'created', 'modified', 'status_changed']
 
     list_display = ['title', 'position', 'active']

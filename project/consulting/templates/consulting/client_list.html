@@ -19,11 +19,11 @@
         {% if client.image %}<img class='pull-right' src="{{ client.image_thumbnail.url }}">{% endif %}
         <div>{{ client.description|safe }}</div>
 
-        {% if client.has_published_practiceareas or 'preview' in request.GET %}
+        {% if client.has_published_practiceareas or request.preview_mode %}
             Practice Areas:
             <ul>
                 {% for area in client.practiceareas.all %}
-                    {% if area.status == 'published' or 'preview' in request.GET %}
+                    {% if area.status == 'published' or request.preview_mode %}
                         <li><a href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
                     {% endif %}
                 {% endfor %}

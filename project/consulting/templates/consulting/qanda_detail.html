@@ -27,7 +27,7 @@
       <h3 class="panel-title">Nonprofit Q&amp;A</h3>
     </div>
     <ul class="list-group">
-      {% for q in qanda_list %}
+      {% for q in qanda_list.all %}
         <li class="list-group-item">
           {% if q == qanda %}
             <b>{{ q }}</b>

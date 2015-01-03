@@ -17,11 +17,11 @@
         <h2><a href="{{ pa.get_absolute_url }}">{{ pa.title }}</a></h2>
         {{ pa.description|safe }}
 
-        {% if pa.has_published_clients or 'preview' in request.GET %}
+        {% if pa.has_published_clients or request.preview_mode %}
             Clients:
             <ul>
                 {% for client in pa.client_set.all %}
-                    {% if client.status == 'published' or 'preview' in request.GET %}
+                    {% if client.status == 'published' or request.preview_mode %}
                         <li><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></li>
                     {% endif %}
                 {% endfor %}

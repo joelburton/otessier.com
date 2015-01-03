@@ -15,7 +15,7 @@
   </div>
 
   {% for file in librarycategory.libraryfile_set.all %}
-        {% if 'preview' in request.GET or file.status == 'published' %}
+        {% if request.preview_mode or file.status == 'published' %}
           <h3><a target="_blank" href="{{ file.get_absolute_url }}">{{ file.title }}</a></h3>
           {{ file.description|safe }}
         {% endif %}

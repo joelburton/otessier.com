@@ -23,7 +23,7 @@
       <h3 class="panel-title">Who We Are</h3>
     </div>
     <ul class="list-group">
-      {% for c in consultant_list %}
+      {% for c in consultant_list.all %}
         <li class="list-group-item">
           {% if c == consultant %}
             <b>{{ c }}</b>

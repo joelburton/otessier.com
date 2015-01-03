@@ -19,11 +19,11 @@
         <p><a href="{{ client.url }}" target="_blank">{{ client.url }}</a></p>
     {% endif %}
 
-      {% if client.has_published_practiceareas or 'preview' in request.GET %}
+      {% if client.has_published_practiceareas or request.preview_mode %}
                 <h2>Practice Areas</h2>
             <ul>
                 {% for area in client.practiceareas.all %}
-                    {% if area.status == 'published' or 'preview' in request.GET %}
+                    {% if area.status == 'published' or request.preview_mode %}
                         <li><a href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
                     {% endif %}
                 {% endfor %}
@@ -33,7 +33,7 @@
     {% if client.has_published_clientworks %}
     <h2>Projects</h2>
     {% for work in client.clientwork_set.all %}
-        {% if work.status == 'published' or 'preview' in request.GET %}
+        {% if work.status == 'published' or request.preview_mode %}
             <h3>{{ work.title }}</h3>
             <div>{{ work.description|safe }}</div>
 

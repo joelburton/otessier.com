@@ -8,138 +8,93 @@ from consulting.forms import ContactUsForm
 from .models import PracticeArea, Client, QAndA, Consultant, LibraryCategory
 
 
-class PracticeAreaListView(generic.ListView):
+class WorkflowMixin(object):
     def get_queryset(self):
-        if "preview" in self.request.GET:
-            return PracticeArea.objects.prefetch_related('client_set')
+        if self.request.preview_mode:
+            return self.model.objects
         else:
-            return PracticeArea.published.prefetch_related('client_set')
+            return self.model.published
 
 
-class PracticeAreaDetailView(generic.DetailView):
-    def get_queryset(self):
-        if "preview" in self.request.GET:
-            return PracticeArea.objects.prefetch_related('client_set')
-        else:
-            return PracticeArea.published.prefetch_related('client_set')
-
+class PortletListMixin(object):
     def get_context_data(self, **kwargs):
-        context = super(PracticeAreaDetailView, self).get_context_data(**kwargs)
-        if "preview" in self.request.GET:
-            context['practicearea_list'] = PracticeArea.objects.all()
-        else:
-            context['practicearea_list'] = PracticeArea.published.all()
-        return context
-
-
-
-###################################################################################################
-
-
-class ClientListView(generic.ListView):
-    def get_queryset(self):
-        if "preview" in self.request.GET:
-            return Client.objects.prefetch_related('practiceareas')
-        else:
-            return Client.published.prefetch_related('practiceareas')
-
-
-class ClientDetailView(generic.DetailView):
-    def get_queryset(self):
-        if "preview" in self.request.GET:
-            return Client.objects.prefetch_related('practiceareas', 'clientwork_set')
-        else:
-            return Client.published.prefetch_related('practiceareas', 'clientwork_set')
-
-    def get_context_data(self, **kwargs):
-        context = super(ClientDetailView, self).get_context_data(**kwargs)
-        if "preview" in self.request.GET:
-            context['client_list'] = Client.objects.all()
-        else:
-            context['client_list'] = Client.published.all()
-        return context
-
-
-
-
-###################################################################################################
-
-
-class QAndAListView(generic.ListView):
-    def get_queryset(self):
-        if "preview" in self.request.GET:
-            return QAndA.objects
-        else:
-            return QAndA.published
-
-
-class QAndADetailView(generic.DetailView):
-    def get_queryset(self):
-        if "preview" in self.request.GET:
-            return QAndA.objects
-        else:
-            return QAndA.published
-
-    def get_context_data(self, **kwargs):
-        context = super(QAndADetailView, self).get_context_data(**kwargs)
-        if "preview" in self.request.GET:
-            context['qanda_list'] = QAndA.objects.all()
-        else:
-            context['qanda_list'] = QAndA.published.all()
-        return context
-
-###################################################################################################
-
-
-class ConsultantListView(generic.ListView):
-    def get_queryset(self):
-        if "preview" in self.request.GET:
-            return Consultant.objects
-        else:
-            return Consultant.published
-
-
-class ConsultantDetailView(generic.DetailView):
-    def get_queryset(self):
-        if "preview" in self.request.GET:
-            return Consultant.objects
-        else:
-            return Consultant.published
-
-    def get_context_data(self, **kwargs):
-        context = super(ConsultantDetailView, self).get_context_data(**kwargs)
-        if "preview" in self.request.GET:
-            context['consultant_list'] = Consultant.objects.all()
-        else:
-            context['consultant_list'] = Consultant.published.all()
+        context = super(PortletListMixin, self).get_context_data(**kwargs)
+        context[self.model._meta.model_name + '_list'] = self.get_queryset()
         return context
 
 
 ###################################################################################################
 
 
-class LibraryCategoryListView(generic.ListView):
+class PracticeAreaListView(WorkflowMixin, generic.ListView):
+    model = PracticeArea
+
     def get_queryset(self):
-        if "preview" in self.request.GET:
-            return LibraryCategory.objects
-        else:
-            return LibraryCategory.published
+        qs = super(PracticeAreaListView, self).get_queryset()
+        return qs.prefetch_related('client_set')
 
 
-class LibraryCategoryDetailView(generic.DetailView):
+class PracticeAreaDetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
+    model = PracticeArea
+
     def get_queryset(self):
-        if "preview" in self.request.GET:
-            return LibraryCategory.objects.all().prefetch_related('libraryfile_set')
-        else:
-            return LibraryCategory.published.all().prefetch_related('libraryfile_set')
+        qs = super(PracticeAreaDetailView, self).get_queryset()
+        return qs.prefetch_related('client_set')
 
-    def get_context_data(self, **kwargs):
-        context = super(LibraryCategoryDetailView, self).get_context_data(**kwargs)
-        if "preview" in self.request.GET:
-            context['librarycategory_list'] = LibraryCategory.objects.all()
-        else:
-            context['librarycategory_list'] = LibraryCategory.published.all()
-        return context
+
+###################################################################################################
+
+
+class ClientListView(WorkflowMixin, generic.ListView):
+    model = Client
+
+    def get_queryset(self):
+        qs = super(ClientListView, self).get_queryset()
+        return qs.prefetch_related('practiceareas')
+
+
+class ClientDetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
+    model = Client
+
+    def get_queryset(self):
+        qs = super(ClientDetailView, self).get_queryset()
+        return qs.prefetch_related('practiceareas', 'clientwork_set')
+
+
+###################################################################################################
+
+
+class QAndAListView(WorkflowMixin, generic.ListView):
+    model = QAndA
+
+
+class QAndADetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
+    model = QAndA
+
+###################################################################################################
+
+
+class ConsultantListView(WorkflowMixin, generic.ListView):
+    model = Consultant
+
+
+class ConsultantDetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
+    model = Consultant
+
+
+###################################################################################################
+
+
+class LibraryCategoryListView(WorkflowMixin, generic.ListView):
+    model = LibraryCategory
+
+
+class LibraryCategoryDetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
+    model = LibraryCategory
+
+    def get_queryset(self):
+        qs = super(LibraryCategoryDetailView, self).get_queryset()
+        return qs.prefetch_related('libraryfile_set')
 
 
 ###################################################################################################

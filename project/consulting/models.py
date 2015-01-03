@@ -68,8 +68,7 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('practicearea.detail', kwargs={'slug': self.slug}) + (
-            "?preview" if self.status == 'private' else "")
+        return reverse('practicearea.detail', kwargs={'slug': self.slug})
 
     def has_published_clients(self):
         return any(c for c in self.client_set.all() if c.status == 'published')
@@ -141,8 +140,7 @@ class Client(TimeStampedModel, StatusModel, models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('client.detail', kwargs={'slug': self.slug}) + (
-            "?preview" if self.status == 'private' else "")
+        return reverse('client.detail', kwargs={'slug': self.slug})
 
     def has_published_clientworks(self):
         return any(c for c in self.clientwork_set.all() if c.status == 'published')
@@ -269,8 +267,7 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('consultant.detail', kwargs={'slug': self.slug}) + (
-            "?preview" if self.status == 'private' else "")
+        return reverse('consultant.detail', kwargs={'slug': self.slug})
 
     @property
     def title(self):
@@ -316,8 +313,7 @@ class QAndA(TimeStampedModel, StatusModel, models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('qanda.detail', kwargs={'slug': self.slug}) + (
-            "?preview" if self.status == 'private' else "")
+        return reverse('qanda.detail', kwargs={'slug': self.slug})
 
 
 ###################################################################################################
@@ -375,8 +371,7 @@ class LibraryCategory(TimeStampedModel, StatusModel, models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('librarycategory.detail', kwargs={'slug': self.slug}) + (
-            "?preview" if self.status == 'private' else "")
+        return reverse('librarycategory.detail', kwargs={'slug': self.slug})
 
 
 class LibraryFile(TimeStampedModel, StatusModel, models.Model):
