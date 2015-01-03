@@ -81,11 +81,6 @@ EMAIL_HOST_USER = "AKIAIDQJEDLNTSM73G7A"
 EMAIL_HOST_PASSWORD = os.environ['AWS_EMAIL_PASSWORD']
 EMAIL_USE_TLS = True
 
-MIDDLEWARE_CLASSES += (
-    'otessier.timing.TimingMiddleware',
-)
-
-
 ##################################################################################################
 # Caches
 #
@@ -97,9 +92,6 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
-
-SOLO_CACHE = 'default'
-SOLO_CACHE_TIMEOUT = 60 * 5
 
 TEMPLATE_LOADERS = (
     ('django.template.loaders.cached.Loader', (

@@ -88,9 +88,6 @@ CACHES = {
     }
 }
 
-SOLO_CACHE = 'default'
-SOLO_CACHE_TIMEOUT = 60 * 5
-
 TEMPLATE_LOADERS = (
     ('django.template.loaders.cached.Loader', (
         'django.template.loaders.filesystem.Loader',

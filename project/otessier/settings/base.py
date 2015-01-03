@@ -71,3 +71,11 @@ DEFAULT_FROM_EMAIL = 'joel@joelburton.com'
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 GRAPPELLI_ADMIN_TITLE = "Oliver Tessier and Associates Admin"
+
+
+# Cache the django-solo SiteConfiguration object for 5 mins
+#
+# In development, we might be using the DummyCache so this is a no-op cache there.
+
+SOLO_CACHE = 'default'
+SOLO_CACHE_TIMEOUT = 60 * 5
