@@ -56,7 +56,7 @@ LOGGING = {
 
     'handlers': {
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
         },
     },
@@ -65,8 +65,16 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'INFO',
         },
+        'django.db': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        }
     },
 }
+
+# Temp; to see SQL!
+DEBUG = True
+
 
 ##################################################################################################
 # Caches
