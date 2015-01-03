@@ -120,6 +120,7 @@
       <div class="col-lg-3 col-xs-12 portlets">
         {% block portlets %}
 
+          {% with random_quote=view.random_quote %}
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">Our Clients Say</h3>
@@ -132,6 +133,9 @@
               </div>
             </div>
           </div>
+          {% endwith %}
+
+          {% with random_qanda=view.random_qanda %}
           <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Nonprofit Q&amp;A</h3>
@@ -142,6 +146,8 @@
             <a href="{{ random_qanda.get_absolute_url }}">Read the
               answer&hellip;</a>
           </div>
+          {% endwith %}
+
         {% endblock %}
         </div>
       </div>
