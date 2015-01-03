@@ -16,7 +16,8 @@
   <link
       href="http://fonts.googleapis.com/css?family=Open+Sans:400,700"
       rel="stylesheet">
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+        rel="stylesheet">
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -27,71 +28,72 @@
 <body>
 {% load cache %}
 {% cache 600 navbar %}
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-              data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">Oliver Tessier <i class="amp-white">&amp;</i> Associates</a>
-    </div>
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="{% url 'consultant.list' %}" class="dropdown-toggle" data-toggle="dropdown">
-            Who We Are
-            <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            {% consultants as consultants %}
-            {% for consultant in consultants %}
-              <li><a href="{{ consultant.get_absolute_url }}">{{ consultant }}</a></li>
-            {% endfor %}
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="{% url 'practicearea.list' %}" class="dropdown-toggle" data-toggle="dropdown">
-            Practices
-            <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            {% practiceareas as practiceareas %}
-            {% for pa in practiceareas %}
-              <li><a href="{{ pa.get_absolute_url }}">{{ pa }}</a></li>
-            {% endfor %}
-          </ul>
-        </li>
-        <li><a href="{% url 'client.list' %}">Clients</a></li>
-        <li><a href="{% url 'qanda.list' %}">Nonprofit Q&amp;A</a></li>
-        <li><a href="{% url 'librarycategory.list' %}">Library</a></li>
-        <li class="hidden-sm"><a href="{% url 'contact-us' %}">Contact</a></li>
-      </ul>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Oliver Tessier <i class="amp-white">&amp;</i>
+          Associates</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="{% url 'consultant.list' %}" class="dropdown-toggle" data-toggle="dropdown">
+              Who We Are
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              {% consultants as consultants %}
+              {% for consultant in consultants %}
+                <li><a href="{{ consultant.get_absolute_url }}">{{ consultant }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="{% url 'practicearea.list' %}" class="dropdown-toggle" data-toggle="dropdown">
+              Practices
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              {% practiceareas as practiceareas %}
+              {% for pa in practiceareas %}
+                <li><a href="{{ pa.get_absolute_url }}">{{ pa }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li><a href="{% url 'client.list' %}">Clients</a></li>
+          <li><a href="{% url 'qanda.list' %}">Nonprofit Q&amp;A</a></li>
+          <li><a href="{% url 'librarycategory.list' %}">Library</a></li>
+          <li class="hidden-sm"><a href="{% url 'contact-us' %}">Contact</a></li>
+        </ul>
 
-      <ul class="nav navbar-nav navbar-right hidden-lg hidden-xs">
-        <li><a href="/search/"><span class="fa fa-search"></span></a></li>
-      </ul>
+        <ul class="nav navbar-nav navbar-right hidden-lg hidden-xs">
+          <li><a href="/search/"><span class="fa fa-search"></span></a></li>
+        </ul>
 
-      <form class="hidden-sm hidden-md navbar-form pull-right searchbox"
-            action="{% url 'watson:search' %}">
-        <div class="input-group">
-          <input type="text" class="form-control input-sm" placeholder="Search" name="q"
-                 value="{{ request.GET.q }}">
+        <form class="hidden-sm hidden-md navbar-form pull-right searchbox"
+              action="{% url 'watson:search' %}">
+          <div class="input-group">
+            <input type="text" class="form-control input-sm" placeholder="Search" name="q"
+                   value="{{ request.GET.q }}">
 
-          <div class="input-group-btn">
-            <button class="btn btn-default input-sm" type="submit"><i
-                class="glyphicon glyphicon-search"></i>
-            </button>
+            <div class="input-group-btn">
+              <button class="btn btn-default input-sm" type="submit"><i
+                  class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
 
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 {% endcache %}
 <div style="padding-top: 50px"></div>
 
@@ -121,31 +123,36 @@
         {% block portlets %}
 
           {% with random_quote=view.random_quote %}
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Our Clients Say</h3>
-            </div>
-            <div class="panel-body">
-              <div>{{ random_quote.quote|safe }}</div>
-              <div class="quote-attrib">
-                &mdash;&nbsp;
-                {{ random_quote.author }}
+            {% if random_quote %}
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Our Clients Say</h3>
+                </div>
+                <div class="panel-body">
+                  <div>{{ random_quote.quote|safe }}</div>
+                  <div class="quote-attrib">
+                    &mdash;&nbsp;
+                    {{ random_quote.author }}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            {% endif %}
           {% endwith %}
 
           {% with random_qanda=view.random_qanda %}
-          <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Nonprofit Q&amp;A</h3>
-          </div>
-          <div class="panel-body">
-            <p><b><a href="{{ random_qanda.get_absolute_url }}">{{ random_qanda.title }}</a></b></p>
-            {{ random_qanda.description | safe }}
-            <a href="{{ random_qanda.get_absolute_url }}">Read the
-              answer&hellip;</a>
-          </div>
+            {% if random_qanda %}
+              <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Nonprofit Q&amp;A</h3>
+              </div>
+              <div class="panel-body">
+                <p><b><a href="{{ random_qanda.get_absolute_url }}">{{ random_qanda.title }}</a></b>
+                </p>
+                {{ random_qanda.description | safe }}
+                <a href="{{ random_qanda.get_absolute_url }}">Read the
+                  answer&hellip;</a>
+              </div>
+            {% endif %}
           {% endwith %}
 
         {% endblock %}

@@ -54,7 +54,8 @@ class PortletCommonMixin(object):
         if not objs:
             objs = qs.order_by()  # don't waste time sorting
             cache.set(name, objs)
-        return choice(objs)
+        if objs:
+            return choice(objs)
 
     def random_quote(self):
         return self._get_random('quotes', Quote.published.values('quote', 'author'))
