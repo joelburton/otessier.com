@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 {% load solo_tags %}
 {% get_solo 'consulting.SiteConfiguration' as site_config %}
+{% load consulting_tags %}
 
 <!doctype html>
 <html>
@@ -24,6 +25,8 @@
 </head>
 
 <body>
+{% load cache %}
+{% cache 500 navbar %}
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -44,7 +47,8 @@
             <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
-            {% for consultant in site_consultants %}
+            {% consultants as consultants %}
+            {% for consultant in consultants %}
               <li><a href="{{ consultant.get_absolute_url }}">{{ consultant }}</a></li>
             {% endfor %}
           </ul>
@@ -55,7 +59,8 @@
             <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
-            {% for pa in site_practiceareas %}
+            {% practiceareas as practiceareas %}
+            {% for pa in practiceareas %}
               <li><a href="{{ pa.get_absolute_url }}">{{ pa }}</a></li>
             {% endfor %}
           </ul>
@@ -87,6 +92,7 @@
     </div>
   </div>
 </nav>
+{% endcache %}
 <div style="padding-top: 50px"></div>
 
 {% block content_outer %}
@@ -227,6 +233,7 @@
 
 <script src="{% bootstrap_jquery_url %}"></script>
 {% bootstrap_javascript %}
+<!-- RENDER_TIME -->
 </body>
 </html>
 

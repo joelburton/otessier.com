@@ -23,6 +23,10 @@ DATABASES = {
     }
 }
 
+MIDDLEWARE_CLASSES += (
+    'otessier.timing.TimingMiddleware',
+)
+
 
 ##################################################################################################
 # Email

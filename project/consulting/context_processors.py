@@ -1,24 +1,27 @@
-from random import randint
+from random import choice
 
 from consulting.models import Quote, QAndA, Consultant, PracticeArea
 
+from django.core.cache import cache
+
 
 def random_quote(request):
-    quotes = Quote.objects.all()
+    quotes = cache.get('quotes')
+    if not quotes:
+        quotes = Quote.published.values('quote', 'author').order_by()
+        cache.set('quotes', quotes)
+
     return {
-        'random_quote': quotes[randint(0, quotes.count()-1)]
+        'random_quote': choice(quotes)
     }
 
 
 def random_qanda(request):
-    qandas = QAndA.objects.all()
-    return {
-        'random_qanda': qandas[randint(0, qandas.count()-1)]
-    }
+    qandas = cache.get('qandas')
+    if not qandas:
+        qandas = QAndA.published.only('title', 'slug', 'description').order_by()
+        cache.set('qandas', qandas)
 
-
-def site_navigation(request):
     return {
-        'site_consultants': Consultant.published.all(),
-        'site_practiceareas': PracticeArea.published.all(),
+        'random_qanda': choice(qandas)
     }

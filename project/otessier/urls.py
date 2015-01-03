@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.views.decorators.cache import cache_page
 
 from .views import HomepageView
 
@@ -11,6 +12,7 @@ import watson.views
 urlpatterns = patterns(
     '',
 
+    # url(r'^$', cache_page(60 * 15)(HomepageView.as_view()), name='homepage'),
     url(r'^$', HomepageView.as_view(), name='homepage'),
     url(r'^', include(consulting.urls)),
 
