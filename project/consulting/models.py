@@ -70,9 +70,6 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
     def get_absolute_url(self):
         return reverse('practicearea.detail', kwargs={'slug': self.slug})
 
-    def has_published_clients(self):
-        return any(c for c in self.client_set.all() if c.status == 'published')
-
 
 ###################################################################################################
 
@@ -141,12 +138,6 @@ class Client(TimeStampedModel, StatusModel, models.Model):
 
     def get_absolute_url(self):
         return reverse('client.detail', kwargs={'slug': self.slug})
-
-    def has_published_clientworks(self):
-        return any(c for c in self.clientwork_set.all() if c.status == 'published')
-
-    def has_published_practiceareas(self):
-        return any(c for c in self.practiceareas.all() if c.status == 'published')
 
 
 class ClientSearchAdapter(SearchAdapter):

@@ -2,14 +2,15 @@ from random import choice
 
 from django.contrib import messages
 from django.core.mail import EmailMessage
+from django.db.models import Prefetch
 from django.views import generic
 from django.conf import settings
 from django.core.cache import cache
 
 from consulting.forms import ContactUsForm
 
-from .models import PracticeArea, Client, QAndA, Consultant, LibraryCategory, Quote
-
+from .models import PracticeArea, Client, QAndA, Consultant, LibraryCategory, Quote, LibraryFile, \
+    ClientWork
 
 
 class WorkflowMixin(object):
@@ -70,7 +71,8 @@ class PracticeAreaListView(WorkflowMixin, PortletCommonMixin, generic.ListView):
 
     def get_queryset(self):
         qs = super(PracticeAreaListView, self).get_queryset()
-        return qs.prefetch_related('client_set')
+        related_qs = Client.objects if self.request.preview_mode else Client.published
+        return qs.prefetch_related(Prefetch('client_set', queryset=related_qs.all()))
 
 
 class PracticeAreaDetailView(WorkflowMixin, PortletListMixin, PortletCommonMixin, generic.DetailView):
@@ -78,7 +80,8 @@ class PracticeAreaDetailView(WorkflowMixin, PortletListMixin, PortletCommonMixin
 
     def get_queryset(self):
         qs = super(PracticeAreaDetailView, self).get_queryset()
-        return qs.prefetch_related('client_set')
+        related_qs = Client.objects if self.request.preview_mode else Client.published
+        return qs.prefetch_related(Prefetch('client_set', queryset=related_qs.all()))
 
 
 ###################################################################################################
@@ -89,7 +92,8 @@ class ClientListView(WorkflowMixin, PortletCommonMixin, generic.ListView):
 
     def get_queryset(self):
         qs = super(ClientListView, self).get_queryset()
-        return qs.prefetch_related('practiceareas')
+        related_qs = PracticeArea.objects if self.request.preview_mode else PracticeArea.published
+        return qs.prefetch_related(Prefetch('practiceareas', queryset=related_qs.all()))
 
 
 class ClientDetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
@@ -97,7 +101,12 @@ class ClientDetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
 
     def get_queryset(self):
         qs = super(ClientDetailView, self).get_queryset()
-        return qs.prefetch_related('practiceareas', 'clientwork_set')
+        related_pas = PracticeArea.objects if self.request.preview_mode else PracticeArea.published
+        related_works = ClientWork.objects if self.request.preview_mode else ClientWork.published
+        return qs.prefetch_related(
+            Prefetch('practiceareas', queryset=related_pas.all()),
+            Prefetch('clientwork_set', queryset=related_works.all()),
+            )
 
 
 ###################################################################################################
@@ -133,7 +142,8 @@ class LibraryCategoryDetailView(WorkflowMixin, PortletCommonMixin, PortletListMi
 
     def get_queryset(self):
         qs = super(LibraryCategoryDetailView, self).get_queryset()
-        return qs.prefetch_related('libraryfile_set')
+        related_qs = LibraryFile.objects if self.request.preview_mode else LibraryFile.published
+        return qs.prefetch_related(Prefetch('libraryfile_set', queryset=related_qs.all()))
 
 
 ###################################################################################################

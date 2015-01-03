@@ -1,61 +1,57 @@
 {% extends 'base.html' %}
 
 {% block breadcrumbs %}
-    <li><a href="{% url 'client.list' %}">Clients</a></li>
-    <li class="active">{{ client.title }}</li>
+  <li><a href="{% url 'client.list' %}">Clients</a></li>
+  <li class="active">{{ client.title }}</li>
 {% endblock %}
 
 {% block content %}
 
 
-    <div class="page-header">
-        <h1>{{ client.title }}</h1>
-    </div>
-    <div class="lead">{{ client.description|safe }}</div>
-    {% if client.image %}<img class='pull-right' src="{{ client.image_display.url }}">{% endif %}
-    <div>{{ client.body|safe }}</div>
+  <div class="page-header">
+    <h1>{{ client.title }}</h1>
+  </div>
+  <div class="lead">{{ client.description|safe }}</div>
+  {% if client.image %}<img class='pull-right' src="{{ client.image_display.url }}">{% endif %}
+  <div>{{ client.body|safe }}</div>
 
-    {% if client.url %}
-        <p><a href="{{ client.url }}" target="_blank">{{ client.url }}</a></p>
-    {% endif %}
+  {% if client.url %}
+    <p><a href="{{ client.url }}" target="_blank">{{ client.url }}</a></p>
+  {% endif %}
 
-      {% if client.has_published_practiceareas or request.preview_mode %}
-                <h2>Practice Areas</h2>
-            <ul>
-                {% for area in client.practiceareas.all %}
-                    {% if area.status == 'published' or request.preview_mode %}
-                        <li><a href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-    {% endif %}
+  {% if client.practiceareas.all %}
+    <h2>Practice Areas</h2>
+    <ul>
+      {% for area in client.practiceareas.all %}
+        <li><a href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 
-    {% if client.has_published_clientworks %}
+  {% if client.clientwork_set.all %}
     <h2>Projects</h2>
     {% for work in client.clientwork_set.all %}
-        {% if work.status == 'published' or request.preview_mode %}
-            <h3>{{ work.title }}</h3>
-            <div class="lead">{{ work.description|safe }}</div>
-            <div>{{ work.body|safe }}</div>
+      <h3>{{ work.title }}</h3>
+      <div class="lead">{{ work.description|safe }}</div>
+      <div>{{ work.body|safe }}</div>
 
-            {% with refs=work.references.all %}
-                {% if refs %}
-                    <div>
-                        References:
-                        <ul>
-                            {% for ref in refs %}
-                                <li>
-                                    {{ ref.title }}{% if ref.job_title %},{% endif %}
-                                    {{ ref.job_title }}{% if ref.phone %},{% endif %}
-                                    {{ ref.phone }}{% if ref.email %},{% endif %}
-                                    <a href="mailto:{{ ref.email }}">{{ ref.email }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-            {% endwith %}
+      {% with refs=work.references.all %}
+        {% if refs %}
+          <div>
+            References:
+            <ul>
+              {% for ref in refs %}
+                <li>
+                  {{ ref.title }}{% if ref.job_title %},{% endif %}
+                  {{ ref.job_title }}{% if ref.phone %},{% endif %}
+                  {{ ref.phone }}{% if ref.email %},{% endif %}
+                  <a href="mailto:{{ ref.email }}">{{ ref.email }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
         {% endif %}
+      {% endwith %}
     {% endfor %}
   {% endif %}
 
@@ -70,7 +66,7 @@
     <ul class="list-group">
       {% for c in client_list %}
         <li class="list-group-item">
-          {% if c == client%}
+          {% if c == client %}
             <b>{{ c }}</b>
           {% else %}
             <a href="{{ c.get_absolute_url }}">{{ c }}</a>

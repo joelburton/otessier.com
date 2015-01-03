@@ -3,30 +3,29 @@
 {% block page_title %}Practice Areas{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="active">Practice Areas</li>
+  <li class="active">Practice Areas</li>
 {% endblock %}
 
 {% block content %}
 
-    <div class="page-header">
-        <h1>Practice Areas</h1>
-      <p class="lead">An overview of the areas in which we work.</p>
-    </div>
+  <div class="page-header">
+    <h1>Practice Areas</h1>
 
-    {% for pa in practicearea_list %}
-        <h2><a href="{{ pa.get_absolute_url }}">{{ pa.title }}</a></h2>
-        {{ pa.description|safe }}
+    <p class="lead">An overview of the areas in which we work.</p>
+  </div>
 
-        {% if pa.has_published_clients or request.preview_mode %}
-            Clients:
-            <ul>
-                {% for client in pa.client_set.all %}
-                    {% if client.status == 'published' or request.preview_mode %}
-                        <li><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endfor %}
+  {% for pa in practicearea_list %}
+    <h2><a href="{{ pa.get_absolute_url }}">{{ pa.title }}</a></h2>
+    {{ pa.description|safe }}
+
+    {% if pa.client_set.all %}
+      Clients:
+      <ul>
+        {% for client in pa.client_set.all %}
+          <li><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endfor %}
 
 {% endblock %}

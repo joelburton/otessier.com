@@ -15,10 +15,8 @@
   </div>
 
   {% for file in librarycategory.libraryfile_set.all %}
-        {% if request.preview_mode or file.status == 'published' %}
-          <h3><a target="_blank" href="{{ file.get_absolute_url }}">{{ file.title }}</a></h3>
-          {{ file.description|safe }}
-        {% endif %}
+    <h3><a target="_blank" href="{{ file.get_absolute_url }}">{{ file.title }}</a></h3>
+    {{ file.description|safe }}
   {% endfor %}
 
 {% endblock %}
@@ -41,5 +39,5 @@
       {% endfor %}
     </ul>
   </div>
-    {{ block.super }}
+  {{ block.super }}
 {% endblock %}

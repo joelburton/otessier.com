@@ -19,7 +19,7 @@
         {% if client.image %}<img class='pull-right' src="{{ client.image_thumbnail.url }}">{% endif %}
         <div>{{ client.description|safe }}</div>
 
-        {% if client.has_published_practiceareas or request.preview_mode %}
+        {% if client.practiceareas.all %}
             Practice Areas:
             <ul>
                 {% for area in client.practiceareas.all %}
