@@ -12,7 +12,7 @@
         <div class="lead">{{ consultant.description | safe }}</div>
     </div>
 
-    {% if consultant.photo %}<img class="consultant-photo" src="{{ consultant.photo.url }}">{% endif %}
+    {% if consultant.photo %}<img class="image-right main" src="{{ consultant.photo_display.url }}">{% endif %}
     {{ consultant.body|safe }}
 
 {% endblock %}

@@ -245,6 +245,18 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
         blank=True,
     )
 
+    photo_display = ImageSpecField(
+        source='photo',
+        processors=[ResizeToFit(180, 180)],
+        format='JPEG',
+    )
+
+    photo_thumbnail = ImageSpecField(
+        source='photo',
+        processors=[ResizeToFit(90, 90)],
+        format='JPEG',
+    )
+
     description = models.TextField()
 
     body = models.TextField()

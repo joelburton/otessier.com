@@ -395,10 +395,6 @@ i.amp-white {
 
 }
 
-.consultant-photo {
-  float: right;
-}
-
 .lead {
   font-weight: bold;
   color: #666 !important;
@@ -457,7 +453,7 @@ i.amp-white {
 }
 
 .content-well {
-  min-height: 500px
+  min-height: 500px;
 }
 
 .carousel-inner {
@@ -468,4 +464,20 @@ i.amp-white {
 .btn.btn-primary {
   background-color: @brand-color;
   border-color: darken(@brand-color, 25%);
+}
+
+.image-right {
+  float: right;
+  padding-left: 0.85em;
+  padding-bottom: 0.2em;
+}
+
+.image-right.main {
+  @media (max-width: 767px) {
+    float: none;
+    display: block;
+    padding: 1em 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

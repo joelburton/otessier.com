@@ -315,9 +315,6 @@ i.amp-white {
 .content-well h3 {
   margin-top: 1.5em;
 }
-.consultant-photo {
-  float: right;
-}
 .lead {
   font-weight: bold;
   color: #666 !important;
@@ -375,4 +372,18 @@ i.amp-white {
 .btn.btn-primary {
   background-color: #457010;
   border-color: #000000;
+}
+.image-right {
+  float: right;
+  padding-left: 0.85em;
+  padding-bottom: 0.2em;
+}
+@media (max-width: 767px) {
+  .image-right.main {
+    float: none;
+    display: block;
+    padding: 1em 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
