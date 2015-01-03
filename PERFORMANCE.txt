@@ -1,0 +1,7 @@
+- audit SQL
+
+- consider indexes?
+
+- cache homepage for a while
+
+- emit varnish caches / turn on varnish caching

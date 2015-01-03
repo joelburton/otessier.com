@@ -9,10 +9,13 @@ class HomepageView(generic.TemplateView):
         context = super(HomepageView, self).get_context_data(**kwargs)
 
         if self.request.preview_mode:
-            context['practicearea_list'] = PracticeArea.objects.prefetch_related('client_set')
-            context['quote_list'] = Quote.objects.all
+            pas = PracticeArea.objects
+            quotes = Quote.objects
         else:
-            context['practicearea_list'] = PracticeArea.published.prefetch_related('client_set')
-            context['quote_list'] = Quote.published.all
+            pas = context['practicearea_list'] = PracticeArea.published
+            quotes = context['quote_list'] = Quote.published
+
+        context['practicearea_list'] = pas.only('title', 'short_description', 'icon_name', 'slug').all()
+        context['quote_list'] = quotes.values('quote', 'author').all()
 
         return context

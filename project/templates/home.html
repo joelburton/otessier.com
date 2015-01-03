@@ -1,126 +1,131 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load solo_tags %}
+{% get_solo 'consulting.SiteConfiguration' as site_config %}
+{% load cache %}
 
 {% block content_outer %}
-  {% load solo_tags %}
-  {% get_solo 'consulting.SiteConfiguration' as site_config %}
+  {% bootstrap_messages %}
 
-  <header id="head" class="hidden-xs">
-    <div class="container-fluid">
-      <div class="carousel slide" data-ride="carousel" id="practices-carousel">
-        <div class="carousel-inner">
-          {% for area in practicearea_list %}
-            <div class="item {% if forloop.first %}active{% endif %}">
-              <h2>{{ area.title }}</h2>
-              {{ area.short_description }}
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </header>
+  {% cache 300 homepage %}
 
-  <div class="container">
-    <div class="row">
-      {% bootstrap_messages %}
-      <div class="col-lg-3 col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-lg-offset-0">
-        <section id="who-we-are">
-          <h2>Welcome</h2>
-
-          <p>
-            {{ site_config.about_homepage }}
-          </p>
-
-        </section>
-      </div>
-
-
-      <div class="col-lg-8 col-xs-12 col-lg-offset-1">
-        <div id="practiceareas">
-          <h2><a href="{% url 'practicearea.list' %}">What We Do</a></h2>
-
-          <div class="row">
-
+    <header id="head" class="hidden-xs">
+      <div class="container-fluid">
+        <div class="carousel slide" data-ride="carousel" id="practices-carousel">
+          <div class="carousel-inner">
             {% for area in practicearea_list %}
-              <div class="col-md-4 col-xs-6 practicearea">
-
-                <h4>
-                  <a href="{{ area.get_absolute_url }}">
-                    <i class="fa fa-{{ area.icon_name }} fa-2x circle"></i>
-                    {{ area.title }}
-                  </a>
-                </h4>
-                {{ area.short_description | safe }}
-
+              <div class="item {% if forloop.first %}active{% endif %}">
+                <h2>{{ area.title }}</h2>
+                {{ area.short_description }}
               </div>
-              {% if forloop.counter|divisibleby:3 == True %}
-                <div class="visible-md visible-lg clearfix"></div>
-              {% endif %}
-              {% if forloop.counter|divisibleby:6 == True %}
-                <div class="visible-xs visible-sm clearfix"></div>
-              {% endif %}
             {% endfor %}
-
           </div>
         </div>
-
       </div>
-    </div>
-  </div>
+    </header>
 
-
-
-
-
-
-
-
-
-  <section id="what-our-clients-say">
     <div class="container">
-
-      <div class="text-center">
-        <h2>What Our Clients Say</h2>
-      </div>
-
       <div class="row">
-        <div class="col-sm-offset-1 col-sm-10">
-          <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+        <div class="col-lg-3 col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-lg-offset-0">
+          <section id="who-we-are">
+            <h2>Welcome</h2>
 
-            <!-- Bottom Carousel Indicators -->
-            <ol class="carousel-indicators visible-md visible-lg">
-              {% for quote in quote_list %}
-                <li data-target="#quote-carousel" data-slide-to="{{ forloop.counter0 }}"
-                    {% if forloop.first %}class="active"{% endif %}></li>
-              {% endfor %}
-            </ol>
+            <p>
+              {{ site_config.about_homepage }}
+            </p>
 
-            <!-- Carousel Slides / Quotes -->
-            <div class="carousel-inner">
-              {% for quote in quote_list %}
-                <div class="item {% if forloop.first %}active{% endif %}">
-                  <blockquote>
-                    {{ quote.quote }}
-                    <small>{{ quote.author }}</small>
-                  </blockquote>
-                </div>
-              {% endfor %}
-            </div>
-
-            <!-- Carousel Buttons Next/Prev -->
-            <a data-slide="prev" href="#quote-carousel" class="left carousel-control hidden-xs">
-              <i class="fa fa-chevron-left"></i>
-            </a>
-            <a data-slide="next" href="#quote-carousel" class="right carousel-control hidden-xs">
-              <i class="fa fa-chevron-right"></i>
-            </a>
-
-
-          </div>
+          </section>
         </div>
 
+
+        <div class="col-lg-8 col-xs-12 col-lg-offset-1">
+          <div id="practiceareas">
+            <h2><a href="{% url 'practicearea.list' %}">What We Do</a></h2>
+
+            <div class="row">
+
+              {% for area in practicearea_list %}
+                <div class="col-md-4 col-xs-6 practicearea">
+
+                  <h4>
+                    <a href="{{ area.get_absolute_url }}">
+                      <i class="fa fa-{{ area.icon_name }} fa-2x circle"></i>
+                      {{ area.title }}
+                    </a>
+                  </h4>
+                  {{ area.short_description | safe }}
+
+                </div>
+                {% if forloop.counter|divisibleby:3 == True %}
+                  <div class="visible-md visible-lg clearfix"></div>
+                {% endif %}
+                {% if forloop.counter|divisibleby:6 == True %}
+                  <div class="visible-xs visible-sm clearfix"></div>
+                {% endif %}
+              {% endfor %}
+
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
-  </section>
+
+
+
+
+
+
+
+
+
+    <section id="what-our-clients-say">
+      <div class="container">
+
+        <div class="text-center">
+          <h2>What Our Clients Say</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-offset-1 col-sm-10">
+            <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+
+              <!-- Bottom Carousel Indicators -->
+              <ol class="carousel-indicators visible-md visible-lg">
+                {% for quote in quote_list %}
+                  <li data-target="#quote-carousel" data-slide-to="{{ forloop.counter0 }}"
+                      {% if forloop.first %}class="active"{% endif %}></li>
+                {% endfor %}
+              </ol>
+
+              <!-- Carousel Slides / Quotes -->
+              <div class="carousel-inner">
+                {% for quote in quote_list %}
+                  <div class="item {% if forloop.first %}active{% endif %}">
+                    <blockquote>
+                      {{ quote.quote }}
+                      <small>{{ quote.author }}</small>
+                    </blockquote>
+                  </div>
+                {% endfor %}
+              </div>
+
+              <!-- Carousel Buttons Next/Prev -->
+              <a data-slide="prev" href="#quote-carousel" class="left carousel-control hidden-xs">
+                <i class="fa fa-chevron-left"></i>
+              </a>
+              <a data-slide="next" href="#quote-carousel" class="right carousel-control hidden-xs">
+                <i class="fa fa-chevron-right"></i>
+              </a>
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  {% endcache %}
 
 {% endblock %}
