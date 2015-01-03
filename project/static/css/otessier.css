@@ -100,7 +100,7 @@ i.amp-white {
 .footer2 {
   background: #230a43;
   padding: 1em 0 1em 0;
-  color: #896aaf;
+  color: #a5a1aa;
 }
 .footer2 .simplenav {
   padding: 0;
@@ -186,7 +186,7 @@ i.amp-white {
 #quote-carousel .carousel-indicators .active {
   background: #bbb;
 }
-#practiceareas h2 {
+#practiceareas h3 {
   font-size: 140%;
   color: #703b10;
   text-transform: uppercase;
@@ -200,12 +200,12 @@ i.amp-white {
   margin-top: 2em;
 }
 @media (max-width: 767px) {
-  #practiceareas h2 {
+  #practiceareas h3 {
     width: 13em;
     letter-spacing: 0.25em;
   }
 }
-#practiceareas h2 a {
+#practiceareas h3 a {
   color: #703b10;
 }
 #practiceareas .practicearea {
@@ -213,7 +213,7 @@ i.amp-white {
   text-align: center;
   font-weight: 200;
   margin: 1em 0 0 0;
-  color: #999;
+  color: #666;
 }
 #practiceareas .practicearea a {
   color: #703b10;
@@ -281,13 +281,19 @@ i.amp-white {
   }
 }
 .breadcrumb {
-  background-color: #e6ecdf;
+  background-color: #f3f5ef;
 }
 .breadcrumb a {
   color: #457010;
 }
 .breadcrumb a:hover {
   color: #800080;
+}
+.breadcrumb > .active {
+  color: #0d100a;
+}
+.breadcrumb > li + li::before {
+  color: #415030;
 }
 @media (min-width: 768px) {
   .content-well {

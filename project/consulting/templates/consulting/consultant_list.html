@@ -15,7 +15,8 @@
     {% for consultant in consultant_list.all %}
         <h2><a href="{{ consultant.get_absolute_url }}">{{ consultant.title }}</a></h2>
         {% if consultant.photo %}
-          <img class="image-right" src="{{ consultant.photo_thumbnail.url }}">
+          <img class="image-right" src="{{ consultant.photo_thumbnail.url }}"
+               alt="{{ consultant.title }}">
         {% endif %}
         <div>{{ consultant.description|safe }}</div>
     {% endfor %}

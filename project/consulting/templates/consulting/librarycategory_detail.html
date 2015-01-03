@@ -15,7 +15,7 @@
   </div>
 
   {% for file in librarycategory.libraryfile_set.all %}
-    <h3><a target="_blank" href="{{ file.get_absolute_url }}">{{ file.title }}</a></h3>
+    <h2><a target="_blank" href="{{ file.get_absolute_url }}">{{ file.title }}</a></h2>
     {{ file.description|safe }}
   {% endfor %}
 

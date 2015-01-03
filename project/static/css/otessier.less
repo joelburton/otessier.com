@@ -13,7 +13,7 @@
 @footer1-header-color: desaturate(lighten(@footer1-background-color, 80%), 25%);
 @footer1-link-hover-color: @opp-color;
 @footer2-background-color: darken(@footer1-background-color, 10%);
-@footer2-text-color: desaturate(lighten(@footer2-background-color, 40%), 45%);
+@footer2-text-color: desaturate(lighten(@footer2-background-color, 50%), 70%);
 @footer2-link-color: desaturate(lighten(@footer1-background-color, 60%), 20%);
 @footer2-link-hover-color: @footer1-link-hover-color;
 
@@ -245,7 +245,7 @@ i.amp-white {
 }
 
 #practiceareas {
-  h2 {
+  h3 {
     font-size: 140%;
     color: @alt1-color;
     text-transform: uppercase;
@@ -274,7 +274,7 @@ i.amp-white {
     text-align: center;
     font-weight: 200;
     margin: 1em 0 0 0;
-    color: #999;
+    color: #666;
 
     a {
       color: @alt1-color;
@@ -357,13 +357,19 @@ i.amp-white {
 }
 
 .breadcrumb {
-  background-color: desaturate(lighten(@brand-color, 65%), 50%);
+  background-color: desaturate(lighten(@brand-color, 70%), 50%);
 
   a {
     color: @brand-color;
     &:hover {
       color: purple
     }
+  }
+  & > .active {
+    color: darken(desaturate(@brand-color, 50%), 20%);
+  }
+  & > li + li::before {
+    color: darken(desaturate(@brand-color, 50%), 0%);
   }
 }
 

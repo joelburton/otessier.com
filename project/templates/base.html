@@ -5,7 +5,7 @@
 {% load consulting_tags %}
 
 <!doctype html>
-<html>
+<html lang="en-US">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -74,18 +74,23 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right hidden-lg hidden-xs">
-          <li><a href="/search/"><span class="fa fa-search"></span></a></li>
+          <li>
+            <a href="{% url 'watson:search' %}">
+              <span class="fa fa-search"></span><span class="sr-only">Search</span>
+            </a>
+          </li>
         </ul>
 
         <form class="hidden-sm hidden-md navbar-form pull-right searchbox"
               action="{% url 'watson:search' %}">
           <div class="input-group">
-            <input type="text" class="form-control input-sm" placeholder="Search" name="q"
+            <label for="searchbox" class="sr-only">Search</label>
+            <input id="searchbox" type="text" class="form-control input-sm" placeholder="Search" name="q"
                    value="{{ request.GET.q }}">
 
             <div class="input-group-btn">
               <button class="btn btn-default input-sm" type="submit"><i
-                  class="glyphicon glyphicon-search"></i>
+                  class="glyphicon glyphicon-search"><span class="sr-only">Search</span></i>
               </button>
             </div>
           </div>
@@ -120,6 +125,7 @@
         {% block content %}{% endblock %}
       </div>
       <div class="col-lg-3 col-xs-12 portlets">
+        <h2 class="sr-only">Portlets</h2>
         {% block portlets %}
 
           {% with random_quote=view.random_quote %}
@@ -201,16 +207,20 @@
           <h3>Follow Us</h3>
 
           <div class="follow-me-icons">
-            <a href="FIXME">
+            <a href="FIXME-twitter">
               <span class="fa-stack">
                 <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse">
+                  <span class="sr-only">Twitter</span>
+                </i>
               </span>
             </a>
-            <a href="FIXME">
+            <a href="FIXME-facebook">
               <span class="fa-stack">
                 <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse">
+                  <span class="sr-only">Facebook</span>
+                </i>
               </span>
             </a>
           </div>

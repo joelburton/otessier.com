@@ -16,7 +16,9 @@
 
     {% for client in client_list %}
         <h2 style="clear: both"><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></h2>
-        {% if client.image %}<img class='image-right' src="{{ client.image_thumbnail.url }}">{% endif %}
+        {% if client.image %}
+          <img class='image-right' src="{{ client.image_thumbnail.url }}" alt="{{ client.title }}">
+        {% endif %}
         <div>{{ client.description|safe }}</div>
 
         {% if client.practiceareas.all %}
