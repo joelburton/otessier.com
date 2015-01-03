@@ -91,7 +91,7 @@
             <ol class="carousel-indicators visible-md visible-lg">
               {% for quote in quote_list %}
                 <li data-target="#quote-carousel" data-slide-to="{{ forloop.counter0 }}"
-                    {% if forloop.first %}class="active">{% endif %}</li>
+                    {% if forloop.first %}class="active"{% endif %}></li>
               {% endfor %}
             </ol>
 
