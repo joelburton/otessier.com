@@ -127,7 +127,7 @@ class LibraryCategoryListView(WorkflowMixin, PortletCommonMixin, generic.ListVie
     model = LibraryCategory
 
 
-class LibraryCategoryDetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
+class LibraryCategoryDetailView(WorkflowMixin, PortletCommonMixin, PortletListMixin, generic.DetailView):
     model = LibraryCategory
 
     def get_queryset(self):
