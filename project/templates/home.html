@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load cache %}
 {% load solo_tags %}
 {% get_solo 'consulting.SiteConfiguration' as site_config %}
-{% load cache %}
 
 {% block content_outer %}
   {% bootstrap_messages %}
