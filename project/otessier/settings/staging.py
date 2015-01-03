@@ -72,9 +72,6 @@ LOGGING = {
     },
 }
 
-# Temp; to see SQL!
-DEBUG = True
-
 
 ##################################################################################################
 # Caches
@@ -85,6 +82,8 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
         'LOCATION': '127.0.0.1:11211',
+        'TIMEOUT': 600,
+        'KEY_PREFIX': 'otessier-com',
     }
 }
 

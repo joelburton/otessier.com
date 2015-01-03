@@ -31,11 +31,6 @@ DATABASES = {
 ##################################################################################################
 # Logging & Error Reporting
 
-# Email these people when errors happen on production sites
-
-ADMINS = (('Joel', 'joel@joelburton.com'), )
-SERVER_EMAIL = "joel@joelburton.com"
-
 # By default, we write reasonably important things (INFO and above) to the console
 # We email admins on a site error or a security issue and also propagate
 # this up to the Heroku logs. This is obviously overriden in the development settings.
@@ -61,7 +56,7 @@ LOGGING = {
         },
         'django.security': {
             'handlers': ['mail_admins'],
-            'level': 'INFO',
+            'level': 'WARNING',
             'propagate': True,
         },
         '': {
@@ -90,6 +85,8 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
         'LOCATION': '127.0.0.1:11211',
+        'TIMEOUT': 600,
+        'KEY_PREFIX': 'otessier-com',
     }
 }
 

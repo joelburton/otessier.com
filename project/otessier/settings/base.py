@@ -79,3 +79,10 @@ GRAPPELLI_ADMIN_TITLE = "Oliver Tessier and Associates Admin"
 
 SOLO_CACHE = 'default'
 SOLO_CACHE_TIMEOUT = 60 * 5
+
+
+
+# Email these people when errors happen on production sites
+
+ADMINS = (('Joel', 'joel@joelburton.com'), )
+SERVER_EMAIL = "joel@joelburton.com"
