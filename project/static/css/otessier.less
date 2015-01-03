@@ -49,6 +49,9 @@ i.amp-white {
   @media (min-width: 768px) and (max-width: 991px) {
     font-size: 14px;
   }
+  @media (max-width: 359px) {
+    font-size: 16px;
+  }
 }
 
 .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-nav > .open ul > a {
@@ -180,6 +183,12 @@ i.amp-white {
 #what-our-clients-say {
   margin-top: 5em;
   border-top: solid 1px fadeout(@alt1-color, 90%);
+
+  @media (max-width: 359px) {
+    h2 {
+      font-size: 190%;
+    }
+  }
 }
 
 #quote-carousel {
@@ -248,6 +257,11 @@ i.amp-white {
     margin-left: auto;
     margin-right: auto;
     margin-top: 2em;
+
+    @media (max-width: 767px) {
+      width: 13em;
+      letter-spacing: 0.25em;
+    }
 
     a {
       color: @alt1-color;
@@ -354,8 +368,10 @@ i.amp-white {
 }
 
 .content-well {
-  font-size: 20px;
-  line-height: 1.8 !important;
+  @media (min-width: 768px) {
+    font-size: 20px;
+    line-height: 1.8 !important;
+  }
 
   a {
     color: @brand-color;

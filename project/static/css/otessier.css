@@ -28,6 +28,11 @@ i.amp-white {
     font-size: 14px;
   }
 }
+@media (max-width: 359px) {
+  .navbar-inverse .navbar-brand {
+    font-size: 16px;
+  }
+}
 .navbar-inverse .navbar-nav > li > a,
 .navbar-inverse .navbar-nav > .open ul > a {
   color: #ffffff;
@@ -135,6 +140,11 @@ i.amp-white {
   margin-top: 5em;
   border-top: solid 1px rgba(112, 59, 16, 0.1);
 }
+@media (max-width: 359px) {
+  #what-our-clients-say h2 {
+    font-size: 190%;
+  }
+}
 #quote-carousel {
   padding: 0 10px 30px 10px;
 }
@@ -188,6 +198,12 @@ i.amp-white {
   margin-left: auto;
   margin-right: auto;
   margin-top: 2em;
+}
+@media (max-width: 767px) {
+  #practiceareas h2 {
+    width: 13em;
+    letter-spacing: 0.25em;
+  }
 }
 #practiceareas h2 a {
   color: #703b10;
@@ -273,9 +289,11 @@ i.amp-white {
 .breadcrumb a:hover {
   color: #800080;
 }
-.content-well {
-  font-size: 20px;
-  line-height: 1.8 !important;
+@media (min-width: 768px) {
+  .content-well {
+    font-size: 20px;
+    line-height: 1.8 !important;
+  }
 }
 .content-well a {
   color: #457010;
