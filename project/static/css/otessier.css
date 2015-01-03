@@ -1,5 +1,5 @@
 body {
-  font-family: "opensans", "Open Sans", serif;
+  font-family: "Open Sans", sans-serif;
 }
 a:hover {
   text-decoration: none;
@@ -7,7 +7,6 @@ a:hover {
 i.amp,
 i.amp-white,
 i.amp-black {
-  /*font-weight: 700;*/
   color: transparent;
   background-image: url(/static/images/amp.svg);
   background-repeat: no-repeat;

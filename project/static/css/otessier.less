@@ -1,15 +1,12 @@
 @brand-color: hsl(87, 75%, 25%);
-//@brand-color: hsl(47, 75%, 25%);
 @alt1-color: spin(@brand-color, 300);
 @alt2-color: spin(@brand-color, 180);
 @opp-color: yellow;
-//@alt: #aa7539;
 
 @navbar-background-color: @brand-color;
 @navbar-link-color: white;
 @navbar-dropdown-active-background-color: darken(@navbar-background-color, 5%);
 
-//@footer1-background-color: #472e74;
 @footer1-background-color: darken(@alt2-color, 0%);
 @footer1-text-color: desaturate(lighten(@footer1-background-color, 60%), 25%);
 @footer1-link-color: desaturate(lighten(@footer1-background-color, 70%), 20%);
@@ -21,8 +18,7 @@
 @footer2-link-hover-color: @footer1-link-hover-color;
 
 body {
-  //  font-family: "myriad-pro", "Myriad-Pro", serif;
-  font-family: "opensans", "Open Sans", serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 a:hover {
@@ -32,9 +28,6 @@ a:hover {
 i.amp,
 i.amp-white,
 i.amp-black {
-  //  font-family: "sorts-mill-goudy", serif;
-  /*font-weight: 700;*/
-  //  font-size: 90%;
   color: transparent;
   background-image: url(/static/images/amp.svg);
   background-repeat: no-repeat;

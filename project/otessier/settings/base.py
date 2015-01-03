@@ -86,3 +86,6 @@ SOLO_CACHE_TIMEOUT = 60 * 5
 
 ADMINS = (('Joel', 'joel@joelburton.com'), )
 SERVER_EMAIL = "joel@joelburton.com"
+
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
