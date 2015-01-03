@@ -1,9 +1,3 @@
-- audit SQL
-
 - consider indexes?
 
-- cache homepage for a while
-
-- emit varnish caches / turn on varnish caching
-
-- learn about Prefetch objects -- can we use them to stop filtering in the templates?
+- turn on varnish caching
