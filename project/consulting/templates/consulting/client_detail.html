@@ -35,7 +35,8 @@
     {% for work in client.clientwork_set.all %}
         {% if work.status == 'published' or request.preview_mode %}
             <h3>{{ work.title }}</h3>
-            <div>{{ work.description|safe }}</div>
+            <div class="lead">{{ work.description|safe }}</div>
+            <div>{{ work.body|safe }}</div>
 
             {% with refs=work.references.all %}
                 {% if refs %}

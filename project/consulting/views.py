@@ -40,7 +40,8 @@ class PortletListMixin(object):
         # prefetch_related(None) makes sure we don't ask for any prefetches--since these wouldn't
         # be needed for the portlet
 
-        context[self.model._meta.model_name + '_list'] = self.get_queryset().prefetch_related(None)
+        context[self.model._meta.model_name + '_list'] = (
+            self.get_queryset().prefetch_related(None).only('title', 'slug'))
         return context
 
 
