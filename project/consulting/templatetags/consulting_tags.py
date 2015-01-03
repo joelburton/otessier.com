@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.assignment_tag
 def consultants():
-    return Consultant.published.only('name', 'slug')
+    return Consultant.published.only('title', 'slug')
 
 
 @register.assignment_tag

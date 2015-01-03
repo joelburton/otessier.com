@@ -153,7 +153,7 @@ class ClientSearchAdapter(SearchAdapter):
     def get_content(self, obj):
         results = super(SearchAdapter, self).get_content(obj)
         for ref in obj.clientreference_set.all():
-            results += " " + (" ".join([ref.name, ref.job_title, ref.phone, ref.email]))
+            results += " " + (" ".join([ref.title, ref.job_title, ref.phone, ref.email]))
         for work in obj.clientwork_set.all():
             results += " " + (" ".join([work.title, work.description, work.body]))
         return results
@@ -171,8 +171,9 @@ class ClientReference(TimeStampedModel, models.Model):
         Client,
     )
 
-    name = models.CharField(
+    title = models.CharField(
         max_length=40,
+        verbose_name='name',
     )
 
     job_title = models.CharField(
@@ -192,11 +193,11 @@ class ClientReference(TimeStampedModel, models.Model):
     position = models.PositiveSmallIntegerField()
 
     class Meta:
-        unique_together = [['client', 'name']]
+        unique_together = [['client', 'title']]
         ordering = ['position']
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class ClientWork(StatusModel, TimeStampedModel, models.Model):
@@ -241,9 +242,10 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
         unique=True,
     )
 
-    name = models.CharField(
+    title = models.CharField(
         max_length=40,
-        unique=True,
+        # unique=True,
+        verbose_name='name',
     )
 
     photo = models.ImageField(
@@ -261,17 +263,13 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
     )
 
     class Meta:
-        ordering = ['position', 'name']
+        ordering = ['position', 'title']
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def get_absolute_url(self):
         return reverse('consultant.detail', kwargs={'slug': self.slug})
-
-    @property
-    def title(self):
-        return self.name
 
 
 ###################################################################################################

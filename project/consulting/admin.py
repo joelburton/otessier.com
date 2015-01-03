@@ -73,7 +73,7 @@ admin.site.register(PracticeArea, PracticeAreaAdmin)
 class ClientReferenceInline(GrappelliSortableHiddenMixin, admin.TabularInline):
     model = ClientReference
     extra = 0
-    fields = ['name', 'job_title', 'phone', 'email', 'position']
+    fields = ['title', 'job_title', 'phone', 'email', 'position']
     sortable_field_name = 'position'
 
     def get_queryset(self, request):
@@ -139,24 +139,24 @@ admin.site.register(Client, ClientAdmin)
 class ConsultantAdmin(ModelAdmin):
     fieldsets = [
         ('', {
-            'fields': ['name', 'slug', 'photo', 'description', 'body', 'status', 'position']}),
+            'fields': ['title', 'slug', 'photo', 'description', 'body', 'status', 'position']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
             'classes': ['grp-collapse', 'grp-closed']})
     ]
 
-    prepopulated_fields = {"slug": ("name",)}
+    prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ['id', 'created', 'modified', 'status_changed']
 
     list_display = ['slug', 'title', 'modified', 'position', 'active']
     list_display_links = ['slug', 'title']
     list_editable = ['position']
 
-    search_fields = ['slug', 'name', 'description', 'body']
+    search_fields = ['slug', 'title', 'description', 'body']
 
     list_filter = ['status']
 
-    ordering = ['position', 'name']
+    ordering = ['position', 'title']
 
 
 admin.site.register(Consultant, ConsultantAdmin)
@@ -277,7 +277,6 @@ class LibraryFileAdmin(ModelAdmin):
 
 
 admin.site.register(LibraryFile, LibraryFileAdmin)
-
 
 
 from solo.admin import SingletonModelAdmin
