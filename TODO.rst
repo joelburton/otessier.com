@@ -1,7 +1,5 @@
 - consider indexes?
 
-- turn on varnish caching
-
 - make static/media dynamic
 
 - make consultant photo use imagekit cache
@@ -11,3 +9,5 @@
 - comments
 
 - tests
+
+- accessibility check
