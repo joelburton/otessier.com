@@ -31,7 +31,7 @@ class TimingMiddleware(object):
         # anything
 
         then = getattr(request, self.REQUEST_ANNOTATION_KEY, None)
-        if then:
+        if then and hasattr(response, 'content'):
             now = time.time()
             msg = self.REPLACE_TEMPLATE.format(int((now - then) * 1000))
             response.content = response.content.replace(self.REPLACE, msg)
