@@ -426,12 +426,13 @@ i.amp-white {
 .barlist {
   padding: 0;
   display: inline;
-  margin-left: 0em;
+  margin-left: 0;
 }
 .barlist li {
   display: inline;
   padding: 0 0.5em 0 0.5em;
   border-right: solid 1px #888;
+  white-space: nowrap;
 }
 .barlist li:last-of-type {
   border-right: none;
