@@ -21,12 +21,14 @@
     {{ pa.description|safe }}
 
     {% if pa.client_set.all %}
+      <small>
       Clients:
-      <ul>
+      <ul class="barlist">
         {% for client in pa.client_set.all %}
           <li><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></li>
         {% endfor %}
       </ul>
+      </small>
     {% endif %}
   {% endfor %}
 
