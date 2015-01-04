@@ -1,26 +1,29 @@
 {% extends 'base.html' %}
 
+
 {% block page_title %}Library{% endblock %}
 
 {% block breadcrumbs %}
   <li class="active">Library</li>
 {% endblock %}
 
+
 {% block content %}
 
   <div class="page-header">
     <h1>Library</h1>
 
-    <p class="lead">All the items in this library were created by Oliver Tessier & Associates.
+    <p class="lead">
+      All the items in this library were created by Oliver Tessier & Associates.
       While we urge you to use them freely, we must ask that you respect of the rights of
       publishers. Please be certain to credit the publication if you duplicate information that is
-      identified as published.</p>
-
+      identified as published.
+    </p>
   </div>
 
   {% for cat in librarycategory_list.all %}
-      <h2><a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a></h2>
-      {{ cat.description | safe }}
+    <h2><a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a></h2>
+    {{ cat.description | safe }}
   {% endfor %}
 
 {% endblock %}

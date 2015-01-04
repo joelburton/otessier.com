@@ -1,37 +1,38 @@
 {% extends 'base.html' %}
 
+
 {% block page_title %}Clients{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="active">Clients</li>
+  <li class="active">Clients</li>
 {% endblock %}
+
 
 {% block content %}
 
+  <div class="page-header">
+    <h1>Clients</h1>
+    <p class="lead">A selection of our clients.</p>
+  </div>
 
-    <div class="page-header">
-        <h1>Clients</h1>
-        <p class="lead">A selection of our clients.</p>
-    </div>
+  {% for client in client_list %}
+    <h2 style="clear: both"><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></h2>
+    {% if client.image %}
+      <img class='image-right' src="{{ client.image_thumbnail.url }}" alt="{{ client.title }}">
+    {% endif %}
+    <div>{{ client.description|safe }}</div>
 
-    {% for client in client_list %}
-        <h2 style="clear: both"><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></h2>
-        {% if client.image %}
-          <img class='image-right' src="{{ client.image_thumbnail.url }}" alt="{{ client.title }}">
-        {% endif %}
-        <div>{{ client.description|safe }}</div>
+    {% if client.practiceareas.all %}
+      Practice Areas:
+      <ul>
+        {% for area in client.practiceareas.all %}
+          {% if area.status == 'published' or request.preview_mode %}
+            <li><a href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
 
-        {% if client.practiceareas.all %}
-            Practice Areas:
-            <ul>
-                {% for area in client.practiceareas.all %}
-                    {% if area.status == 'published' or request.preview_mode %}
-                        <li><a href="{{ area.get_absolute_url }}">{{ area.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-    {% endfor %}
+  {% endfor %}
 
 {% endblock %}

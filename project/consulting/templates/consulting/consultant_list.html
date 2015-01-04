@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
 
+
 {% block page_title %}Who We Are{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="active">Who We Are</li>
+  <li class="active">Who We Are</li>
 {% endblock %}
+
 
 {% block content %}
 
-    <div class="page-header">
-        <h1>Who We Are</h1>
-    </div>
+  <div class="page-header">
+    <h1>Who We Are</h1>
+  </div>
 
-    {% for consultant in consultant_list.all %}
-        <h2><a href="{{ consultant.get_absolute_url }}">{{ consultant.title }}</a></h2>
-        {% if consultant.photo %}
-          <img class="image-right" src="{{ consultant.photo_thumbnail.url }}"
-               alt="{{ consultant.title }}">
-        {% endif %}
-        <div>{{ consultant.description|safe }}</div>
-    {% endfor %}
+  {% for consultant in consultant_list.all %}
+    <h2><a href="{{ consultant.get_absolute_url }}">{{ consultant.title }}</a></h2>
+    {% if consultant.photo %}
+      <img class="image-right" src="{{ consultant.photo_thumbnail.url }}"
+           alt="{{ consultant.title }}">
+    {% endif %}
+    <div>{{ consultant.description|safe }}</div>
+  {% endfor %}
 
 {% endblock %}

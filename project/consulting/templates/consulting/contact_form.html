@@ -3,34 +3,37 @@
 {% load solo_tags %}
 {% get_solo 'conuslting.SiteConfiguration' as site_config %}
 
+
 {% block page_title %}Contact Us{% endblock %}
+
 {% block breadcrumbs %}
-    <li class="active">Contact Us</li>
+  <li class="active">Contact Us</li>
 {% endblock %}
 
 
 {% block content %}
 
-    <div class="page-header">
-        <h1>Contact Us</h1>
+  <div class="page-header">
+    <h1>Contact Us</h1>
 
-        <p class="lead">We&rsquo;d love to hear from you!
-            You can reach us at
-            <a href="mailto:{{ site_config.email }}">{{ site_config.email }}</a>
-            or by using this form.
-        </p>
-    </div>
+    <p class="lead">We&rsquo;d love to hear from you!
+      You can reach us at
+      <a href="mailto:{{ site_config.email }}">{{ site_config.email }}</a>
+      or by using this form.
+    </p>
+  </div>
 
-    <form action="." method="post" class="form">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {% buttons %}
-            <button type="submit" class="btn btn-primary">
-                {% bootstrap_icon "star" %} Submit
-            </button>
-        {% endbuttons %}
-    </form>
+  <form action="." method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+      <button type="submit" class="btn btn-primary">
+        {% bootstrap_icon "star" %} Submit
+      </button>
+    {% endbuttons %}
+  </form>
 
 {% endblock %}
+
 
 {% block portlets %}{% endblock %}

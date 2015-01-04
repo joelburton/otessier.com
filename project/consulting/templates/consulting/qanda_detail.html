@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
+
 {% block breadcrumbs %}
   <li><a href="{% url 'qanda.list' %}">Questions</a></li>
   <li class="active">{{ qanda.title }}</li>
 {% endblock %}
+
 
 {% block content %}
 
@@ -11,7 +13,6 @@
     <h1>{{ qanda.title }}</h1>
 
     <div class="lead">{{ qanda.question|safe }}</div>
-
   </div>
 
   {{ qanda.answer|safe }}
@@ -19,7 +20,9 @@
   <p>
     <small>{{ qanda.credit }}</small>
   </p>
+
 {% endblock %}
+
 
 {% block portlets %}
   <div class="panel panel-default">

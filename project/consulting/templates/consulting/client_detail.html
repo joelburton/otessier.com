@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
+
 {% block breadcrumbs %}
   <li><a href="{% url 'client.list' %}">Clients</a></li>
   <li class="active">{{ client.title }}</li>
 {% endblock %}
 
-{% block content %}
 
+{% block content %}
 
   <div class="page-header">
     <h1>{{ client.title }}</h1>
@@ -57,8 +58,8 @@
     {% endfor %}
   {% endif %}
 
-
 {% endblock %}
+
 
 {% block portlets %}
   <div class="panel panel-default">

@@ -1,24 +1,27 @@
 {% extends 'base.html' %}
 
+
 {% block breadcrumbs %}
-    <li><a href="{% url 'consultant.list' %}">Who We Are</a></li>
-    <li class="active">{{ consultant.title }}</li>
+  <li><a href="{% url 'consultant.list' %}">Who We Are</a></li>
+  <li class="active">{{ consultant.title }}</li>
 {% endblock %}
+
 
 {% block content %}
 
-    <div class="page-header">
-        <h1>{{ consultant.title }}</h1>
-        <div class="lead">{{ consultant.description | safe }}</div>
-    </div>
+  <div class="page-header">
+    <h1>{{ consultant.title }}</h1>
+    <div class="lead">{{ consultant.description | safe }}</div>
+  </div>
 
-    {% if consultant.photo %}
-      <img class="image-right main" src="{{ consultant.photo_display.url }}"
-          alt="{{ consultant.title }}">
-    {% endif %}
-    {{ consultant.body|safe }}
+  {% if consultant.photo %}
+    <img class="image-right main" src="{{ consultant.photo_display.url }}"
+         alt="{{ consultant.title }}">
+  {% endif %}
+  {{ consultant.body|safe }}
 
 {% endblock %}
+
 
 {% block portlets %}
   <div class="panel panel-default">
@@ -37,5 +40,5 @@
       {% endfor %}
     </ul>
   </div>
-    {{ block.super }}
+  {{ block.super }}
 {% endblock %}
