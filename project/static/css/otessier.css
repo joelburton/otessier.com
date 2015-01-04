@@ -409,3 +409,28 @@ i.amp-white {
 .barlist li:last-of-type {
   border-right: none;
 }
+.search-description p:first-of-type {
+  margin-top: 0;
+}
+.search-description {
+  line-height: 1.5;
+}
+p.search-metadata {
+  margin: 0 0 2em 0;
+  color: #666;
+  font-size: 60%;
+}
+p.search-metadata b {
+  background-color: lightyellow;
+  border: solid 1px yellow;
+}
+.search-model-name {
+  color: #888;
+  font-size: 65%;
+  margin-left: 0.4em;
+}
+p.search-title {
+  line-height: 1.4;
+  margin-bottom: 0;
+  margin-top: 1em;
+}

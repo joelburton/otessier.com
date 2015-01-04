@@ -22,6 +22,9 @@ class SearchAdapter(watson.SearchAdapter):
     def get_description(self, obj):
         return obj.description
 
+    def get_model_name(self, obj):
+        return obj._meta.verbose_name.title()
+
 
 ###################################################################################################
 

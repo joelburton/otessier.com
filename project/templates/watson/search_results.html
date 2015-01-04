@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
 {% load watson %}
 
-{% block page_title %}Search results{% if query %} for &ldquo;{{ query }}&rdquo;
-{% endif %}{% endblock %}
+{% block page_title %}Search{% if query %}: &ldquo;{{ query }}&rdquo; {% endif %}{% endblock %}
+
 {% block breadcrumbs %}
   <li class="active">Search</li>
 {% endblock %}
 
+
 {% block content %}
   <h1>Search results{% if query %} for &ldquo;{{ query }}&rdquo;{% endif %}</h1>
-
 
   <form class="searchresults-searchform" action="{% url 'watson:search' %}">
     <div class="input-group">
       <label for="results-searchbox" class="sr-only">Search</label>
-      <input id="results-searchbox" type="text" class="form-control input-lg" placeholder="Search" name="q"
+      <input id="results-searchbox" type="text" class="form-control input-lg" placeholder="Search"
+             name="q"
              value="{{ request.GET.q }}">
 
       <div class="input-group-btn">
@@ -27,17 +28,32 @@
     </div>
   </form>
 
+  {% with results=search_results.all %}
+    {% if results %}
 
-  {% if search_results %}
-    {% search_results search_results %}
-  {% else %}
-    {% if query %}
-      <p><em>There are no results to display.</em></p>
-      <p><em>Try entering a less specific search term.</em></p>
+      <ul class="search-results">
+        {% for result in results %}
+          <li>
+            <p class="search-title"><a href="{{ result.url }}">{{ result.title }}</a>&nbsp;<span class="search-model-name">({{ result.meta.get_model_name }})</span></p>
+            <div class="search-description">{{ result.description|safe }}</div>
+            {#         <p class="search-metadata">{{ result.watson_headline|safe }} | Rank: {{ result.watson_rank }}</p>#}
+          </li>
+        {% endfor %}
+      </ul>
+
     {% else %}
-      <p><em>Please enter a query in the search form.</em></p>
+
+      {% if query %}
+        <p><em>There are no results to display.</em></p>
+        <p><em>Try entering a less specific search term.</em></p>
+      {% else %}
+        <p><em>Please enter a query in the search form.</em></p>
+      {% endif %}
+
     {% endif %}
-  {% endif %}
+  {% endwith %}
+
 {% endblock %}
+
 
 {% block portlets %}{% endblock %}
