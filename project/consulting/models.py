@@ -44,13 +44,13 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
 
     short_description = models.CharField(
         max_length=100,
-        # unique=True,
+        unique=True,
         help_text='Appears on home page carousel.',
     )
 
     icon_name = models.CharField(
         max_length=15,
-        # unique=True,
+        unique=True,
         help_text='Font Awesome icon name (without the leading "fa-").',
     )
 
@@ -254,7 +254,7 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
 
     title = models.CharField(
         max_length=40,
-        # unique=True,
+        unique=True,
         verbose_name='name',
     )
 
@@ -380,7 +380,7 @@ class LibraryCategory(TimeStampedModel, StatusModel, models.Model):
     STATUS = WORKFLOW_STATUS
 
     slug = models.SlugField(
-        # unique=True,
+        unique=True,
         help_text='Determines the URL. Do not change this after an item is published.',
     )
 
