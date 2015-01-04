@@ -344,6 +344,12 @@ i.amp-white {
   .content-well .page-header {
     margin: 0;
   }
+  .content-well h2 {
+    font-size: 180%;
+  }
+  .content-well h3 {
+    font-size: 160%;
+  }
 }
 .lead {
   font-weight: bold;
