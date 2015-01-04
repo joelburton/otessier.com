@@ -11,8 +11,8 @@
 
   <div class="page-header">
     <h1>{{ client.organization }}</h1>
+    <div class="lead">{{ client.description|safe }}</div>
   </div>
-  <div class="lead">{{ client.description|safe }}</div>
   {% if client.image %}
     <img class='image-right main' src="{{ client.image_display.url }}" alt="{{ client.title }}">
   {% endif %}
