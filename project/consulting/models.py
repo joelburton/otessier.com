@@ -157,7 +157,7 @@ class Client(TimeStampedModel, StatusModel, models.Model):
 
 
 class ClientSearchAdapter(SearchAdapter):
-    """Search adapater for clients."""
+    """Search adapter for clients."""
 
     def get_content(self, obj):
         """Content to search."""
