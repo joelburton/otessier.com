@@ -19,7 +19,7 @@
   {% for pa in practicearea_list %}
     <h2>
       <a href="{{ pa.get_absolute_url }}">
-        <i class="fa fa-{{ pa.icon_name }}"></i> {{ pa.title }}
+        <i class="fa fa-{{ pa.icon_name }}"></i>&nbsp;{{ pa.title }}
       </a>
     </h2>
     {{ pa.description|safe }}
