@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block page_title %}Page Not found{% endblock %}
+
+{% block breadcrumbs %}
+  <li class="active">404 Not Found</li>
+{% endblock %}
+
+
+{% block content %}
+  <h1 style="margin-top:2em">Sorry, Page Not Found</h1>
+  <p class="lead">This is not the page you were looking for.</p>
+
+  <p class="text-helpful">Perhaps our <a href="/search/">search</a> would help?</a>
+    Or, if we have a broken link, you can <a href="mailto:joel@joelburton.com">let us know</a>.
+  </p>
+{% endblock content %}
+
+{% endblock %}
