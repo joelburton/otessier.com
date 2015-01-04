@@ -2,6 +2,7 @@ from django.forms import Form, CharField, EmailField, Textarea
 
 
 class ContactUsForm(Form):
+    """Contact Us form."""
 
     subject = CharField(
         max_length=50,

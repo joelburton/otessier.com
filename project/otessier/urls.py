@@ -15,7 +15,6 @@ urlpatterns = patterns(
     url(r'^$', HomepageView.as_view(), name='homepage'),
     url(r'^', include(consulting.urls)),
 
-    # url(r'^search/$', watson.views.SearchView.as_view(template_name='watson/search_results.html')),
     url(r"^search/", include("watson.urls", namespace="watson")),
 
     url(r'^grappelli/', include('grappelli.urls')),

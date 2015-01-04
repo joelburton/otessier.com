@@ -14,6 +14,8 @@ WORKFLOW_STATUS = Choices('private', 'published')
 
 
 class SearchAdapter(watson.SearchAdapter):
+    """Standard search adapter for our site."""
+
     def get_url(self, obj):
         return obj.get_absolute_url()
 
@@ -32,6 +34,7 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
     slug = models.SlugField(
         max_length=25,
         unique=True,
+        help_text='Determines the URL. Do not change this after an item is published.',
     )
 
     title = models.CharField(
@@ -48,7 +51,7 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
     icon_name = models.CharField(
         max_length=15,
         # unique=True,
-        help_text='Font Awesome icon name.',
+        help_text='Font Awesome icon name (without the leading "fa-").',
     )
 
     description = models.TextField(
@@ -80,21 +83,24 @@ class Client(TimeStampedModel, StatusModel, models.Model):
     slug = models.SlugField(
         max_length=40,
         unique=True,
+        help_text='Determines the URL. Do not change this after an item is published.',
     )
 
     title = models.CharField(
         max_length=40,
         unique=True,
+        help_text='Short name of client, used throughout site.',
     )
 
     organization = models.CharField(
         max_length=70,
         unique=True,
-        help_text='Long name for organization',
+        help_text='Long name for organization. Only used on client detail page.',
     )
 
     image = models.ImageField(
         upload_to='clients',
+        help_text='Logo for client, which is resized automatically . Make as square as possible.',
     )
 
     image_display = ImageSpecField(
@@ -110,6 +116,7 @@ class Client(TimeStampedModel, StatusModel, models.Model):
     )
 
     description = models.TextField(
+        help_text='Short description of client and work. Show on listing and detail page.',
     )
 
     body = models.TextField()
@@ -124,6 +131,7 @@ class Client(TimeStampedModel, StatusModel, models.Model):
         max_length=100,
         blank=True,
         verbose_name='URL',
+        help_text="URL for this client (don't forget the http://)."
     )
 
     position = models.PositiveSmallIntegerField(
@@ -141,7 +149,12 @@ class Client(TimeStampedModel, StatusModel, models.Model):
 
 
 class ClientSearchAdapter(SearchAdapter):
+    """Search adapater for clients."""
+
     def get_content(self, obj):
+        """Content to search."""
+
+        # Adds in info from reference and client work.
         results = super(SearchAdapter, self).get_content(obj)
         for ref in obj.clientreference_set.all():
             results += " " + (" ".join([ref.title, ref.job_title, ref.phone, ref.email]))
@@ -204,13 +217,18 @@ class ClientWork(StatusModel, TimeStampedModel, models.Model):
         max_length=50,
     )
 
-    description = models.TextField()
+    description = models.TextField(
+        help_text='Short description of work. Shows up in bold on client detail page.',
+    )
 
-    body = models.TextField()
+    body = models.TextField(
+        help_text='Long description of work. Shows up on client detail page.',
+    )
 
     references = models.ManyToManyField(
         ClientReference,
         blank=True,
+        help_text='References for this client work.',
     )
 
     position = models.PositiveSmallIntegerField()
@@ -231,6 +249,7 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
     slug = models.SlugField(
         max_length=20,
         unique=True,
+        help_text='Determines the URL. Do not change this after an item is published.',
     )
 
     title = models.CharField(
@@ -243,6 +262,7 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
         upload_to="consultants",
         null=True,
         blank=True,
+        help_text='Resized automatically. Make as square as possible.',
     )
 
     photo_display = ImageSpecField(
@@ -257,7 +277,9 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
         format='JPEG',
     )
 
-    description = models.TextField()
+    description = models.TextField(
+        help_text='Short description of consultant. Shows on listing page and detail page.',
+    )
 
     body = models.TextField()
 
@@ -279,27 +301,35 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
 
 
 class QAndA(TimeStampedModel, StatusModel, models.Model):
+    """Nonprofit Question / Answer"""
+
     STATUS = WORKFLOW_STATUS
 
     slug = models.SlugField(
         unique=True,
+        help_text='Determines the URL. Do not change this after an item is published.',
     )
 
     title = models.CharField(
         max_length=75,
         unique=True,
+        help_text='Shows up in portlets, search results, and on the listing page.',
     )
 
     description = models.TextField(
+        help_text='Short description of the question. Shows up on the listing page.',
     )
 
-    question = models.TextField()
+    question = models.TextField(
+        help_text='Full question. Shows on the detail page.',
+    )
 
     answer = models.TextField()
 
     credit = models.CharField(
         max_length=100,
         blank=True,
+        help_text='Appears at bottom of answer. Used for providing publishing credit.',
     )
 
     position = models.PositiveSmallIntegerField(
@@ -331,6 +361,7 @@ class Quote(TimeStampedModel, StatusModel, models.Model):
 
     author = models.CharField(
         max_length=75,
+        help_text='Entire text for author, like "T.S. Eliot, Curmudgeon, Bank of England".',
     )
 
     class Meta:
@@ -350,6 +381,7 @@ class LibraryCategory(TimeStampedModel, StatusModel, models.Model):
 
     slug = models.SlugField(
         # unique=True,
+        help_text='Determines the URL. Do not change this after an item is published.',
     )
 
     title = models.CharField(
@@ -358,6 +390,7 @@ class LibraryCategory(TimeStampedModel, StatusModel, models.Model):
     )
 
     description = models.TextField(
+        help_text='Description of category. Shows up on listing page and detail page.',
     )
 
     position = models.PositiveSmallIntegerField(
@@ -387,14 +420,16 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
     slug = models.SlugField(
         max_length=100,
         unique=True,
+        help_text='Determines the URL. Do not change this after an item is published.',
     )
 
     title = models.CharField(
         max_length=100,
-        unique=True
+        unique=True,
     )
 
     description = models.TextField(
+        help_text='Description of file/link. Shows up on category detail page.',
     )
 
     asset = models.FileField(
@@ -402,11 +437,13 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
         blank=True,
         null=True,
         max_length=255,
+        help_text='File asset.',
     )
 
     url = models.URLField(
         blank=True,
         max_length=255,
+        help_text="Link URL (don't forget the http://)",
     )
 
     position = models.PositiveSmallIntegerField(
@@ -437,6 +474,7 @@ class SiteConfiguration(SingletonModel):
     email = models.EmailField(
         max_length=255,
         default='oliver@otessier.com',
+        help_text='Email address shown on the site.',
     )
 
     about_footer = models.TextField(
@@ -459,4 +497,6 @@ class SiteConfiguration(SingletonModel):
         verbose_name = "Site Configuration"
 
     def phone_digits(self):
+        """Reduces phone to just numbers; used for creating tel:// links."""
+
         return "".join([c for c in self.phone if c in "0123456789"])

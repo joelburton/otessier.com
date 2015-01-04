@@ -50,6 +50,12 @@ class PortletCommonMixin(object):
     """Mixin to show random quotes/Q&A; used on many views."""
 
     def _get_random(self, name, qs):
+        """Return a random item from the query and cache for future use.
+
+        name: name to cache this by
+        qs: queryset to search
+        """
+
         objs = cache.get(name)
         if not objs:
             objs = qs.order_by()  # don't waste time sorting
@@ -71,6 +77,8 @@ class PracticeAreaListView(WorkflowMixin, PortletCommonMixin, generic.ListView):
     model = PracticeArea
 
     def get_queryset(self):
+        """Return practiceareas and related clients."""
+
         qs = super(PracticeAreaListView, self).get_queryset()
         related_qs = Client.objects if self.request.preview_mode else Client.published
         return qs.prefetch_related(Prefetch('client_set', queryset=related_qs.all()))
@@ -80,6 +88,8 @@ class PracticeAreaDetailView(WorkflowMixin, PortletListMixin, PortletCommonMixin
     model = PracticeArea
 
     def get_queryset(self):
+        """Return practicearea and related clients."""
+
         qs = super(PracticeAreaDetailView, self).get_queryset()
         related_qs = Client.objects if self.request.preview_mode else Client.published
         return qs.prefetch_related(Prefetch('client_set', queryset=related_qs.all()))
@@ -92,6 +102,8 @@ class ClientListView(WorkflowMixin, PortletCommonMixin, generic.ListView):
     model = Client
 
     def get_queryset(self):
+        """Return clients and related practice areas."""
+
         qs = super(ClientListView, self).get_queryset()
         related_qs = PracticeArea.objects if self.request.preview_mode else PracticeArea.published
         return qs.prefetch_related(Prefetch('practiceareas', queryset=related_qs.all()))
@@ -101,6 +113,8 @@ class ClientDetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
     model = Client
 
     def get_queryset(self):
+        """Return client and related practice area and client work."""
+
         qs = super(ClientDetailView, self).get_queryset()
         related_pas = PracticeArea.objects if self.request.preview_mode else PracticeArea.published
         related_works = ClientWork.objects if self.request.preview_mode else ClientWork.published
@@ -142,6 +156,8 @@ class LibraryCategoryDetailView(WorkflowMixin, PortletCommonMixin, PortletListMi
     model = LibraryCategory
 
     def get_queryset(self):
+        """Return library category and related files."""
+
         qs = super(LibraryCategoryDetailView, self).get_queryset()
         related_qs = LibraryFile.objects if self.request.preview_mode else LibraryFile.published
         return qs.prefetch_related(Prefetch('libraryfile_set', queryset=related_qs.all()))
@@ -158,6 +174,8 @@ class ContactUsFormView(generic.FormView):
     success_url = "/"
 
     def form_valid(self, form):
+        """If form is valid, send the email."""
+
         from_email = form.cleaned_data['from_email']
         body = form.cleaned_data['body']
         subject = form.cleaned_data['subject']
