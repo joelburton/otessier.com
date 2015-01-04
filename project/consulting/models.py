@@ -408,6 +408,15 @@ class LibraryCategory(TimeStampedModel, StatusModel, models.Model):
         return reverse('librarycategory.detail', kwargs={'slug': self.slug})
 
 
+def file_upload_to(instance, filename):
+    prefix = "library/"
+    if "." in filename:
+        junk, extension = filename.rsplit(".")
+        return prefix + instance.slug + "." + extension
+    else:
+        return prefix + instance.slug
+
+
 class LibraryFile(TimeStampedModel, StatusModel, models.Model):
     """File in the library."""
 
@@ -433,7 +442,7 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
     )
 
     asset = models.FileField(
-        upload_to='library',
+        upload_to=file_upload_to,
         blank=True,
         null=True,
         max_length=255,
