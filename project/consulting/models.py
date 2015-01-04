@@ -1,4 +1,5 @@
 import re
+from django.core.exceptions import ValidationError
 
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -134,7 +135,6 @@ class Client(TimeStampedModel, StatusModel, models.Model):
     practiceareas = models.ManyToManyField(
         PracticeArea,
         verbose_name='practice areas',
-        null=True,
         blank=True,
     )
 
@@ -277,7 +277,6 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
 
     photo = models.ImageField(
         upload_to="consultants",
-        null=True,
         blank=True,
         help_text='Resized automatically. Make as square as possible.',
     )
@@ -458,12 +457,12 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
 
     description = models.TextField(
         help_text='Description of file/link. Shows up on category detail page.',
+        default='<p>hello</p>',
     )
 
     asset = models.FileField(
         upload_to=file_upload_to,
         blank=True,
-        null=True,
         max_length=255,
         help_text='File asset.',
     )
@@ -488,6 +487,14 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
         """Return the correct URL for this item."""
 
         return self.asset.url if self.asset else self.url
+
+    def clean(self):
+        """Ensure that either a file or URL is provided."""
+
+        super(LibraryFile, self).clean()
+
+        if not self.asset and not self.url:
+            raise ValidationError("Must have either a file or a URL.")
 
 
 ###################################################################################################
