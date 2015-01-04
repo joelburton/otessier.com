@@ -231,6 +231,7 @@ class ClientWork(StatusModel, TimeStampedModel, models.Model):
 
     body = models.TextField(
         help_text='Long description of work. Shows up on client detail page.',
+        blank=True,
     )
 
     references = models.ManyToManyField(
