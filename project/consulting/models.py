@@ -1,6 +1,8 @@
+import re
+
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils.html import strip_tags
+from django.template.defaultfilters import striptags
 
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
@@ -8,6 +10,7 @@ from model_utils import Choices
 from model_utils.models import StatusModel
 from model_utils.models import TimeStampedModel
 import watson
+from solo.models import SingletonModel
 
 
 WORKFLOW_STATUS = Choices('private', 'published')
@@ -157,18 +160,20 @@ class Client(TimeStampedModel, StatusModel, models.Model):
 
 
 class ClientSearchAdapter(SearchAdapter):
-    """Search adapter for clients."""
+    """Search adapter for clients.
+
+    Adds in info from references and client work.
+    """
 
     def get_content(self, obj):
         """Content to search."""
 
-        # Adds in info from reference and client work.
-        results = super(SearchAdapter, self).get_content(obj)
-        for ref in obj.clientreference_set.all():
-            results += " " + (" ".join([ref.title, ref.job_title, ref.phone, ref.email]))
-        for work in obj.clientwork_set.all():
-            results += " " + (" ".join([work.title, work.description, work.body]))
-        return results
+        def _mash(lst, attrs):  # _mashfrom c(cats, ['name', 'color']) => 'auden grey ezra orange'
+            return " !1".join(" !2".join(getattr(obj, a) for a in attrs) for obj in lst)
+
+        return " ".join([super(SearchAdapter, self).get_content(obj),
+                         _mash(obj.clientreference_set.all(), ['job_title', 'phone', 'email']),
+                         _mash(obj.clientwork_set.all(),      ['title', 'description', 'body'])])
 
 
 class ClientReference(TimeStampedModel, models.Model):
@@ -245,6 +250,9 @@ class ClientWork(StatusModel, TimeStampedModel, models.Model):
     class Meta:
         unique_together = [['client', 'title']]
         ordering = ['position']
+
+    def __str__(self):
+        return self.title
 
 
 ###################################################################################################
@@ -377,7 +385,7 @@ class Quote(TimeStampedModel, StatusModel, models.Model):
         pass
 
     def __str__(self):
-        return strip_tags(self.quote)
+        return self.quote
 
 
 ###################################################################################################
@@ -418,12 +426,13 @@ class LibraryCategory(TimeStampedModel, StatusModel, models.Model):
 
 
 def file_upload_to(instance, filename):
-    prefix = "library/"
-    if "." in filename:
-        junk, extension = filename.rsplit(".")
-        return prefix + instance.slug + "." + extension
-    else:
-        return prefix + instance.slug
+    """Store file upload in library/ with name from slug and original extension.
+
+    i.e., Joe Biden's 'my resume.txt' -> joe-biden.txt
+    """
+
+    extension = re.search(r'\.[a-zA-Z0-9]{1,6}$|', filename).group(0)
+    return "library/" + instance.slug + extension
 
 
 class LibraryFile(TimeStampedModel, StatusModel, models.Model):
@@ -478,18 +487,18 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
     def get_absolute_url(self):
         """Return the correct URL for this item."""
 
-        if self.asset:
-            return self.asset.url
-        return self.url
+        return self.asset.url if self.asset else self.url
 
 
 ###################################################################################################
 
 
-from solo.models import SingletonModel
-
-
 class SiteConfiguration(SingletonModel):
+    """Site configuration singleton.
+
+    A good place to store Oliver-editable sitewide stuff.
+    """
+
     email = models.EmailField(
         max_length=255,
         default='oliver@otessier.com',
@@ -509,13 +518,13 @@ class SiteConfiguration(SingletonModel):
         help_text='Appears in footer.',
     )
 
-    def __str__(self):
-        return u"Site Configuration"
-
     class Meta:
         verbose_name = "Site Configuration"
+
+    def __str__(self):
+        return u"Site Configuration"
 
     def phone_digits(self):
         """Reduces phone to just numbers; used for creating tel:// links."""
 
-        return "".join([c for c in self.phone if c in "0123456789"])
+        return re.sub(r'\D', '', self.phone)
