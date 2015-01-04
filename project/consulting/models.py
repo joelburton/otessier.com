@@ -424,6 +424,7 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
 
     librarycategory = models.ForeignKey(
         LibraryCategory,
+        verbose_name='library category',
     )
 
     slug = models.SlugField(
