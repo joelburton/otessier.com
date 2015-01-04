@@ -17,17 +17,21 @@
   </div>
 
   {% for pa in practicearea_list %}
-    <h2><a href="{{ pa.get_absolute_url }}">{{ pa.title }}</a></h2>
+    <h2>
+      <a href="{{ pa.get_absolute_url }}">
+        <i class="fa fa-{{ pa.icon_name }}"></i> {{ pa.title }}
+      </a>
+    </h2>
     {{ pa.description|safe }}
 
     {% if pa.client_set.all %}
       <small>
-      Clients:
-      <ul class="barlist">
-        {% for client in pa.client_set.all %}
-          <li><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></li>
-        {% endfor %}
-      </ul>
+        Clients:
+        <ul class="barlist">
+          {% for client in pa.client_set.all %}
+            <li><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></li>
+          {% endfor %}
+        </ul>
       </small>
     {% endif %}
   {% endfor %}

@@ -10,7 +10,11 @@
 {% block content %}
 
   <div class="page-header">
-    <h1>{{ practicearea.title }}</h1>
+    <h1>{{ practicearea.title }}
+      <i class="pull-right fa fa-{{ practicearea.icon_name }}"></i>
+    </h1>
+
+    <div class="lead">{{ practicearea.description | safe }}</div>
   </div>
   {{ practicearea.body|safe }}
 
@@ -35,9 +39,9 @@
       {% for p in practicearea_list %}
         <li class="list-group-item">
           {% if p == practicearea %}
-            <b>{{ p }}</b>
+            <b><i class="fa fa-{{ p.icon_name }}"></i> {{ p }}</b>
           {% else %}
-            <a href="{{ p.get_absolute_url }}">{{ p }}</a>
+            <a href="{{ p.get_absolute_url }}"> <i class="fa fa-{{ p.icon_name }}"></i> {{ p }}</a>
           {% endif %}
         </li>
       {% endfor %}
