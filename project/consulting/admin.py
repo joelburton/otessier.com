@@ -123,6 +123,17 @@ class ClientAdmin(ModelAdmin):
 
     ordering = ['position', '-created']
 
+    # XXX: don't know if I want, but it's a nice bit of code
+    #
+    # def get_inline_instances(self, request, obj=None):
+    #     """Don't show ClientWork inline on object creation."""
+    #
+    #     inlines = super(ClientAdmin, self).get_inline_instances(request, obj)
+    #     if not obj:
+    #         return [inline for inline in inlines if not isinstance(inline, ClientWorkInline)]
+    #     else:
+    #         return inlines
+
     def get_form(self, request, obj=None, **kwargs):
         # Hook into this to put the client object on the request, so we can use it in
         # ClientWorkInline's get_field_queryset

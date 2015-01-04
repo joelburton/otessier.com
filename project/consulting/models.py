@@ -103,6 +103,7 @@ class Client(TimeStampedModel, StatusModel, models.Model):
 
     image = models.ImageField(
         upload_to='clients',
+        blank=True,
         help_text='Logo for client, which is resized automatically . Make as square as possible.',
     )
 
@@ -122,12 +123,16 @@ class Client(TimeStampedModel, StatusModel, models.Model):
         help_text='Short description of client and work. Show on listing and detail page.',
     )
 
-    body = models.TextField()
+    body = models.TextField(
+        help_text='Full text. Appears on client detail page.',
+        blank=True,
+    )
 
     practiceareas = models.ManyToManyField(
         PracticeArea,
         verbose_name='practice areas',
         null=True,
+        blank=True,
     )
 
     url = models.URLField(
