@@ -38,7 +38,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">Oliver Tessier <i class="amp-white">&amp;</i>
+        <a class="navbar-brand" href="/" accesskey="1">Oliver Tessier <i class="amp-white">&amp;</i>
           Associates</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
@@ -85,7 +85,8 @@
               action="{% url 'watson:search' %}">
           <div class="input-group">
             <label for="searchbox" class="sr-only">Search</label>
-            <input id="searchbox" type="text" class="form-control input-sm" placeholder="Search" name="q"
+            <input id="searchbox" type="text" class="form-control input-sm" placeholder="Search"
+                   name="q" accesskey="4"
                    value="{{ request.GET.q }}">
 
             <div class="input-group-btn">
@@ -198,7 +199,10 @@
                 <i class="fa fa-fw fa-envelope-o"></i> {{ site_config.email }}
               </a>
             </li>
-            <li><a href="{% url 'contact-us' %}"><i class="fa fa-fw fa-flag"></i> Contact Form</a>
+            <li><a href="{% url 'contact-us' %}" accesskey="9">
+              <i class="fa fa-fw fa-flag"></i>
+              Contact Form
+            </a>
             </li>
           </ul>
         </div>
