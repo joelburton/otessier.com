@@ -540,3 +540,6 @@ class SiteConfiguration(SingletonModel):
         """Reduces phone to just numbers; used for creating tel:// links."""
 
         return re.sub(r'\D', '', self.phone)
+
+    def get_absolute_url(self):
+        return "/"

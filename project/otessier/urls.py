@@ -17,6 +17,6 @@ urlpatterns = patterns(
 
     url(r"^search/", include("watson.urls", namespace="watson")),
 
-    url(r'^grappelli/', include('grappelli.urls')),
+    (r'^tinymce/', include('tinymce.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

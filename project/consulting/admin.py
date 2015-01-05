@@ -1,5 +1,9 @@
 from django.contrib import admin
 from django_admin_bootstrapped.admin.models import SortableInline
+from django.db import models
+from tinymce.widgets import TinyMCE
+from consulting.forms import PracticeAreaForm, ClientWorkForm, ClientForm, ConsultantForm, QAndAForm, \
+    LibraryCategoryForm, LibraryFileForm, SiteConfigurationForm
 
 from .models import (
     PracticeArea,
@@ -25,16 +29,19 @@ class ModelAdmin(admin.ModelAdmin):
     active.boolean = True
     active.short_description = "Active?"
 
+    # formfield_overrides = {
+    #     models.TextField: {'widget': TinyMCE}
+    # }
+
     class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-              '/static/js/tinymce_setup.js']
+        js = ['http://tinymce.cachefly.net/4.1/tinymce.min.js']
 
 
 ###################################################################################################
 
 
 class PracticeAreaAdmin(ModelAdmin):
-
+    form = PracticeAreaForm
     fieldsets = [
         ('', {
             'fields': ['title', 'slug', 'short_description', 'icon_name',
@@ -75,9 +82,11 @@ class ClientReferenceInline(admin.TabularInline, SortableInline):
 
 class ClientWorkInline(admin.StackedInline, SortableInline):
     model = ClientWork
+    form = ClientWorkForm
     extra = 0
     fields = ['title', 'description', 'body', 'references', 'status', 'position']
     sortable_field_name = 'position'
+
 
     def get_field_queryset(self, db, db_field, request):
         """Get queryset for the references field that relies on references for this client."""
@@ -92,6 +101,7 @@ class ClientWorkInline(admin.StackedInline, SortableInline):
 
 
 class ClientAdmin(ModelAdmin):
+    form = ClientForm
     inlines = [ClientReferenceInline, ClientWorkInline]
 
     fieldsets = [
@@ -139,6 +149,7 @@ admin.site.register(Client, ClientAdmin)
 
 
 class ConsultantAdmin(ModelAdmin):
+    form = ConsultantForm
     fieldsets = [
         ('', {
             'fields': ['title', 'slug', 'photo', 'description', 'body', 'status', 'position']}),
@@ -166,7 +177,7 @@ admin.site.register(Consultant, ConsultantAdmin)
 
 
 class QAndAAdmin(ModelAdmin):
-
+    form = QAndAForm
     fieldsets = [
         ('', {
             'fields': ['title', 'slug', 'description', 'question', 'answer', 'credit',
@@ -222,7 +233,7 @@ admin.site.register(Quote, QuoteAdmin)
 
 
 class LibraryCategoryAdmin(ModelAdmin):
-
+    form = LibraryCategoryForm
     fieldsets = [
         ('', {
             'fields': ['title', 'slug', 'description', 'status', 'position']}),
@@ -248,6 +259,7 @@ admin.site.register(LibraryCategory, LibraryCategoryAdmin)
 
 
 class LibraryFileAdmin(ModelAdmin):
+    form = LibraryFileForm
 
     fieldsets = [
         ('', {
@@ -281,9 +293,9 @@ from .models import SiteConfiguration
 
 
 class SiteConfigurationAdmin(SingletonModelAdmin):
+    form = SiteConfigurationForm
     class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-              '/static/js/tinymce_setup.js']
+        js = ['http://tinymce.cachefly.net/4.1/tinymce.min.js']
 
 
 admin.site.register(SiteConfiguration, SiteConfigurationAdmin)
