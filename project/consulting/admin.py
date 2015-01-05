@@ -1,6 +1,5 @@
 from django.contrib import admin
-
-from grappelli.forms import GrappelliSortableHiddenMixin
+from django_admin_bootstrapped.admin.models import SortableInline
 
 from .models import (
     PracticeArea,
@@ -15,6 +14,9 @@ from .models import (
 )
 
 
+admin.site.site_header = "Oliver Tessier & Associates"
+
+
 class ModelAdmin(admin.ModelAdmin):
     """Common features of our admin models."""
 
@@ -26,9 +28,6 @@ class ModelAdmin(admin.ModelAdmin):
     class Media:
         js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
               '/static/js/tinymce_setup.js']
-
-    change_list_template = "admin/change_list_filter_sidebar.html"
-    change_list_filter_template = "admin/filter_listing.html"
 
 
 ###################################################################################################
@@ -42,7 +41,7 @@ class PracticeAreaAdmin(ModelAdmin):
                        'description', 'body', 'status', 'position']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
-            'classes': ['grp-collapse', 'grp-closed']})
+            'classes': ['collapse']})
     ]
 
     prepopulated_fields = {"slug": ("title",)}
@@ -70,17 +69,13 @@ admin.site.register(PracticeArea, PracticeAreaAdmin)
 ###################################################################################################
 
 
-class ClientReferenceInline(GrappelliSortableHiddenMixin, admin.TabularInline):
+class ClientReferenceInline(admin.TabularInline, SortableInline):
     model = ClientReference
     extra = 0
     fields = ['title', 'job_title', 'phone', 'email', 'position']
-    sortable_field_name = 'position'
-
-    def get_queryset(self, request):
-        return ClientReference.objects
 
 
-class ClientWorkInline(GrappelliSortableHiddenMixin, admin.StackedInline):
+class ClientWorkInline(admin.StackedInline, SortableInline):
     model = ClientWork
     extra = 0
     fields = ['title', 'description', 'body', 'references', 'status', 'position']
@@ -107,7 +102,7 @@ class ClientAdmin(ModelAdmin):
                        'practiceareas', 'url', 'status', 'position']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
-            'classes': ['grp-collapse', 'grp-closed']})
+            'classes': ['collapse']})
     ]
 
     prepopulated_fields = {"slug": ("title",)}
@@ -121,7 +116,7 @@ class ClientAdmin(ModelAdmin):
 
     list_filter = ['status', 'practiceareas']
 
-    ordering = ['position', '-created']
+    ordering = ['position', 'title']
 
     # XXX: don't know if I want, but it's a nice bit of code
     #
@@ -153,7 +148,7 @@ class ConsultantAdmin(ModelAdmin):
             'fields': ['title', 'slug', 'photo', 'description', 'body', 'status', 'position']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
-            'classes': ['grp-collapse', 'grp-closed']})
+            'classes': ['collapse']})
     ]
 
     prepopulated_fields = {"slug": ("title",)}
@@ -184,7 +179,7 @@ class QAndAAdmin(ModelAdmin):
                        'status', 'position']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
-            'classes': ['grp-collapse', 'grp-closed']})
+            'classes': ['collapse']})
     ]
 
     prepopulated_fields = {"slug": ("title",)}
@@ -213,7 +208,7 @@ class QuoteAdmin(ModelAdmin):
             'fields': ['quote', 'author', 'status']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
-            'classes': ['grp-collapse', 'grp-closed']})
+            'classes': ['collapse']})
     ]
 
     readonly_fields = ['id', 'created', 'modified', 'status_changed']
@@ -241,7 +236,7 @@ class LibraryCategoryAdmin(ModelAdmin):
             'fields': ['title', 'slug', 'description', 'status', 'position']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
-            'classes': ['grp-collapse', 'grp-closed']})
+            'classes': ['collapse']})
     ]
 
     prepopulated_fields = {"slug": ("title",)}
@@ -270,7 +265,7 @@ class LibraryFileAdmin(ModelAdmin):
                        'status', 'position']}),
         ('Advanced', {
             'fields': ['id', 'created', 'modified', 'status_changed'],
-            'classes': ['grp-collapse', 'grp-closed']})
+            'classes': ['collapse']})
     ]
 
     prepopulated_fields = {"slug": ("title",)}
@@ -280,7 +275,7 @@ class LibraryFileAdmin(ModelAdmin):
     list_display_links = ['slug', 'title']
     list_editable = ['position']
 
-    search_fields = ['slug', 'title', 'title']
+    search_fields = ['slug', 'title', 'description']
 
     list_filter = ['status']
 
@@ -296,4 +291,11 @@ admin.site.register(LibraryFile, LibraryFileAdmin)
 from solo.admin import SingletonModelAdmin
 from .models import SiteConfiguration
 
-admin.site.register(SiteConfiguration, SingletonModelAdmin)
+
+class SiteConfigurationAdmin(SingletonModelAdmin):
+    class Media:
+        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+              '/static/js/tinymce_setup.js']
+
+
+admin.site.register(SiteConfiguration, SiteConfigurationAdmin)

@@ -24,7 +24,7 @@ STATICFILES_DIRS = [os.path.join(PROJECT_DIR, "static")]
 TEMPLATE_DIRS = (os.path.join(PROJECT_DIR, "templates"),)
 
 INSTALLED_APPS = (
-    'grappelli',
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +38,8 @@ INSTALLED_APPS = (
     'watson',
     'imagekit',
     'solo',
+    'grappelli',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -70,8 +72,6 @@ DEFAULT_FROM_EMAIL = 'joel@joelburton.com'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
-GRAPPELLI_ADMIN_TITLE = "Oliver Tessier and Associates Admin"
-
 
 # Cache the django-solo SiteConfiguration object for 5 mins
 #
@@ -89,3 +89,6 @@ SERVER_EMAIL = "joel@joelburton.com"
 
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+
+DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'

@@ -11,7 +11,7 @@
 {% block content %}
 
   <div class="page-header">
-    <h1>{{ client.organization }}</h1>
+    <h1>{% firstof client.organization client.title %}</h1>
     <div class="lead">{{ client.description|safe }}</div>
   </div>
   {% if client.image %}

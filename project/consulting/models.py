@@ -102,7 +102,8 @@ class Client(TimeStampedModel, StatusModel, models.Model):
     organization = models.CharField(
         max_length=70,
         unique=True,
-        help_text='Long name for organization. Only used on client detail page.',
+        blank=True,
+        help_text='Organization full name. Used on detail page. If blank, title is used.',
     )
 
     image = models.ImageField(
@@ -207,7 +208,9 @@ class ClientReference(TimeStampedModel, models.Model):
         blank=True
     )
 
-    position = models.PositiveSmallIntegerField()
+    position = models.PositiveSmallIntegerField(
+        default=0
+    )
 
     class Meta:
         unique_together = [['client', 'title']]
@@ -245,7 +248,9 @@ class ClientWork(StatusModel, TimeStampedModel, models.Model):
         help_text='References for this client work.',
     )
 
-    position = models.PositiveSmallIntegerField()
+    position = models.PositiveSmallIntegerField(
+        default=0,
+    )
 
     class Meta:
         unique_together = [['client', 'title']]
