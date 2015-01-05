@@ -151,7 +151,7 @@ class Client(TimeStampedModel, StatusModel, models.Model):
     )
 
     class Meta:
-        pass
+        ordering = ['position', 'title']
 
     def __str__(self):
         return self.title
@@ -214,7 +214,7 @@ class ClientReference(TimeStampedModel, models.Model):
 
     class Meta:
         unique_together = [['client', 'title']]
-        ordering = ['position']
+        ordering = ['position', 'created']
 
     def __str__(self):
         return self.title
@@ -254,7 +254,7 @@ class ClientWork(StatusModel, TimeStampedModel, models.Model):
 
     class Meta:
         unique_together = [['client', 'title']]
-        ordering = ['position']
+        ordering = ['position', 'created']
 
     def __str__(self):
         return self.title
@@ -359,7 +359,7 @@ class QAndA(TimeStampedModel, StatusModel, models.Model):
 
     class Meta:
         verbose_name = 'Question and Answer'
-        ordering = ['position', '-created']
+        ordering = ['position', '-id']
 
     def __str__(self):
         return self.title
@@ -483,7 +483,7 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
     )
 
     class Meta:
-        ordering = ['title']
+        ordering = ['position', 'title']
 
     def __str__(self):
         return self.title

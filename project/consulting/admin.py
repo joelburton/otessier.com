@@ -56,8 +56,6 @@ class PracticeAreaAdmin(ModelAdmin):
 
     list_filter = ['status']
 
-    ordering = ['position', 'title']
-
     def num_clients(self, obj):
         return obj.client_set.count()
     num_clients.short_description = "# Clients"
@@ -116,8 +114,6 @@ class ClientAdmin(ModelAdmin):
 
     list_filter = ['status', 'practiceareas']
 
-    ordering = ['position', 'title']
-
     # XXX: don't know if I want, but it's a nice bit of code
     #
     # def get_inline_instances(self, request, obj=None):
@@ -162,8 +158,6 @@ class ConsultantAdmin(ModelAdmin):
 
     list_filter = ['status']
 
-    ordering = ['position', 'title']
-
 
 admin.site.register(Consultant, ConsultantAdmin)
 
@@ -192,8 +186,6 @@ class QAndAAdmin(ModelAdmin):
     search_fields = ['slug', 'title', 'question', 'answer']
 
     list_filter = ['status']
-
-    ordering = ['position', '-created']
 
 
 admin.site.register(QAndA, QAndAAdmin)
@@ -248,8 +240,6 @@ class LibraryCategoryAdmin(ModelAdmin):
 
     search_fields = ['title', 'slug', 'description']
 
-    ordering = ['position', 'title']
-
 
 admin.site.register(LibraryCategory, LibraryCategoryAdmin)
 
@@ -278,8 +268,6 @@ class LibraryFileAdmin(ModelAdmin):
     search_fields = ['slug', 'title', 'description']
 
     list_filter = ['status']
-
-    ordering = ['position', '-created']
 
 
 admin.site.register(LibraryFile, LibraryFileAdmin)
