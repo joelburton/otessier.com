@@ -55,11 +55,15 @@ DNS_NAME._fqdn = "localhost"
 
 LOGGING = {
     'version': 1,
-
+    'filters': {
+        'readable_sql': {
+            '()': 'project_runpy.ReadableSqlFilter',
+        },
+    },
     'handlers': {
         'console': {
             'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
+            'class': 'project_runpy.ColorizingStreamHandler',
         },
     },
     'loggers': {
@@ -67,6 +71,12 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'filters': ['readable_sql'],
+        }
+
     },
 }
 
