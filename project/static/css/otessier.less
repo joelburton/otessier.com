@@ -1,5 +1,8 @@
 @brand-color: hsl(87, 75%, 25%);
+@brand-color: #805715;
+
 @alt1-color: spin(@brand-color, 300);
+@alt1-color: @brand-color;
 @alt2-color: spin(@brand-color, 180);
 @opp-color: yellow;
 
@@ -7,7 +10,7 @@
 @navbar-link-color: white;
 @navbar-dropdown-active-background-color: darken(@navbar-background-color, 5%);
 
-@footer1-background-color: darken(@alt2-color, 0%);
+@footer1-background-color: darken(@alt2-color, 10%);
 @footer1-text-color: desaturate(lighten(@footer1-background-color, 60%), 25%);
 @footer1-link-color: desaturate(lighten(@footer1-background-color, 70%), 20%);
 @footer1-header-color: desaturate(lighten(@footer1-background-color, 80%), 25%);
