@@ -39,6 +39,7 @@ DATABASES = {
 #
 # We don't want to send real email, so just print to the console
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Joel's MacBook can timeout when at a cafe with incorrectly-set DNS settings, as it doesn't know
@@ -64,6 +65,7 @@ LOGGING = {
         'console': {
             'level': 'DEBUG',
             'class': 'project_runpy.ColorizingStreamHandler',
+
         },
     },
     'loggers': {
@@ -75,6 +77,7 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'DEBUG',
             'filters': ['readable_sql'],
+            'propagate': False,
         }
 
     },
