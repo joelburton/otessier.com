@@ -4,4 +4,8 @@ cd /home/django/otessier.com/
 . venv/bin/activate
 python project/manage.py dbbackup
 python project/manage.py mediabackup
-s3cmd put /home/django/otessier.com/backups/* s3://otessier-com-backup/`date +"%Y-%m-%d-%H%M%S"`/
+
+# Store things in s3 with reduced redundancy (cheaper); we delete things from this bucket
+# every 30 days
+
+s3cmd put --rr /home/django/otessier.com/backups/* s3://otessier-com-backup/`date +"%Y-%m-%d-%H%M%S"`/
