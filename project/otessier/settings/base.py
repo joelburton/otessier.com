@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'imagekit',
     'solo',
     'tinymce',
-
+    'dbbackup',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -105,3 +105,7 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 TINYMCE_SPELLCHECKER = False
 TINYMCE_COMPRESSOR = False
+
+
+DBBACKUP_DATE_FORMAT = ''
+DBBACKUP_BACKUP_DIRECTORY = GIT_DIR + '/backups/'
