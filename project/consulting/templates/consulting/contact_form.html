@@ -2,7 +2,7 @@
 {% load bootstrap3 %}
 {% load solo_tags %}
 {% get_solo 'conuslting.SiteConfiguration' as site_config %}
-
+{% load static %}
 
 {% block page_title %}Contact Us{% endblock %}
 
@@ -16,11 +16,7 @@
   <div class="page-header">
     <h1>Contact Us</h1>
 
-    <p class="lead">We&rsquo;d love to hear from you!
-      You can reach us at
-      <a href="mailto:{{ site_config.email }}">{{ site_config.email }}</a>
-      or by using this form.
-    </p>
+    <p class="lead">We&rsquo;d love to hear from you.</p>
   </div>
 
   <form action="." method="post" class="form">
@@ -36,4 +32,25 @@
 {% endblock %}
 
 
-{% block portlets %}{% endblock %}
+{% block portlets %}
+  <img class="img-responsive" src="{% static 'images/mill.jpg' %}">
+  <p><i>Our headquarters at Doub&rsquo;s Mill</i></p>
+  <address>
+    <p>
+      <b>Oliver Tessier <i class="amp-black">&amp;</i> Associates</b><br>
+      20512 Beaver Creek Road,<br>
+      Hagerstown, Maryland 21740
+    </p>
+    </address>
+      <p>
+        <a href="tel:{{ site_config.phone_digits }}">
+          <i class="fa fa-fw fa-phone"></i>
+          {{ site_config.phone }}</a>
+      </p>
+
+      <p><a href="mailto:{{ site_config.email }}">
+        <i class="fa fa-fw fa-envelope-o"></i> {{ site_config.email }}
+      </a>
+      </p>
+
+{% endblock %}
