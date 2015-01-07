@@ -6,15 +6,22 @@ a:hover {
 }
 i.amp,
 i.amp-white,
-i.amp-black {
+i.amp-black,
+sub {
   color: transparent;
   background-image: url(/static/images/amp.svg);
   background-repeat: no-repeat;
   background-size: auto;
   background-position: 20%;
 }
-i.amp-black {
+i.amp-black,
+sub {
   background-image: url(/static/images/amp.svg);
+}
+sub {
+  font-size: 100%;
+  line-height: inherit;
+  position: static;
 }
 i.amp-white {
   background-image: url(/static/images/amp-white.svg);

@@ -29,7 +29,8 @@ a:hover {
 
 i.amp,
 i.amp-white,
-i.amp-black {
+i.amp-black,
+sub {
   color: transparent;
   background-image: url(/static/images/amp.svg);
   background-repeat: no-repeat;
@@ -37,8 +38,16 @@ i.amp-black {
   background-position: 20%;
 }
 
-i.amp-black {
+i.amp-black,
+sub {
   background-image: url(/static/images/amp.svg);
+}
+
+// We use subscript as a way to stylze our ampersands
+sub {
+  font-size: 100%;
+  line-height: inherit;
+  position: static;
 }
 
 i.amp-white {
