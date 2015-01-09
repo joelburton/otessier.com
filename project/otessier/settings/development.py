@@ -11,6 +11,8 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 INSTALLED_APPS += (
+    'memcache_toolbar',
+
     'debug_toolbar',
     'django_extensions',
 )
@@ -89,3 +91,10 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
+
+
+import memcache_toolbar.panels.pylibmc
+
+DEBUG_TOOLBAR_PANELS = [
+    'memcache_toolbar.panels.pylibmc.PylibmcPanel',
+]

@@ -45,7 +45,7 @@ i.amp-white {
   color: #ffffff;
 }
 .navbar-inverse {
-  background-color: #805715;
+  background-color: #595448;
 }
 .navbar-nav > li > a {
   font-size: 14px;
@@ -58,7 +58,7 @@ i.amp-white {
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #6a4811;
+  background-color: #4b473d;
 }
 /* Footer */
 #footer {
@@ -70,15 +70,15 @@ i.amp-white {
   list-style: none;
 }
 .footer1 {
-  background-color: #0e2954;
+  background-color: #182928;
   padding: 0.25em 0 2em 0;
   font-size: 12px;
-  color: #b1c4e3;
+  color: #b8bbbb;
 }
 .footer1 h3 {
   font-size: 150%;
   font-weight: bold;
-  color: #fcfdfe;
+  color: #eceded;
   margin: 1.5em 0 0.75em 0;
 }
 .footer1 p {
@@ -92,22 +92,22 @@ i.amp-white {
 }
 .footer1 .follow-me-icons a {
   font-size: 200%;
-  color: #071428 !important;
+  color: #050909 !important;
 }
 .footer1 .follow-me-icons a:hover .fa-inverse {
   color: #ffff00;
 }
 .footer1 a {
-  color: #d5e0f2;
+  color: #d0d6d6;
 }
 .footer1 a:hover {
   color: #ffff00;
   border-bottom: none;
 }
 .footer2 {
-  background: #071428;
+  background: #050909;
   padding: 1em 0 1em 0;
-  color: #959799;
+  color: #878787;
 }
 .footer2 .simplenav {
   padding: 0;
@@ -137,7 +137,7 @@ i.amp-white {
   font-size: 90%;
 }
 .footer2 a {
-  color: #afc4e5;
+  color: #b4bfbe;
 }
 .footer2 a:hover {
   color: #ffff00;
@@ -145,7 +145,7 @@ i.amp-white {
 }
 #what-our-clients-say {
   margin-top: 5em;
-  border-top: solid 1px rgba(128, 87, 21, 0.1);
+  border-top: solid 1px rgba(89, 84, 72, 0.1);
 }
 @media (max-width: 359px) {
   #what-our-clients-say h2 {
@@ -195,10 +195,10 @@ i.amp-white {
 }
 #practiceareas h3 {
   font-size: 140%;
-  color: #805715;
+  color: #595448;
   text-transform: uppercase;
   letter-spacing: 0.75em;
-  border: solid 1px #805715;
+  border: solid 1px #595448;
   border-radius: 1em;
   text-align: center;
   width: 20em;
@@ -213,7 +213,7 @@ i.amp-white {
   }
 }
 #practiceareas h3 a {
-  color: #805715;
+  color: #595448;
 }
 #practiceareas .practicearea {
   font-size: 115%;
@@ -223,10 +223,10 @@ i.amp-white {
   color: #666;
 }
 #practiceareas .practicearea a {
-  color: #805715;
+  color: #595448;
 }
 #practiceareas .practicearea a:hover {
-  color: #de9e36;
+  color: #9c9585;
 }
 #practiceareas .practicearea h4 {
   font-weight: 400;
@@ -245,18 +245,18 @@ i.amp-white {
 #who-we-are h2 {
   font-size: 200%;
   font-weight: bold;
-  color: #805715;
+  color: #595448;
 }
 #who-we-are p {
   font-size: 140%;
 }
 #head {
   background: #bcb9b4 url(/static/images/bg_header.jpg) no-repeat;
-  border-bottom: solid 1px #805715;
+  border-bottom: solid 1px #595448;
   background-size: cover;
   height: 500px;
   text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.5), 1px -1px 1px rgba(255, 255, 255, 0.5), -1px 1px 1px rgba(255, 255, 255, 0.5), 1px 1px 1px rgba(255, 255, 255, 0.5);
-  color: #805715;
+  color: #595448;
   font-weight: bold;
 }
 #head h2 {
@@ -289,7 +289,7 @@ i.amp-white {
   }
 }
 .breadcrumb {
-  background-color: #ece6db;
+  background-color: #eaeaea;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -304,16 +304,16 @@ i.amp-white {
   display: inline;
 }
 .breadcrumb a {
-  color: #805715;
+  color: #595448;
 }
 .breadcrumb a:hover {
   color: #800080;
 }
 .breadcrumb > .active {
-  color: #1d1912;
+  color: #1d1d1d;
 }
 .breadcrumb > li + li::before {
-  color: #5b4e3a;
+  color: #515151;
 }
 @media (min-width: 768px) {
   .content-well {
@@ -322,10 +322,10 @@ i.amp-white {
   }
 }
 .content-well a {
-  color: #805715;
+  color: #595448;
 }
 .content-well a:hover {
-  border-bottom: solid 1px #805715;
+  border-bottom: solid 1px #595448;
 }
 .content-well h1,
 .content-well h2,
@@ -333,7 +333,7 @@ i.amp-white {
 .content-well h4,
 .content-well h5,
 .content-well h6 {
-  color: #805715;
+  color: #595448;
 }
 .content-well h2 {
   margin-top: 1.5em;
@@ -365,23 +365,23 @@ i.amp-white {
 }
 .portlets .panel {
   border-top-left-radius: 2em;
-  border-color: #805715;
+  border-color: #595448;
 }
 .portlets .panel-heading {
   border-top-left-radius: 2em;
-  background-color: #805715;
+  background-color: #595448;
   color: white;
   text-transform: lowercase;
   text-align: right;
 }
 .portlets .list-group-item {
-  border-top-color: #805715;
+  border-top-color: #595448;
 }
 .portlets a {
-  color: #805715;
+  color: #595448;
 }
 .portlets a:hover {
-  border-bottom: solid 1px #805715;
+  border-bottom: solid 1px #595448;
 }
 .portlets {
   margin-top: 5em;
@@ -400,7 +400,7 @@ i.amp-white {
 }
 .searchbox input,
 .searchbox button {
-  background-color: #54390e;
+  background-color: #3d3931;
   color: white;
   border: none;
 }
@@ -414,8 +414,8 @@ i.amp-white {
   -webkit-transform-style: preserve-3d;
 }
 .btn.btn-primary {
-  background-color: #805715;
-  border-color: #120d03;
+  background-color: #595448;
+  border-color: #13110f;
 }
 .image-right {
   float: right;

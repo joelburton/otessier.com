@@ -1,3 +1,4 @@
 -r base.txt
 django-debug-toolbar==1.2.2
 django-extensions==1.4.9
+memcache-toolbar==0.5.6
