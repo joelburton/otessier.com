@@ -23,6 +23,7 @@ DATABASES = {
         'HOST': 'localhost',
         'USER': 'otessier',
         'PASSWORD': os.environ['PG_PASSWORD'],
+        'PORT': os.environ['PG_PORT'],
         'CONN_MAX_AGE': None,
     }
 }
