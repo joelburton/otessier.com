@@ -6,8 +6,6 @@
 @alt1-color: @brand-color;
 @alt2-color: spin(@brand-color, 180);
 @alt2-color: #1b3b38;
-//@alt2-color: #2a4a47;
-//@alt2-color: #344632;
 
 @opp-color: yellow;
 
@@ -15,14 +13,12 @@
 @navbar-link-color: white;
 @navbar-dropdown-active-background-color: darken(@navbar-background-color, 5%);
 
-//@footer1-background-color: darken(@alt2-color, 10%);
 @footer1-background-color: @alt2-color;
 @footer1-text-color: desaturate(lighten(@footer1-background-color, 60%), 25%);
 @footer1-link-color: desaturate(lighten(@footer1-background-color, 70%), 20%);
 @footer1-header-color: desaturate(lighten(@footer1-background-color, 80%), 25%);
 @footer1-link-hover-color: @opp-color;
 @footer2-background-color: darken(@footer1-background-color, 10%);
-//@footer2-background-color: #1b3b38;
 
 @footer2-text-color: desaturate(lighten(@footer2-background-color, 50%), 70%);
 @footer2-link-color: desaturate(lighten(@footer1-background-color, 60%), 20%);
@@ -297,10 +293,10 @@ i.amp-white {
     color: #666;
 
     a {
-      color: @alt1-color;
+      color: lighten(@alt2-color, 10%);
 
       &:hover {
-        color: lighten(@alt1-color, 25%);
+        color: lighten(@alt2-color, 25%);
       }
     }
 
