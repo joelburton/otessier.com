@@ -101,7 +101,6 @@ class Client(TimeStampedModel, StatusModel, models.Model):
 
     organization = models.CharField(
         max_length=70,
-        unique=True,
         blank=True,
         help_text='Organization full name. Used on detail page. If blank, title is used.',
     )
