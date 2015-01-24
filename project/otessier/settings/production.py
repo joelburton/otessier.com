@@ -7,8 +7,13 @@ from .base import *
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-ALLOWED_HOSTS = ['new.otessier.com', 'otessier.com', 'www.otessier.com',
-                 'olivertessier.com', 'www.olivertessier.com', 'admin.otessier.com',
+ALLOWED_HOSTS = ['otessier.com',
+                 'www.otessier.com',
+                 'admin.otessier.com',
+
+                 'olivertessier.com',
+                 'www.olivertessier.com',
+                 'admin.olivertessier.com',
 ]
 
 ##################################################################################################
