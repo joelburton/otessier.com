@@ -109,3 +109,9 @@ TINYMCE_COMPRESSOR = False
 
 DBBACKUP_DATE_FORMAT = ''
 DBBACKUP_BACKUP_DIRECTORY = GIT_DIR + '/backups/'
+
+
+# 'required' html5 attribute does not play well with FF/Chome and TinyMCE
+BOOTSTRAP3 = {
+    'set_required': False
+}
