@@ -199,7 +199,8 @@ class ClientReference(TimeStampedModel, models.Model):
 
     phone = models.CharField(
         max_length=20,
-        blank=True
+        blank=True,
+        help_text='Not shown to site viewers.',
     )
 
     email = models.EmailField(

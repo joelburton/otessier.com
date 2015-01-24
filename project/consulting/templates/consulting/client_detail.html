@@ -48,8 +48,7 @@
               {% for ref in refs %}
                 <li>
                   {{ ref.title }}{% if ref.job_title %},{% endif %}
-                  {{ ref.job_title }}{% if ref.phone %},{% endif %}
-                  {{ ref.phone }}{% if ref.email %},{% endif %}
+                  {{ ref.job_title }}{% if ref.email %},{% endif %}
                   <a href="mailto:{{ ref.email }}">{{ ref.email }}</a>
                 </li>
               {% endfor %}
