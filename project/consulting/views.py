@@ -7,7 +7,7 @@ from django.views import generic
 from django.conf import settings
 from django.core.cache import cache
 
-from consulting.forms import ContactUsForm
+from .forms import ContactUsForm
 
 from .models import PracticeArea, Client, QAndA, Consultant, LibraryCategory, Quote, LibraryFile, \
     ClientWork

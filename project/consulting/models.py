@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.template.defaultfilters import striptags
 
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
