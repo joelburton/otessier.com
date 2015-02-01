@@ -7,8 +7,7 @@ from .views import ContactUsFormView
 from .views import PracticeAreaListView, PracticeAreaDetailView
 from .views import QAndAListView, QAndADetailView
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
 
     url(r'^clients/$',
         ClientListView.as_view(),
@@ -49,4 +48,4 @@ urlpatterns = patterns(
         ContactUsFormView.as_view(),
         name='contact-us'),
 
-)
+]
