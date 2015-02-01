@@ -77,7 +77,7 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('practicearea.detail', kwargs={'slug': self.slug})
+        return reverse('practicearea:detail', kwargs={'slug': self.slug})
 
 
 ###################################################################################################
@@ -155,7 +155,7 @@ class Client(TimeStampedModel, StatusModel, models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('client.detail', kwargs={'slug': self.slug})
+        return reverse('client:detail', kwargs={'slug': self.slug})
 
 
 class ClientSearchAdapter(SearchAdapter):
@@ -314,7 +314,7 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('consultant.detail', kwargs={'slug': self.slug})
+        return reverse('consultant:detail', kwargs={'slug': self.slug})
 
 
 ###################################################################################################
@@ -364,7 +364,7 @@ class QAndA(TimeStampedModel, StatusModel, models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('qanda.detail', kwargs={'slug': self.slug})
+        return reverse('qanda:detail', kwargs={'slug': self.slug})
 
 
 ###################################################################################################
@@ -425,7 +425,7 @@ class LibraryCategory(TimeStampedModel, StatusModel, models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('librarycategory.detail', kwargs={'slug': self.slug})
+        return reverse('librarycategory:detail', kwargs={'slug': self.slug})
 
 
 def file_upload_to(instance, filename):

@@ -1,7 +1,7 @@
 from django.forms import Form, CharField, EmailField, Textarea, ModelForm
 from tinymce.widgets import TinyMCE
 
-from .models import PracticeArea, ClientWork, Consultant, QAndA, Client, Quote, \
+from .models import PracticeArea, ClientWork, Consultant, QAndA, Client, \
     LibraryCategory, LibraryFile, SiteConfiguration
 
 
