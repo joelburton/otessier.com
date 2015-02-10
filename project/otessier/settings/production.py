@@ -7,18 +7,20 @@ from .base import *
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-ALLOWED_HOSTS = ['otessier.com',
-                 'www.otessier.com',
-                 'admin.otessier.com',
+ALLOWED_HOSTS = [
+    'otessier.com',
+    'www.otessier.com',
+    'admin.otessier.com',
 
-                 'olivertessier.com',
-                 'www.olivertessier.com',
-                 'admin.olivertessier.com',
+    'olivertessier.com',
+    'www.olivertessier.com',
+    'admin.olivertessier.com',
 ]
+
 
 ##################################################################################################
 # Database
-
+#
 # Use production PG database
 
 DATABASES = {
@@ -36,14 +38,13 @@ DATABASES = {
 
 ##################################################################################################
 # Logging & Error Reporting
-
+#
 # By default, we write reasonably important things (INFO and above) to the console
 # We email admins on a site error or a security issue and also propagate
 # this up to the Heroku logs. This is obviously overriden in the development settings.
 
 LOGGING = {
     'version': 1,
-
     'handlers': {
         'console': {
             'level': 'INFO',
@@ -72,6 +73,7 @@ LOGGING = {
     },
 }
 
+
 ##################################################################################################
 # Email
 #
@@ -82,10 +84,19 @@ EMAIL_HOST_USER = "AKIAIDQJEDLNTSM73G7A"
 EMAIL_HOST_PASSWORD = os.environ['AWS_EMAIL_PASSWORD']
 EMAIL_USE_TLS = True
 
+
 ##################################################################################################
 # Caches
 #
-# We use AWS SES for sending email (except on development, where we override this)
+# We use caches in two ways:
+#
+# - in some cases, we directly put information into the cache for programmatic use
+# (like we do with the list of QanAs and Quotes we randomly pick from; see
+#   consulting/views.py). This is the otessier-com key.
+#
+# - for all pages on site, we use the cache middleware to cache the page and
+#   emit cache headers. If you visit the site at the admin domain name, you'll
+#   bypass this (see otessier.cache). This is the otessier-com-site key.
 
 CACHES = {
     'default': {
@@ -96,13 +107,6 @@ CACHES = {
     }
 }
 
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
-)
-
 MIDDLEWARE_CLASSES = (
     ('otessier.cache.PreviewAwareUpdateCacheMiddleware',) +
     MIDDLEWARE_CLASSES +
@@ -112,3 +116,17 @@ MIDDLEWARE_CLASSES = (
 CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_SECONDS = 600
 CACHE_MIDDLEWARE_KEY_PREFIX = 'otessier-com-site'
+
+
+##################################################################################################
+# Template Loaders
+#
+# This is a performance improvement; it does mean we don't see template changes until
+# the process is restarted.
+
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+)

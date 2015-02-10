@@ -5,7 +5,7 @@ For this project, "staging" means "running on dev environment, but with caching 
 like production."
 """
 
-from .base import *
+from .production import *
 
 
 SECRET_KEY = 'i^ari$22!b+&pwhm=o7h-%vr-%us)#k=q0!g9qcaz*a#!h!k*c'
@@ -19,7 +19,7 @@ ALLOWED_HOSTS = ['localhost', 'preview.localhost', '127.0.0.1']
 
 ##################################################################################################
 # Database
-
+#
 # Use development PG database
 
 DATABASES = {
@@ -48,12 +48,11 @@ DNS_NAME._fqdn = "localhost"
 
 ##################################################################################################
 # Logging & Error Reporting
-
+#
 # Be moderately chatty
 
 LOGGING = {
     'version': 1,
-
     'handlers': {
         'console': {
             'level': 'DEBUG',
@@ -71,35 +70,3 @@ LOGGING = {
         }
     },
 }
-
-
-##################################################################################################
-# Caches
-#
-# We use AWS SES for sending email (except on development, where we override this)
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': '127.0.0.1:11211',
-        'TIMEOUT': 600,
-        'KEY_PREFIX': 'otessier-com',
-    }
-}
-
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
-)
-
-MIDDLEWARE_CLASSES = (
-    ('otessier.cache.PreviewAwareUpdateCacheMiddleware',) +
-    MIDDLEWARE_CLASSES +
-    ('django.middleware.cache.FetchFromCacheMiddleware',)
-)
-
-CACHE_MIDDLEWARE_ALIAS = 'default'
-CACHE_MIDDLEWARE_SECONDS = 600
-CACHE_MIDDLEWARE_KEY_PREFIX = 'otessier-com-site'

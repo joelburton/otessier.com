@@ -2,23 +2,19 @@
 Base settings for otessier project.
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
+
+##################################################################################################
+# Directories
 
 SETTINGS_DIR = os.path.dirname(__file__)
 PROJECT_DIR = os.path.abspath(SETTINGS_DIR + "/../..")
 GIT_DIR = os.path.abspath(PROJECT_DIR + "/..")
 
-# Where we want to store media files. This setting is ignored when we're using S3 storage.
-MEDIA_ROOT = GIT_DIR + "/media/"
-MEDIA_URL = "/media/"
 
-# Where we want to store static files. This settings is ignored when we're using S3 storage.
-STATIC_ROOT = GIT_DIR + "/static/"
-STATIC_URL = "/static/"
-
-# We keep our static source files in the "static" directory.
-STATICFILES_DIRS = [os.path.join(PROJECT_DIR, "static")]
+##################################################################################################
+# Core Settings
 
 # We keep our template files in the project "template" directory.
 TEMPLATE_DIRS = (os.path.join(PROJECT_DIR, "templates"),)
@@ -32,14 +28,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.webdesign',
-    'model_utils',
-    'bootstrap3',
-    'consulting',
-    'watson',
-    'imagekit',
-    'solo',
-    'tinymce',
-    'dbbackup',
+
+    'model_utils',    # provides TimestampedModel, StatusModel
+    'bootstrap3',     # provides bootstrap tags, forms
+    'consulting',     # core product for OTessier consulting
+    'watson',         # search
+    'imagekit',       # resizes images
+    'solo',           # SiteConfiguration object
+    'tinymce',        # HTML editor
+    'dbbackup',       # management commands for backing up DB
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,48 +47,74 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'otessier.previewmode.PreviewMiddleware',
+
+    'otessier.previewmode.PreviewMiddleware',  # <-- added
 )
 
 ROOT_URLCONF = 'otessier.urls'
 
 WSGI_APPLICATION = 'otessier.wsgi.application'
 
-
-LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
 USE_TZ = True
 
-DEFAULT_FROM_EMAIL = 'joel@joelburton.com'
+LANGUAGE_CODE = 'en-us'
+USE_I18N = True
+USE_L10N = True
+
+
+##################################################################################################
+# Media/Static Files
+#
+# This site doesn't do anything fancy for media/static--they're just kept on
+# the filesystem. If we deployed at a PaaS place, we'd want to move to S3.
+
+# Where we want to store media files.
+MEDIA_ROOT = GIT_DIR + "/media/"
+MEDIA_URL = "/media/"
+
+# Where we want to store static files.
+STATIC_ROOT = GIT_DIR + "/static/"
+STATIC_URL = "/static/"
+
+# We keep our collected static source files in the "static" directory.
+STATICFILES_DIRS = [os.path.join(PROJECT_DIR, "static")]
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+
+##################################################################################################
+# Sessions
+#
+# We don't need any server-side storage of sessions, so just use cookies
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 
-# Cache the django-solo SiteConfiguration object for 5 mins
+##################################################################################################
+# django-solo SiteConfiguration cache
 #
+# Cache the django-solo SiteConfiguration object for 5 mins
 # In development, we might be using the DummyCache so this is a no-op cache there.
 
 SOLO_CACHE = 'default'
 SOLO_CACHE_TIMEOUT = 60 * 5
 
 
-
+##################################################################################################
+# Admin emails
+#
 # Email these people when errors happen on production sites
 
 ADMINS = (('Joel', 'joel@joelburton.com'), )
 SERVER_EMAIL = "joel@joelburton.com"
+DEFAULT_FROM_EMAIL = 'joel@joelburton.com'
 
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
-
-DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
+##################################################################################################
+# TinyMCE (HTML editor)
+#
+# Simplify the TinyMCE to remove a lot of un-needed UI complexity
 
 TINYMCE_JS_URL = "http://tinymce.cachefly.net/4.1/tinymce.min.js"
 TINYMCE_DEFAULT_CONFIG = {
@@ -107,9 +130,20 @@ TINYMCE_SPELLCHECKER = False
 TINYMCE_COMPRESSOR = False
 
 
+##################################################################################################
+# Backup config
+#
+# from django-dbbackup
+
 DBBACKUP_DATE_FORMAT = ''
 DBBACKUP_BACKUP_DIRECTORY = GIT_DIR + '/backups/'
 
+
+##################################################################################################
+# Bootstrap / Bootstrap Admin
+
+# Use Bootstrap for rendering admin fields
+DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
 
 # 'required' html5 attribute does not play well with FF/Chome and TinyMCE
 BOOTSTRAP3 = {
