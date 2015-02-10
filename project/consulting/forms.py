@@ -28,6 +28,7 @@ class ContactUsForm(Form):
 class PracticeAreaForm(ModelForm):
     class Meta:
         model = PracticeArea
+        exclude = []
         widgets = {
             'description': TinyMCE(mce_attrs={'height': 50}),
             'body': TinyMCE(mce_attrs={'height': 600}),
@@ -37,6 +38,7 @@ class PracticeAreaForm(ModelForm):
 class ClientWorkForm(ModelForm):
     class Meta:
         model = ClientWork
+        exclude = []
         widgets = {
             'description': TinyMCE(mce_attrs={'height': 50}),
             'body': TinyMCE(mce_attrs={'height': 250}),
@@ -46,6 +48,7 @@ class ClientWorkForm(ModelForm):
 class ClientForm(ModelForm):
     class Meta:
         model = Client
+        exclude = []
         widgets = {
             'description': TinyMCE(mce_attrs={'height': 50}),
             'body': TinyMCE(mce_attrs={'height': 175}),
@@ -55,6 +58,7 @@ class ClientForm(ModelForm):
 class ConsultantForm(ModelForm):
     class Meta:
         model = Consultant
+        exclude = []
         widgets = {
             'description': TinyMCE(mce_attrs={'height': 50}),
             'body': TinyMCE(mce_attrs={'height': 300}),
@@ -64,6 +68,7 @@ class ConsultantForm(ModelForm):
 class QAndAForm(ModelForm):
     class Meta:
         model = QAndA
+        exclude = []
         widgets = {
             'description': TinyMCE(mce_attrs={'height': 50}),
             'question': TinyMCE(mce_attrs={'height': 50}),
@@ -74,6 +79,7 @@ class QAndAForm(ModelForm):
 class LibraryCategoryForm(ModelForm):
     class Meta:
         model = LibraryCategory
+        exclude = []
         widgets = {
             'description': TinyMCE(mce_attrs={'height': 50}),
         }
@@ -82,6 +88,7 @@ class LibraryCategoryForm(ModelForm):
 class LibraryFileForm(ModelForm):
     class Meta:
         model = LibraryFile
+        exclude = []
         widgets = {
             'description': TinyMCE(mce_attrs={'height': 50}),
         }
@@ -90,6 +97,7 @@ class LibraryFileForm(ModelForm):
 class SiteConfigurationForm(ModelForm):
     class Meta:
         model = SiteConfiguration
+        exclude = []
         widgets = {
             'about_footer': TinyMCE(mce_attrs={'height': 50}),
             'about_homepage': TinyMCE(mce_attrs={'height': 50}),
