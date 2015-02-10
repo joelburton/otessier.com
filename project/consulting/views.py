@@ -50,7 +50,7 @@ class PortletCommonMixin(object):
     """Mixin to show random quotes/Q&A; used on many views."""
 
     def _get_random(self, name, qs):
-        """Return a random item from the query and cache for future use.
+        """Return a random item from the query; cache possibilities for future use.
 
         name: name to cache this by
         qs: queryset to search

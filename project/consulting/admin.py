@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 from django_admin_bootstrapped.admin.models import SortableInline
 from django.db import models
@@ -29,9 +30,9 @@ class ModelAdmin(admin.ModelAdmin):
     active.boolean = True
     active.short_description = "Active?"
 
-    # formfield_overrides = {
-    #     models.TextField: {'widget': TinyMCE}
-    # }
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
+    }
 
     class Media:
         js = ['http://tinymce.cachefly.net/4.1/tinymce.min.js']
