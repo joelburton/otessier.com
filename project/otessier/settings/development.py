@@ -11,9 +11,8 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 INSTALLED_APPS += (
-    'memcache_toolbar',
-
     'debug_toolbar',
+    'memcache_toolbar',
     'django_extensions',
 )
 
@@ -48,6 +47,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # the hostname of the laptop. So let's hack this in:
 
 from django.core.mail.utils import DNS_NAME
+
 DNS_NAME._fqdn = "localhost"
 
 
@@ -57,21 +57,27 @@ DNS_NAME._fqdn = "localhost"
 # Blather on about every little thing that happens. We programmers get lonely.
 
 LOGGING = {
+    'disable_existing_loggers': False,
     'version': 1,
     'filters': {
         'readable_sql': {
             '()': 'project_runpy.ReadableSqlFilter',
         },
     },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(name)s %(message)s'
+        },
+    },
     'handlers': {
         'console': {
             'level': 'DEBUG',
             'class': 'project_runpy.ColorizingStreamHandler',
-
+            'formatter': 'verbose',
         },
     },
     'loggers': {
-        '': {
+        'otessier': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
@@ -81,10 +87,8 @@ LOGGING = {
             'filters': ['readable_sql'],
             'propagate': False,
         }
-
     },
 }
-
 
 CACHES = {
     'default': {
@@ -92,9 +96,32 @@ CACHES = {
     }
 }
 
+# Uncomment to debug basic memcache stuff
+#
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+#         'LOCATION': '127.0.0.1:11211',
+#         'TIMEOUT': 600,
+#         'KEY_PREFIX': 'otessier-com',
+#     }
+# }
 
-import memcache_toolbar.panels.pylibmc
+if 'memcached' in CACHES['default']['BACKEND']:
+    DEBUG_TOOLBAR_PANELS = [
+        'debug_toolbar.panels.versions.VersionsPanel',
+        'debug_toolbar.panels.timer.TimerPanel',
+        'debug_toolbar.panels.settings.SettingsPanel',
+        'debug_toolbar.panels.headers.HeadersPanel',
+        'debug_toolbar.panels.request.RequestPanel',
+        'debug_toolbar.panels.sql.SQLPanel',
+        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+        'debug_toolbar.panels.templates.TemplatesPanel',
+        'debug_toolbar.panels.cache.CachePanel',
+        'debug_toolbar.panels.signals.SignalsPanel',
+        'debug_toolbar.panels.logging.LoggingPanel',
+        'memcache_toolbar.panels.pylibmc.PylibmcPanel',  # <-- this is new
+        'debug_toolbar.panels.redirects.RedirectsPanel',
+    ]
 
-DEBUG_TOOLBAR_PANELS = [
-    'memcache_toolbar.panels.pylibmc.PylibmcPanel',
-]
+    import memcache_toolbar.panels.pylibmc
