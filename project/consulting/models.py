@@ -167,8 +167,8 @@ class ClientSearchAdapter(SearchAdapter):
     def get_content(self, obj):
         """Content to search."""
 
-        def _mash(lst, attrs):  # _mashfrom c(cats, ['name', 'color']) => 'auden grey ezra orange'
-            return " !1".join(" !2".join(getattr(obj, a) for a in attrs) for obj in lst)
+        def _mash(items, attrs):  # _mash(cats, ['name', 'color']) => 'auden grey ezra orange'
+            return " ".join(" ".join(getattr(item, attr) for attr in attrs) for item in items)
 
         return " ".join([super(SearchAdapter, self).get_content(obj),
                          _mash(obj.clientreference_set.all(), ['job_title', 'phone', 'email']),
