@@ -1,6 +1,7 @@
 import re
-from django.core.exceptions import ValidationError
+import os.path
 
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
 
@@ -434,7 +435,7 @@ def file_upload_to(instance, filename):
     i.e., Joe Biden's 'my resume.txt' -> joe-biden.txt
     """
 
-    extension = re.search(r'\.[a-zA-Z0-9]{1,6}$|', filename).group(0)
+    basename, extension = os.path.splitext(filename)
     return "library/" + instance.slug + extension
 
 
