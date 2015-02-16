@@ -105,7 +105,7 @@ class Client(TimeStampedModel, StatusModel, models.Model):
     )
 
     image = models.ImageField(
-        upload_to='clients',
+        upload_to=lambda instance, filename: "clients/%s/%s" % (instance.slug, filename),
         blank=True,
         help_text='Logo for client, which is resized automatically . Make as square as possible.',
     )
