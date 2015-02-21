@@ -17,6 +17,8 @@ ALLOWED_HOSTS = [
     'admin.olivertessier.com',
 ]
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 
 ##################################################################################################
 # Database
