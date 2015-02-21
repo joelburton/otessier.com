@@ -2,8 +2,8 @@ from django import forms
 from django.contrib import admin
 from django_admin_bootstrapped.admin.models import SortableInline
 from django.db import models
-from tinymce.widgets import TinyMCE
-from consulting.forms import PracticeAreaForm, ClientWorkForm, ClientForm, ConsultantForm, QAndAForm, \
+
+from .forms import PracticeAreaForm, ClientWorkForm, ClientForm, ConsultantForm, QAndAForm, \
     LibraryCategoryForm, LibraryFileForm, SiteConfigurationForm
 
 from .models import (
@@ -88,17 +88,17 @@ class ClientWorkInline(admin.StackedInline, SortableInline):
     fields = ['title', 'description', 'body', 'references', 'status', 'position']
     sortable_field_name = 'position'
 
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
+    }
 
-    def get_field_queryset(self, db, db_field, request):
-        """Get queryset for the references field that relies on references for this client."""
+    def get_formset(self, request, obj=None, **kwargs):
+        """Filter client references down to the ones that match this client."""
 
-        if db_field.name == 'references':
-            if request._obj:
-                return ClientReference.objects.filter(client_id=request._obj.id)
-            else:
-                # This is a new client, so show an empty list for references
-                return ClientReference.objects.none()
-        return super(ClientWorkInline, self).get_field_queryset(db, db_field, request)
+        formset = super(ClientWorkInline, self).get_formset(request, obj, **kwargs)
+        references = formset.form.base_fields['references']
+        references.queryset = references.queryset.filter(client=obj)
+        return formset
 
 
 class ClientAdmin(ModelAdmin):
@@ -124,23 +124,6 @@ class ClientAdmin(ModelAdmin):
     search_fields = ['slug', 'title', 'description', 'body', 'url']
 
     list_filter = ['status', 'practiceareas']
-
-    # XXX: don't know if I want, but it's a nice bit of code
-    #
-    # def get_inline_instances(self, request, obj=None):
-    #     """Don't show ClientWork inline on object creation."""
-    #
-    #     inlines = super(ClientAdmin, self).get_inline_instances(request, obj)
-    #     if not obj:
-    #         return [inline for inline in inlines if not isinstance(inline, ClientWorkInline)]
-    #     else:
-    #         return inlines
-
-    def get_form(self, request, obj=None, **kwargs):
-        # Hook into this to put the client object on the request, so we can use it in
-        # ClientWorkInline's get_field_queryset
-        request._obj = obj
-        return super(ClientAdmin, self).get_form(request, obj, **kwargs)
 
 
 admin.site.register(Client, ClientAdmin)
