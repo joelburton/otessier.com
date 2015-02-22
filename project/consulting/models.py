@@ -10,6 +10,7 @@ from imagekit.processors import ResizeToFit
 from model_utils import Choices
 from model_utils.models import StatusModel
 from model_utils.models import TimeStampedModel
+# noinspection PyPackageRequirements
 import watson
 from solo.models import SingletonModel
 
@@ -27,6 +28,7 @@ class SearchAdapter(watson.SearchAdapter):
         return obj.description
 
     def get_model_name(self, obj):
+        # noinspection PyProtectedMember
         return obj._meta.verbose_name.title()
 
 

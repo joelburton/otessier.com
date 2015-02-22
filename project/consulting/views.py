@@ -13,6 +13,7 @@ from .models import PracticeArea, Client, QAndA, Consultant, LibraryCategory, Qu
     ClientWork
 
 
+# noinspection PyUnresolvedReferences
 class WorkflowMixin(object):
     """Mixin to add workflow-awareness to generic views.
 
@@ -26,6 +27,7 @@ class WorkflowMixin(object):
             return self.model.published
 
 
+# noinspection PyUnresolvedReferences
 class PortletListMixin(object):
     """Mixin to get all-items-of-type lists in portlets.
 
@@ -33,6 +35,7 @@ class PortletListMixin(object):
     get this from the same queryset as the original question.
     """
 
+    # noinspection PyProtectedMember
     def get_context_data(self, **kwargs):
         context = super(PortletListMixin, self).get_context_data(**kwargs)
 
@@ -84,7 +87,10 @@ class PracticeAreaListView(WorkflowMixin, PortletCommonMixin, generic.ListView):
         return qs.prefetch_related(Prefetch('client_set', queryset=related_qs.all()))
 
 
-class PracticeAreaDetailView(WorkflowMixin, PortletListMixin, PortletCommonMixin, generic.DetailView):
+class PracticeAreaDetailView(WorkflowMixin,
+                             PortletListMixin,
+                             PortletCommonMixin,
+                             generic.DetailView):
     model = PracticeArea
 
     def get_queryset(self):
@@ -141,7 +147,10 @@ class ConsultantListView(WorkflowMixin, PortletCommonMixin, generic.ListView):
     model = Consultant
 
 
-class ConsultantDetailView(WorkflowMixin, PortletCommonMixin, PortletListMixin, generic.DetailView):
+class ConsultantDetailView(WorkflowMixin,
+                           PortletCommonMixin,
+                           PortletListMixin,
+                           generic.DetailView):
     model = Consultant
 
 
@@ -152,7 +161,10 @@ class LibraryCategoryListView(WorkflowMixin, PortletCommonMixin, generic.ListVie
     model = LibraryCategory
 
 
-class LibraryCategoryDetailView(WorkflowMixin, PortletCommonMixin, PortletListMixin, generic.DetailView):
+class LibraryCategoryDetailView(WorkflowMixin,
+                                PortletCommonMixin,
+                                PortletListMixin,
+                                generic.DetailView):
     model = LibraryCategory
 
     def get_queryset(self):

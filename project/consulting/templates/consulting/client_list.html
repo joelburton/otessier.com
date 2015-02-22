@@ -25,7 +25,7 @@
     <div>{{ client.description|safe }}</div>
 
     {% if client.practiceareas.all %}
-      <small>
+      <div class="small">
         Practice Areas:
         <ul class="barlist">
           {% for area in client.practiceareas.all %}
@@ -33,7 +33,7 @@
                 class="fa fa-{{ area.icon_name }}"></span>&nbsp;{{ area.title|keeptogether }}</a></li>
           {% endfor %}
         </ul>
-      </small>
+      </div>
     {% endif %}
 
   {% endfor %}

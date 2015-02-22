@@ -17,7 +17,10 @@ class HomepageView(generic.TemplateView):
             pas = PracticeArea.published
             quotes = Quote.published
 
-        context['practicearea_list'] = pas.only('title', 'short_description', 'icon_name', 'slug').all()
+        context['practicearea_list'] = pas.only('title',
+                                                'short_description',
+                                                'icon_name',
+                                                'slug').all()
         context['quote_list'] = quotes.values('quote', 'author').all()
 
         return context

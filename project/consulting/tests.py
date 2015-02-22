@@ -1,7 +1,7 @@
 from django.test import TestCase, SimpleTestCase, override_settings
 from django.core import mail
 
-from consulting.models import Consultant, QAndA, Client, Quote
+from consulting.models import Consultant, QAndA, Quote
 
 
 class HomepageTests(TestCase):
@@ -74,22 +74,15 @@ class ConsultantTests(TestCase):
 
     @override_settings(PREVIEW_MODE=True)
     def test_present_portlets(self):
-        qanda = QAndA.objects.create(slug="q",
-                                     title="MyQuestion",
-                                     description="Descrip",
-                                     question="Why is the Sky blue?",
-                                     answer="Because.",
-                                     status='published',
+        QAndA.objects.create(
+            slug="q",
+            title="MyQuestion",
+            description="Descrip",
+            question="Why is the Sky blue?",
+            answer="Because.",
+            status='published',
         )
-        quote = Quote.objects.create(quote='MyQuote', author='Bob', status='published')
-
-        # client = Client.objects.create(slug='c',
-        #                                title='MyClient',
-        #                                organization='MyOrg',
-        #                                description='Descrip',
-        #                                body='My body',
-        #                                status='published',
-        # )
+        Quote.objects.create(quote='MyQuote', author='Bob', status='published')
 
         response = self.client.get('/consultants/senor-frog/')
         self.assertContains(response, "Our Clients Say")
@@ -99,7 +92,7 @@ class ConsultantTests(TestCase):
 
 
 class TestContactUsForm(SimpleTestCase):
-
+    # noinspection PyUnresolvedReferences
     def test_contact_submission(self):
         self.assertEqual(len(mail.outbox), 0)
         response = self.client.post('/contact-info/', {'subject': 'MySubject',

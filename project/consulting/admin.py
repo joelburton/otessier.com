@@ -34,13 +34,11 @@ class ModelAdmin(admin.ModelAdmin):
         models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
     }
 
-    class Media:
-        js = ['http://tinymce.cachefly.net/4.1/tinymce.min.js']
-
 
 ###################################################################################################
 
 
+@admin.register(PracticeArea)
 class PracticeAreaAdmin(ModelAdmin):
     form = PracticeAreaForm
     fieldsets = [
@@ -67,9 +65,6 @@ class PracticeAreaAdmin(ModelAdmin):
     def num_clients(self, obj):
         return obj.client_set.count()
     num_clients.short_description = "# Clients"
-
-
-admin.site.register(PracticeArea, PracticeAreaAdmin)
 
 
 ###################################################################################################
@@ -101,6 +96,7 @@ class ClientWorkInline(admin.StackedInline, SortableInline):
         return formset
 
 
+@admin.register(Client)
 class ClientAdmin(ModelAdmin):
     form = ClientForm
     inlines = [ClientReferenceInline, ClientWorkInline]
@@ -126,12 +122,10 @@ class ClientAdmin(ModelAdmin):
     list_filter = ['status', 'practiceareas']
 
 
-admin.site.register(Client, ClientAdmin)
-
-
 ###################################################################################################
 
 
+@admin.register(Consultant)
 class ConsultantAdmin(ModelAdmin):
     form = ConsultantForm
     fieldsets = [
@@ -154,12 +148,10 @@ class ConsultantAdmin(ModelAdmin):
     list_filter = ['status']
 
 
-admin.site.register(Consultant, ConsultantAdmin)
-
-
 ###################################################################################################
 
 
+@admin.register(QAndA)
 class QAndAAdmin(ModelAdmin):
     form = QAndAForm
     fieldsets = [
@@ -183,12 +175,10 @@ class QAndAAdmin(ModelAdmin):
     list_filter = ['status']
 
 
-admin.site.register(QAndA, QAndAAdmin)
-
-
 ###################################################################################################
 
 
+@admin.register(Quote)
 class QuoteAdmin(ModelAdmin):
     fieldsets = [
         ('', {
@@ -210,12 +200,10 @@ class QuoteAdmin(ModelAdmin):
     ordering = ['-id']
 
 
-admin.site.register(Quote, QuoteAdmin)
-
-
 ###################################################################################################
 
 
+@admin.register(LibraryCategory)
 class LibraryCategoryAdmin(ModelAdmin):
     form = LibraryCategoryForm
     fieldsets = [
@@ -236,12 +224,10 @@ class LibraryCategoryAdmin(ModelAdmin):
     search_fields = ['title', 'slug', 'description']
 
 
-admin.site.register(LibraryCategory, LibraryCategoryAdmin)
-
-
 ###################################################################################################
 
 
+@admin.register(LibraryFile)
 class LibraryFileAdmin(ModelAdmin):
     form = LibraryFileForm
 
@@ -266,20 +252,12 @@ class LibraryFileAdmin(ModelAdmin):
     list_filter = ['status']
 
 
-admin.site.register(LibraryFile, LibraryFileAdmin)
-
-
 ###################################################################################################
 
 
 from solo.admin import SingletonModelAdmin
 from .models import SiteConfiguration
 
-
+@admin.register(SiteConfiguration)
 class SiteConfigurationAdmin(SingletonModelAdmin):
     form = SiteConfigurationForm
-    class Media:
-        js = ['http://tinymce.cachefly.net/4.1/tinymce.min.js']
-
-
-admin.site.register(SiteConfiguration, SiteConfigurationAdmin)

@@ -4,6 +4,7 @@ import sys
 
 if __name__ == "__main__":
     try:
+        # noinspection PyPackageRequirements,PyUnresolvedReferences
         import env
     except ImportError:
         pass

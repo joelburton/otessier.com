@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
+# noinspection PyPackageRequirements
 import watson
 
 from .models import SearchAdapter, ClientSearchAdapter

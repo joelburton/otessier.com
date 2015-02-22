@@ -4,6 +4,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 
 class MySeleniumTests(LiveServerTestCase):
     fixtures = ['initial.json']
+    selenium = None
 
     @classmethod
     def setUpClass(cls):

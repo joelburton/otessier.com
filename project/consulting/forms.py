@@ -102,4 +102,3 @@ class SiteConfigurationForm(ModelForm):
             'about_footer': TinyMCE(mce_attrs={'height': 50}),
             'about_homepage': TinyMCE(mce_attrs={'height': 50}),
         }
-

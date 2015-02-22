@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 import consulting.urls
+# noinspection PyPackageRequirements
 import watson.urls
 import tinymce.urls
 

@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
 """
 
 try:
+    # noinspection PyPackageRequirements,PyUnresolvedReferences
     import env
 except ImportError:
     pass
