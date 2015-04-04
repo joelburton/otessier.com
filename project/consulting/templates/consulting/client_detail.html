@@ -3,7 +3,7 @@
 
 
 {% block breadcrumbs %}
-  <li><a href="{% url 'client:list' %}">Clients</a></li>
+  <li><a href="{% url 'consulting:client:list' %}">Clients</a></li>
   <li class="active">{{ client.title }}</li>
 {% endblock %}
 

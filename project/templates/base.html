@@ -44,7 +44,7 @@
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a href="{% url 'consultant:list' %}" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="{% url 'consulting:consultant:list' %}" class="dropdown-toggle" data-toggle="dropdown">
               Who We Are
               <b class="caret"></b>
             </a>
@@ -56,7 +56,7 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a href="{% url 'practicearea:list' %}" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="{% url 'consulting:practicearea:list' %}" class="dropdown-toggle" data-toggle="dropdown">
               Practices
               <b class="caret"></b>
             </a>
@@ -67,10 +67,10 @@
               {% endfor %}
             </ul>
           </li>
-          <li><a href="{% url 'client:list' %}">Clients</a></li>
-          <li><a href="{% url 'qanda:list' %}">Nonprofit Q&amp;A</a></li>
-          <li><a href="{% url 'librarycategory:list' %}">Library</a></li>
-          <li class="hidden-sm"><a href="{% url 'contact-us' %}">Contact</a></li>
+          <li><a href="{% url 'consulting:client:list' %}">Clients</a></li>
+          <li><a href="{% url 'consulting:qanda:list' %}">Nonprofit Q&amp;A</a></li>
+          <li><a href="{% url 'consulting:librarycategory:list' %}">Library</a></li>
+          <li class="hidden-sm"><a href="{% url 'consulting:contact-us' %}">Contact</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right hidden-lg hidden-xs">
@@ -199,7 +199,7 @@
                 <i class="fa fa-fw fa-envelope-o"></i> {{ site_config.email }}
               </a>
             </li>
-            <li><a href="{% url 'contact-us' %}" accesskey="9">
+            <li><a href="{% url 'consulting:contact-us' %}" accesskey="9">
               <i class="fa fa-fw fa-flag"></i>
               Contact Form
             </a>
@@ -240,13 +240,13 @@
         <div class="col-sm-9 navigation">
           <ul class="simplenav">
             <li><a href="/">Home</a></li>
-            <li><a href="{% url 'consultant:list' %}">Who We Are</a></li>
-            <li><a href="{% url 'practicearea:list' %}">Practices</a></li>
+            <li><a href="{% url 'consulting:consultant:list' %}">Who We Are</a></li>
+            <li><a href="{% url 'consulting:practicearea:list' %}">Practices</a></li>
           </ul>
           <ul class="simplenav">
-            <li><a href="{% url 'client:list' %}">Clients</a></li>
-            <li><a href="{% url 'qanda:list' %}">Nonprofit Q&amp;A</a></li>
-            <li><a href="{% url 'librarycategory:list' %}">Library</a></li>
+            <li><a href="{% url 'consulting:client:list' %}">Clients</a></li>
+            <li><a href="{% url 'consulting:qanda:list' %}">Nonprofit Q&amp;A</a></li>
+            <li><a href="{% url 'consulting:librarycategory:list' %}">Library</a></li>
           </ul>
         </div>
         <div class="col-sm-3 copyright">

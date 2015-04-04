@@ -13,7 +13,7 @@ from .views import HomepageView
 urlpatterns = [
     url(r'^$', HomepageView.as_view(), name='homepage'),
 
-    url(r'^', include(consulting.urls, app_name='consulting')),
+    url(r'^', include(consulting.urls, namespace='consulting')),
     url(r"^search/", include(watson.urls, namespace="watson")),
     url(r'^tinymce/', include(tinymce.urls)),
     url(r'^admin/', include(admin.site.urls)),
