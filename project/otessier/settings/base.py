@@ -19,7 +19,14 @@ GIT_DIR = os.path.abspath(PROJECT_DIR + "/..")
 # We keep our template files in the project "template" directory.
 TEMPLATE_DIRS = (os.path.join(PROJECT_DIR, "templates"),)
 
-INSTALLED_APPS = (
+# BUGFIX: 2015-07-22: imagekit includes a library, 'compat', which clashes with the one in the
+# debug toolbar. We need to load imagekit at the end of the installed apps -- but make sure all
+# the normal stuff appears before the developer tools, like the debug toolbar. So, for now, let's
+# split our apps into non-imagekit and imagekit, so we can add them in this very strict order
+# in development.py. At some point, this can be re-evaluated to return to a simple list, once
+# imagekit and the debugtoolbar kiss and make up.
+
+NONIMAGEKIT_INSTALLED_APPS = (
     'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,13 +38,19 @@ INSTALLED_APPS = (
 
     'model_utils',    # provides TimestampedModel, StatusModel
     'bootstrap3',     # provides bootstrap tags, forms
-    'consulting',     # core product for OTessier consulting
+    'consulting.apps.ConsultingAppConfig',     # core product for OTessier consulting
     'watson',         # search
-    'imagekit',       # resizes images
     'solo',           # SiteConfiguration object
     'tinymce',        # HTML editor
     'dbbackup',       # management commands for backing up DB
 )
+
+IMAGEKIT_APPS = (
+        'imagekit',       # resizes images
+)
+
+INSTALLED_APPS = NONIMAGEKIT_INSTALLED_APPS + IMAGEKIT_APPS
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

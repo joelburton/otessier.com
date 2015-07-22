@@ -3,13 +3,14 @@ from django.apps import AppConfig
 # noinspection PyPackageRequirements
 import watson
 
-from .models import SearchAdapter, ClientSearchAdapter
 
 
 class ConsultingAppConfig(AppConfig):
     name = "consulting"
 
     def ready(self):
+
+        from .models import SearchAdapter, ClientSearchAdapter
 
         def watson_register(model_name, adapter=SearchAdapter):
             watson.register(self.get_model(model_name).published.all(),
