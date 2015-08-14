@@ -88,6 +88,7 @@ class PracticeArea(TimeStampedModel, StatusModel, models.Model):
 def client_upload_to(instance, filename):
     return "clients/%s/%s" % (instance.slug, filename)
 
+
 class Client(TimeStampedModel, StatusModel, models.Model):
     STATUS = WORKFLOW_STATUS
 
