@@ -1,13 +1,12 @@
 from django.apps import AppConfig
 
-import watson.search as watson
-
 
 class ConsultingAppConfig(AppConfig):
     name = "consulting"
 
     def ready(self):
-        from .models import SearchAdapter, ClientSearchAdapter
+        import watson.search as watson
+        from .search import SearchAdapter, ClientSearchAdapter
 
         def watson_register(model_name, adapter=SearchAdapter):
             watson.register(self.get_model(model_name).published.all(),

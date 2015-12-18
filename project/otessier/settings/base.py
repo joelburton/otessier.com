@@ -155,7 +155,7 @@ DBBACKUP_BACKUP_DIRECTORY = GIT_DIR + '/backups/'
 # Use Bootstrap for rendering admin fields
 DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
 
-# 'required' html5 attribute does not play well with FF/Chome and TinyMCE
+# 'required' html5 attribute does not play well with FF/Chrome and TinyMCE
 BOOTSTRAP3 = {
     'set_required': False
 }

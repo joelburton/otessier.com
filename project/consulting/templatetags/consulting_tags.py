@@ -21,4 +21,6 @@ def practiceareas():
 
 @register.filter
 def keeptogether(value):
+    """Returns phrase as nonbreaking string."""
+
     return mark_safe(value.replace(" ", "&nbsp;"))
