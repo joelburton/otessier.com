@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 from django_admin_bootstrapped.admin.models import SortableInline
 from django.db import models
+from solo.admin import SingletonModelAdmin
 
 from .forms import PracticeAreaForm, ClientWorkForm, ClientForm, ConsultantForm, QAndAForm, \
     LibraryCategoryForm, LibraryFileForm, SiteConfigurationForm
@@ -16,6 +17,7 @@ from .models import (
     Consultant,
     LibraryFile,
     LibraryCategory,
+    SiteConfiguration,
 )
 
 
@@ -27,6 +29,7 @@ class ModelAdmin(admin.ModelAdmin):
 
     def active(self, obj):
         return obj.status == 'published'
+
     active.boolean = True
     active.short_description = "Active?"
 
@@ -64,6 +67,7 @@ class PracticeAreaAdmin(ModelAdmin):
 
     def num_clients(self, obj):
         return obj.client_set.count()
+
     num_clients.short_description = "# Clients"
 
 
@@ -254,9 +258,6 @@ class LibraryFileAdmin(ModelAdmin):
 
 ###################################################################################################
 
-
-from solo.admin import SingletonModelAdmin
-from .models import SiteConfiguration
 
 @admin.register(SiteConfiguration)
 class SiteConfigurationAdmin(SingletonModelAdmin):

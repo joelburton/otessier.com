@@ -1,8 +1,12 @@
+"""Site-wide views."""
+
 from django.views import generic
 from consulting.models import PracticeArea, Quote
 
 
 class HomepageView(generic.TemplateView):
+    """View for site homepage."""
+
     template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
@@ -13,6 +17,7 @@ class HomepageView(generic.TemplateView):
         if self.request.preview_mode:
             pas = PracticeArea.objects
             quotes = Quote.objects
+
         else:
             pas = PracticeArea.published
             quotes = Quote.published

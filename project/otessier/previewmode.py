@@ -2,11 +2,10 @@ from django.conf import settings
 
 
 class PreviewMiddleware(object):
-    """Notes on the request when we are in preview mode.
-    """
+    """Notes on the request when we are in preview mode."""
 
     def process_request(self, request):
-        """Add current time to the request."""
+        """Notes on the request when we are in preview mode."""
 
         request.preview_mode = (request.environ.get('HTTP_HOST', '').startswith('admin.') or
                                 getattr(settings, 'PREVIEW_MODE', False))

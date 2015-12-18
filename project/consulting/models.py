@@ -10,8 +10,7 @@ from imagekit.processors import ResizeToFit
 from model_utils import Choices
 from model_utils.models import StatusModel
 from model_utils.models import TimeStampedModel
-# noinspection PyPackageRequirements
-import watson
+import watson.search as watson
 from solo.models import SingletonModel
 
 

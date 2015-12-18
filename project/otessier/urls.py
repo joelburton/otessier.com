@@ -4,13 +4,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 import consulting.urls
-# noinspection PyPackageRequirements
 import watson.urls
 import tinymce.urls
 
 from .views import HomepageView
 
 urlpatterns = [
+
     url(r'^$', HomepageView.as_view(), name='homepage'),
 
     url(r'^', include(consulting.urls, namespace='consulting')),

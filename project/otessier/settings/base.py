@@ -34,7 +34,6 @@ NONIMAGEKIT_INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.webdesign',
 
     'model_utils',    # provides TimestampedModel, StatusModel
     'bootstrap3',     # provides bootstrap tags, forms

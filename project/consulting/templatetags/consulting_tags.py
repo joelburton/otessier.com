@@ -18,6 +18,7 @@ def practiceareas():
 
     return PracticeArea.published.only('title', 'slug')
 
+
 @register.filter
 def keeptogether(value):
     return mark_safe(value.replace(" ", "&nbsp;"))

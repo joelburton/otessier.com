@@ -1,15 +1,12 @@
 from django.apps import AppConfig
 
-# noinspection PyPackageRequirements
-import watson
-
+import watson.search as watson
 
 
 class ConsultingAppConfig(AppConfig):
     name = "consulting"
 
     def ready(self):
-
         from .models import SearchAdapter, ClientSearchAdapter
 
         def watson_register(model_name, adapter=SearchAdapter):
