@@ -473,6 +473,9 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
         if not self.asset and not self.url:
             raise ValidationError("Must have either a file or a URL.")
 
+        if self.asset and self.url:
+            raise ValidationError("Cannot have both a file and a URL.")
+
 
 ###################################################################################################
 

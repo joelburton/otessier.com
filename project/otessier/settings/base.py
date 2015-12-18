@@ -4,7 +4,6 @@ Base settings for otessier project.
 
 import os
 
-
 ##################################################################################################
 # Directories
 
@@ -12,12 +11,25 @@ SETTINGS_DIR = os.path.dirname(__file__)
 PROJECT_DIR = os.path.abspath(SETTINGS_DIR + "/../..")
 GIT_DIR = os.path.abspath(PROJECT_DIR + "/..")
 
-
 ##################################################################################################
 # Core Settings
 
 # We keep our template files in the project "template" directory.
-TEMPLATE_DIRS = (os.path.join(PROJECT_DIR, "templates"),)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': [os.path.join(PROJECT_DIR, "templates")],
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 # BUGFIX: 2015-07-22: imagekit includes a library, 'compat', which clashes with the one in the
 # debug toolbar. We need to load imagekit at the end of the installed apps -- but make sure all
@@ -35,22 +47,21 @@ NONIMAGEKIT_INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'model_utils',    # provides TimestampedModel, StatusModel
-    'bootstrap3',     # provides bootstrap tags, forms
+    'model_utils',  # provides TimestampedModel, StatusModel
+    'bootstrap3',  # provides bootstrap tags, forms
     'otessier',
-    'consulting.apps.ConsultingAppConfig',     # core product for OTessier consulting
-    'watson',         # search
-    'solo',           # SiteConfiguration object
-    'tinymce',        # HTML editor
-    'dbbackup',       # management commands for backing up DB
+    'consulting.apps.ConsultingAppConfig',  # core product for OTessier consulting
+    'watson',  # search
+    'solo',  # SiteConfiguration object
+    'tinymce',  # HTML editor
+    'dbbackup',  # management commands for backing up DB
 )
 
 IMAGEKIT_APPS = (
-        'imagekit',       # resizes images
+    'imagekit',  # resizes images
 )
 
 INSTALLED_APPS = NONIMAGEKIT_INSTALLED_APPS + IMAGEKIT_APPS
-
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -75,7 +86,6 @@ LANGUAGE_CODE = 'en-us'
 USE_I18N = True
 USE_L10N = True
 
-
 ##################################################################################################
 # Media/Static Files
 #
@@ -93,14 +103,12 @@ STATIC_URL = "/static/"
 # We keep our collected static source files in the "static" directory.
 STATICFILES_DIRS = [os.path.join(PROJECT_DIR, "static")]
 
-
 ##################################################################################################
 # Sessions
 #
 # We don't need any server-side storage of sessions, so just use cookies
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-
 
 ##################################################################################################
 # django-solo SiteConfiguration cache
@@ -111,16 +119,14 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 SOLO_CACHE = 'default'
 SOLO_CACHE_TIMEOUT = 60 * 5
 
-
 ##################################################################################################
 # Admin emails
 #
 # Email these people when errors happen on production sites
 
-ADMINS = (('Joel', 'joel@joelburton.com'), )
+ADMINS = (('Joel', 'joel@joelburton.com'),)
 SERVER_EMAIL = "joel@joelburton.com"
 DEFAULT_FROM_EMAIL = 'joel@joelburton.com'
-
 
 ##################################################################################################
 # TinyMCE (HTML editor)
@@ -140,7 +146,6 @@ TINYMCE_DEFAULT_CONFIG = {
 TINYMCE_SPELLCHECKER = False
 TINYMCE_COMPRESSOR = False
 
-
 ##################################################################################################
 # Backup config
 #
@@ -148,7 +153,6 @@ TINYMCE_COMPRESSOR = False
 
 DBBACKUP_DATE_FORMAT = ''
 DBBACKUP_BACKUP_DIRECTORY = GIT_DIR + '/backups/'
-
 
 ##################################################################################################
 # Bootstrap / Bootstrap Admin

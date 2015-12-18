@@ -91,7 +91,7 @@ class ConsultantTests(TestCase):
         self.assertContains(response, "MyQuestion")
 
 
-class TestContactUsForm(SimpleTestCase):
+class TestContactUsForm(TestCase):
     # noinspection PyUnresolvedReferences
     def test_contact_submission(self):
         self.assertEqual(len(mail.outbox), 0)
