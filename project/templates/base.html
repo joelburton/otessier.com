@@ -7,19 +7,19 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tessier and Associates: {% block page_title %}{{ object.title }}{% endblock %}</title>
-  {% bootstrap_css %}
-  <link rel="stylesheet" href="{% static 'css/otessier.css' %}">
-  <link
-      href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic"
-      rel="stylesheet">
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-        rel="stylesheet">
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tessier and Associates: {% block page_title %}{{ object.title }}{% endblock %}</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/otessier.css' %}">
+    <link
+            href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic"
+            rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+          rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
@@ -28,233 +28,233 @@
 <body>
 {% load cache %}
 {% cache 600 navbar %}
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/" accesskey="1">Oliver Tessier <i class="amp-white">&amp;</i>
-          Associates</a>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a href="{% url 'consulting:consultant:list' %}" class="dropdown-toggle" data-toggle="dropdown">
-              Who We Are
-              <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              {% consultants as consultants %}
-              {% for consultant in consultants %}
-                <li><a href="{{ consultant.get_absolute_url }}">{{ consultant }}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="{% url 'consulting:practicearea:list' %}" class="dropdown-toggle" data-toggle="dropdown">
-              Practices
-              <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              {% practiceareas as practiceareas %}
-              {% for pa in practiceareas %}
-                <li><a href="{{ pa.get_absolute_url }}">{{ pa }}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-          <li><a href="{% url 'consulting:client:list' %}">Clients</a></li>
-          <li><a href="{% url 'consulting:qanda:list' %}">Nonprofit Q&amp;A</a></li>
-          <li><a href="{% url 'consulting:librarycategory:list' %}">Library</a></li>
-          <li class="hidden-sm"><a href="{% url 'consulting:contact-us' %}">Contact</a></li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right hidden-lg hidden-xs">
-          <li>
-            <a href="{% url 'watson:search' %}">
-              <span class="fa fa-search"></span><span class="sr-only">Search</span>
-            </a>
-          </li>
-        </ul>
-
-        <form class="hidden-sm hidden-md navbar-form pull-right searchbox"
-              action="{% url 'watson:search' %}">
-          <div class="input-group">
-            <label for="searchbox" class="sr-only">Search</label>
-            <input id="searchbox" type="text" class="form-control input-sm" placeholder="Search"
-                   name="q" accesskey="4"
-                   value="{{ request.GET.q }}">
-
-            <div class="input-group-btn">
-              <button class="btn btn-default input-sm" type="submit"><i
-                  class="glyphicon glyphicon-search"><span class="sr-only">Search</span></i>
-              </button>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" accesskey="1">Oliver Tessier <i class="amp-white">&amp;</i>
+                    Associates</a>
             </div>
-          </div>
-        </form>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="{% url 'consulting:consultant:list' %}" class="dropdown-toggle" data-toggle="dropdown">
+                            Who We Are
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% consultants as consultants %}
+                            {% for consultant in consultants %}
+                                <li><a href="{{ consultant.get_absolute_url }}">{{ consultant }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="{% url 'consulting:practicearea:list' %}" class="dropdown-toggle"
+                           data-toggle="dropdown">
+                            Practices
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% practiceareas as practiceareas %}
+                            {% for pa in practiceareas %}
+                                <li><a href="{{ pa.get_absolute_url }}">{{ pa }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'consulting:client:list' %}">Clients</a></li>
+                    <li><a href="{% url 'consulting:qanda:list' %}">Nonprofit Q&amp;A</a></li>
+                    <li><a href="{% url 'consulting:librarycategory:list' %}">Library</a></li>
+                    <li class="hidden-sm"><a href="{% url 'consulting:contact-us' %}">Contact</a></li>
+                </ul>
 
-      </div>
-    </div>
-  </nav>
+                <ul class="nav navbar-nav navbar-right hidden-lg hidden-xs">
+                    <li>
+                        <a href="{% url 'watson:search' %}">
+                            <span class="fa fa-search"></span><span class="sr-only">Search</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <form class="hidden-sm hidden-md navbar-form pull-right searchbox"
+                      action="{% url 'watson:search' %}">
+                    <div class="input-group">
+                        <label for="searchbox" class="sr-only">Search</label>
+                        <input id="searchbox" type="text" class="form-control input-sm" placeholder="Search"
+                               name="q" accesskey="4"
+                               value="{{ request.GET.q }}">
+
+                        <div class="input-group-btn">
+                            <button class="btn btn-default input-sm" type="submit"><i
+                                    class="glyphicon glyphicon-search"><span class="sr-only">Search</span></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </nav>
 {% endcache %}
 <div style="padding-top: 50px"></div>
 
 {% block content_outer %}
 
-  <div class="container content-top">
-    <div class="row">
+    <div class="container content-top">
+        <div class="row">
 
-      <div class="col-xs-12">
-        <ol class="breadcrumb">
-          <li><a href="/">Home</a></li>
-          {% block breadcrumbs %}
-          {% endblock %}
-        </ol>
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    {% block breadcrumbs %}
+                    {% endblock %}
+                </ol>
 
-        {% bootstrap_messages %}
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-lg-9 content-well">
-        {% block content %}{% endblock %}
-      </div>
-      <div class="col-lg-3 col-xs-12 portlets">
-        <h2 class="sr-only">Portlets</h2>
-        {% block portlets %}
-
-          {% with random_quote=view.random_quote %}
-            {% if random_quote %}
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Our Clients Say</h3>
-                </div>
-                <div class="panel-body">
-                  <div>{{ random_quote.quote|safe }}</div>
-                  <div class="quote-attrib">
-                    &mdash;&nbsp;
-                    {{ random_quote.author }}
-                  </div>
-                </div>
-              </div>
-            {% endif %}
-          {% endwith %}
-
-          {% with random_qanda=view.random_qanda %}
-            {% if random_qanda %}
-              <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Nonprofit Q&amp;A</h3>
-              </div>
-              <div class="panel-body">
-                <p><b><a href="{{ random_qanda.get_absolute_url }}">{{ random_qanda.title }}</a></b>
-                </p>
-                {{ random_qanda.description | safe }}
-                <a href="{{ random_qanda.get_absolute_url }}">Read the
-                  answer&hellip;</a>
-              </div>
-            {% endif %}
-          {% endwith %}
-
-        {% endblock %}
+                {% bootstrap_messages %}
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-lg-9 content-well">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-lg-3 col-xs-12 portlets">
+                <h2 class="sr-only">Portlets</h2>
+                {% block portlets %}
+
+                    {% with random_quote=view.random_quote %}
+                        {% if random_quote %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Our Clients Say</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>{{ random_quote.quote|safe }}</div>
+                                    <div class="quote-attrib">
+                                        &mdash;&nbsp;
+                                        {{ random_quote.author }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+
+                    {% with random_qanda=view.random_qanda %}
+                        {% if random_qanda %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Nonprofit Q&amp;A</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p><b><a href="{{ random_qanda.get_absolute_url }}">{{ random_qanda.title }}</a></b>
+                                    </p>
+                                    {{ random_qanda.description | safe }}
+                                    <a href="{{ random_qanda.get_absolute_url }}">Read the
+                                        answer&hellip;</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
 <footer id="footer">
 
-  <div class="footer1">
-    <div class="container">
-      <div class="row">
+    <div class="footer1">
+        <div class="container">
+            <div class="row">
 
-        <div class="col-md-7">
-          <h3>About Oliver Tessier <i class="amp-white">&amp;</i> Associates</h3>
+                <div class="col-md-7">
+                    <h3>About Oliver Tessier <i class="amp-white">&amp;</i> Associates</h3>
 
-          <p>
-            {{ site_config.about_footer | safe }}
-          </p>
+                    <p>
+                        {{ site_config.about_footer | safe }}
+                    </p>
+                </div>
+
+                <div class="col-md-3 col-sm-6 contact">
+                    <h3>Contact Info</h3>
+
+                    <p>We&rsquo;d love to hear from you.</p>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="tel:{{ site_config.phone_digits }}">
+                                <i class="fa fa-fw fa-phone"></i>
+                                {{ site_config.phone }}</a>
+                        </li>
+                        <li>
+                            <a href="mailto:{{ site_config.email }}">
+                                <i class="fa fa-fw fa-envelope-o"></i> {{ site_config.email }}
+                            </a>
+                        </li>
+                        <li><a href="{% url 'consulting:contact-us' %}" accesskey="9">
+                            <i class="fa fa-fw fa-flag"></i>
+                            Contact Form
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-2 col-sm-6">
+                    <h3>Follow Us</h3>
+
+                    <div class="follow-me-icons">
+                        <a href="https://twitter.com/oliver_tessier/">
+                            <span class="fa-stack">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse">
+                                    <span class="sr-only">Twitter</span>
+                                </i>
+                             </span>
+                        </a>
+                        <a href="https://www.facebook.com/tessierassociates">
+                            <span class="fa-stack">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse">
+                                    <span class="sr-only">Facebook</span>
+                                </i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-md-3 col-sm-6 contact">
-          <h3>Contact Info</h3>
-
-          <p>We&rsquo;d love to hear from you.</p>
-          <ul class="list-unstyled">
-            <li>
-              <a href="tel:{{ site_config.phone_digits }}">
-                <i class="fa fa-fw fa-phone"></i>
-                {{ site_config.phone }}</a>
-            </li>
-            <li>
-              <a href="mailto:{{ site_config.email }}">
-                <i class="fa fa-fw fa-envelope-o"></i> {{ site_config.email }}
-              </a>
-            </li>
-            <li><a href="{% url 'consulting:contact-us' %}" accesskey="9">
-              <i class="fa fa-fw fa-flag"></i>
-              Contact Form
-            </a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="col-md-2 col-sm-6">
-          <h3>Follow Us</h3>
-
-          <div class="follow-me-icons">
-            <a href="https://twitter.com/oliver_tessier/">
-              <span class="fa-stack">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-twitter fa-stack-1x fa-inverse">
-                  <span class="sr-only">Twitter</span>
-                </i>
-              </span>
-            </a>
-            <a href="https://www.facebook.com/tessierassociates">
-              <span class="fa-stack">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-facebook fa-stack-1x fa-inverse">
-                  <span class="sr-only">Facebook</span>
-                </i>
-              </span>
-            </a>
-          </div>
-
-        </div>
-      </div>
     </div>
-  </div>
 
-  <div class="footer2">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-9 navigation">
-          <ul class="simplenav">
-            <li><a href="/">Home</a></li>
-            <li><a href="{% url 'consulting:consultant:list' %}">Who We Are</a></li>
-            <li><a href="{% url 'consulting:practicearea:list' %}">Practices</a></li>
-          </ul>
-          <ul class="simplenav">
-            <li><a href="{% url 'consulting:client:list' %}">Clients</a></li>
-            <li><a href="{% url 'consulting:qanda:list' %}">Nonprofit Q&amp;A</a></li>
-            <li><a href="{% url 'consulting:librarycategory:list' %}">Library</a></li>
-          </ul>
+    <div class="footer2">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 navigation">
+                    <ul class="simplenav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="{% url 'consulting:consultant:list' %}">Who We Are</a></li>
+                        <li><a href="{% url 'consulting:practicearea:list' %}">Practices</a></li>
+                    </ul>
+                    <ul class="simplenav">
+                        <li><a href="{% url 'consulting:client:list' %}">Clients</a></li>
+                        <li><a href="{% url 'consulting:qanda:list' %}">Nonprofit Q&amp;A</a></li>
+                        <li><a href="{% url 'consulting:librarycategory:list' %}">Library</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 copyright">
+                    &copy; {% now "Y" %} Oliver Tessier
+                </div>
+            </div>
         </div>
-        <div class="col-sm-3 copyright">
-          &copy; {% now "Y" %} Oliver Tessier
-        </div>
-      </div>
     </div>
-  </div>
 
 </footer>
 
