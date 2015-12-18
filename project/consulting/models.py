@@ -1,6 +1,7 @@
 import re
 import os.path
 
+import imagekit.cachefiles.strategies
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -262,12 +263,14 @@ class Consultant(TimeStampedModel, StatusModel, models.Model):
         source='photo',
         processors=[ResizeToFit(180, 180)],
         format='JPEG',
+        cachefile_strategy=imagekit.cachefiles.strategies.Optimistic,
     )
 
     photo_thumbnail = ImageSpecField(
         source='photo',
         processors=[ResizeToFit(90, 90)],
         format='JPEG',
+        cachefile_strategy=imagekit.cachefiles.strategies.Optimistic,
     )
 
     description = models.TextField(

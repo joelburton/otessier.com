@@ -2,43 +2,43 @@
 
 
 {% block breadcrumbs %}
-  <li><a href="{% url 'consulting:consultant:list' %}">Who We Are</a></li>
-  <li class="active">{{ consultant.title }}</li>
+    <li><a href="{% url 'consulting:consultant:list' %}">Who We Are</a></li>
+    <li class="active">{{ consultant.title }}</li>
 {% endblock %}
 
 
 {% block content %}
 
-  <div class="page-header">
-    <h1>{{ consultant.title }}</h1>
-    <div class="lead">{{ consultant.description | safe }}</div>
-  </div>
+    <div class="page-header">
+        <h1>{{ consultant.title }}</h1>
+        <div class="lead">{{ consultant.description | safe }}</div>
+    </div>
 
-  {% if consultant.photo %}
-    <img class="image-right main" src="{{ consultant.photo_display.url }}"
-         alt="{{ consultant.title }}">
-  {% endif %}
-  {{ consultant.body|safe }}
+    {% if consultant.photo %}
+        <img class="image-right main" src="{{ consultant.photo_display.url }}"
+             alt="{{ consultant.title }}">
+    {% endif %}
+    {{ consultant.body|safe }}
 
 {% endblock %}
 
 
 {% block portlets %}
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Who We Are</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Who We Are</h3>
+        </div>
+        <ul class="list-group">
+            {% for c in consultant_list.all %}
+                <li class="list-group-item">
+                    {% if c == consultant %}
+                        <b>{{ c }}</b>
+                    {% else %}
+                        <a href="{{ c.get_absolute_url }}">{{ c }}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
     </div>
-    <ul class="list-group">
-      {% for c in consultant_list.all %}
-        <li class="list-group-item">
-          {% if c == consultant %}
-            <b>{{ c }}</b>
-          {% else %}
-            <a href="{{ c.get_absolute_url }}">{{ c }}</a>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-  {{ block.super }}
+    {{ block.super }}
 {% endblock %}
