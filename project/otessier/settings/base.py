@@ -37,6 +37,7 @@ NONIMAGEKIT_INSTALLED_APPS = (
 
     'model_utils',    # provides TimestampedModel, StatusModel
     'bootstrap3',     # provides bootstrap tags, forms
+    'otessier',
     'consulting.apps.ConsultingAppConfig',     # core product for OTessier consulting
     'watson',         # search
     'solo',           # SiteConfiguration object

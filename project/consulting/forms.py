@@ -25,6 +25,11 @@ class ContactUsForm(Form):
     )
 
 
+#########################################################################################
+# All the following forms are included just so we can set some widget info for
+# TinyMCE; they're just used the Django admin and don't do anything very exotic.
+
+
 class PracticeAreaForm(ModelForm):
     class Meta:
         model = PracticeArea

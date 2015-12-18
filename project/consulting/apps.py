@@ -5,6 +5,8 @@ class ConsultingAppConfig(AppConfig):
     name = "consulting"
 
     def ready(self):
+        """Register search adapters for watson."""
+
         import watson.search as watson
         from .search import SearchAdapter, ClientSearchAdapter
 
