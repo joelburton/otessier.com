@@ -1,3 +1,23 @@
+"""Model for consulting package.
+
+Relationships between models::
+
+    PracticeArea <---> Client ---> ClientWork  <----\
+                         |                          |
+                         \---> ClientReference <----/
+
+    Consultant
+
+    QAndA
+
+    Quote
+
+    LibraryCategory ---> LibraryFile
+
+    SiteConfiguration
+
+"""
+
 import re
 import os.path
 
@@ -21,7 +41,11 @@ WORKFLOW_STATUS = Choices('private', 'published')
 
 
 class PracticeArea(TimeStampedModel, StatusModel, models.Model):
-    """Consulting practice area."""
+    """Consulting practice area.
+
+    This is an area of work, like "Coaching". Individual clients have a m2m relationship
+    to this, for the kind of work they used.
+    """
 
     STATUS = WORKFLOW_STATUS
 
@@ -75,6 +99,8 @@ def client_upload_to(instance, filename):
 
 
 class Client(TimeStampedModel, StatusModel, models.Model):
+    """This is a client company, like "IBM"."""
+
     STATUS = WORKFLOW_STATUS
 
     slug = models.SlugField(

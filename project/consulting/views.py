@@ -1,3 +1,5 @@
+"""Views for consulting project."""
+
 from random import choice
 
 from django.contrib import messages
@@ -37,12 +39,14 @@ class PortletListMixin(object):
 
     # noinspection PyProtectedMember
     def get_context_data(self, **kwargs):
+        """Add list of items for this type of content to the context; used by portlet."""
+
         context = super(PortletListMixin, self).get_context_data(**kwargs)
 
         # for Client, this created an item called 'client_list' in the context.
         #
-        # prefetch_related(None) makes sure we don't ask for any prefetches--since these wouldn't
-        # be needed for the portlet
+        # prefetch_related(None) makes sure we don't ask for any prefetches---since these
+        # wouldn't be needed for the portlet
 
         context[self.model._meta.model_name + '_list'] = (
             self.get_queryset().prefetch_related(None).only('title', 'slug'))
@@ -55,8 +59,12 @@ class PortletCommonMixin(object):
     def _get_random(self, name, qs):
         """Return a random item from the query; cache possibilities for future use.
 
-        name: name to cache this by
-        qs: queryset to search
+        Args:
+            name (str): name to cache this by
+            qs (Queryset): queryset to search
+
+        Returns:
+            Random item from query.
         """
 
         objs = cache.get(name)
@@ -125,9 +133,9 @@ class ClientDetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
         related_pas = PracticeArea.objects if self.request.preview_mode else PracticeArea.published
         related_works = ClientWork.objects if self.request.preview_mode else ClientWork.published
         return qs.prefetch_related(
-            Prefetch('practiceareas', queryset=related_pas.all()),
-            Prefetch('clientwork_set', queryset=related_works.all()),
-            )
+                Prefetch('practiceareas', queryset=related_pas.all()),
+                Prefetch('clientwork_set', queryset=related_works.all()),
+        )
 
 
 ###################################################################################################
@@ -139,6 +147,7 @@ class QAndAListView(WorkflowMixin, PortletCommonMixin, generic.ListView):
 
 class QAndADetailView(WorkflowMixin, PortletListMixin, generic.DetailView):
     model = QAndA
+
 
 ###################################################################################################
 
@@ -195,11 +204,11 @@ class ContactUsFormView(generic.FormView):
         headers = {'Reply-To': from_email}
 
         message = EmailMessage(
-            "[Contact Us Form] %s" % subject,
-            body,
-            settings.DEFAULT_FROM_EMAIL,
-            ["oliver@otessier.com"],
-            headers=headers,
+                "[Contact Us Form] %s" % subject,
+                body,
+                settings.DEFAULT_FROM_EMAIL,
+                ["oliver@otessier.com"],
+                headers=headers,
         )
         message.send()
         messages.add_message(self.request, messages.SUCCESS, 'Message sent. Thank you.')

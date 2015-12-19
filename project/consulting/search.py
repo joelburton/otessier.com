@@ -1,3 +1,5 @@
+"""Handle search registration."""
+
 import watson.search as watson
 
 

@@ -1,3 +1,5 @@
+"""URLs for consulting project."""
+
 from django.conf.urls import url, include
 
 from .views import ClientListView, ClientDetailView
@@ -9,11 +11,14 @@ from .views import ContactUsFormView
 
 
 def make_urls(url_fragment, list_view, detail_view, namespace):
+    """Register list and detail view for each type of content."""
+
     return url(url_fragment,
                include(
-                   [url(r'^$', list_view.as_view(), name='list'),
-                    url(r'^(?P<slug>[a-z\d-]+)/$', detail_view.as_view(), name='detail')],
-                   namespace=namespace))
+                       [url(r'^$', list_view.as_view(), name='list'),
+                        url(r'^(?P<slug>[a-z\d-]+)/$', detail_view.as_view(), name='detail')],
+                       namespace=namespace))
+
 
 urlpatterns = [
     make_urls(r'^clients/', ClientListView, ClientDetailView, 'client'),

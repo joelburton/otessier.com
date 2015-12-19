@@ -1,7 +1,14 @@
+"""App configuration for consuting project.
+
+We need this because we need to register watson search for the models.
+"""
+
 from django.apps import AppConfig
 
 
 class ConsultingAppConfig(AppConfig):
+    """Application config for consulting."""
+
     name = "consulting"
 
     def ready(self):

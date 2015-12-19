@@ -4,3 +4,4 @@ django-extensions==1.5.9
 memcache-toolbar==0.5.6
 project-runpy==0.3.1
 selenium==2.48.0
+coverage

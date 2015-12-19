@@ -20,7 +20,6 @@ from .models import (
     SiteConfiguration,
 )
 
-
 admin.site.site_header = "Oliver Tessier & Associates"
 
 
