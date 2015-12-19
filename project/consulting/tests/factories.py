@@ -26,11 +26,11 @@ class ClientFactory(factory.DjangoModelFactory):
     title = "IBM"
     slug = factory.LazyAttribute(lambda x: slugify(x.title))
     image = factory.django.ImageField(filename="client.jpg")
-    description = "Client Description"
+    description = "Description of Client"
     body = "<p>Client body</p>"
     # practiceareas
     url = "http://ibm.com"
-    position = factory.Sequence(lambda x: x)
+    position = 1
 
 
 class ClientReferenceFactory(factory.DjangoModelFactory):
@@ -38,11 +38,12 @@ class ClientReferenceFactory(factory.DjangoModelFactory):
         model = models.ClientReference
         django_get_or_create = ["title"]
 
+    client = factory.SubFactory(ClientFactory)
     title = "Herman Miller"
     job_title = "Designer"
     phone = "(415) 555-1212"
     email = "herman@miller.com"
-    position = factory.Sequence(lambda x: x)
+    position = 1
 
 
 class ClientWorkFactory(factory.DjangoModelFactory):
@@ -55,7 +56,7 @@ class ClientWorkFactory(factory.DjangoModelFactory):
     description = "Client work description."
     body = "<p>Client work body.</p>"
     # references
-    position = factory.Sequence(lambda x: x)
+    position = 1
 
 
 class ConsultantFactory(factory.DjangoModelFactory):
@@ -79,10 +80,10 @@ class QAndAFactory(factory.DjangoModelFactory):
     title = "Why do birds sing?"
     slug = factory.LazyAttribute(lambda x: slugify(x.title))
     description = "Description of QAndA."
-    question = factory.LazyAttribute(lambda x: x.title)
+    question = "I love the noise. Why do they do it?"
     answer = "<p>QAndA Answer</p>"
     credit = "Copyright by Joel"
-    position = factory.Sequence(lambda x: x)
+    position = 1
 
 
 class QuoteFactory(factory.DjangoModelFactory):

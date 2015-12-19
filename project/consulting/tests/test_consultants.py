@@ -75,8 +75,6 @@ class ConsultantViewTests(TestCase):
         self.consultant.save()
 
         response = self.client.get('/consultants/oliver-tessier/')
-        for i, ln in enumerate(response.content.split("\n")):
-            print i, ln
         self.assertContains(response, """
             <div class="panel panel-default">
                 <div class="panel-heading"><h3 class="panel-title">Who We Are</h3></div>

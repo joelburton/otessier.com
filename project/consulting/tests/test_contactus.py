@@ -1,19 +1,8 @@
-from django.test import TestCase, SimpleTestCase, override_settings
 from django.core import mail
-
-from consulting.models import Consultant, QAndA, Quote
-
-
-class HomepageTests(TestCase):
-    def testHomepage(self):
-        response = self.client.get('/')
-        self.assertContains(response, 'Welcome', status_code=200)
-
-
+from django.test import TestCase
 
 
 class TestContactUsForm(TestCase):
-    # noinspection PyUnresolvedReferences
     def test_contact_submission(self):
         self.assertEqual(len(mail.outbox), 0)
         response = self.client.post('/contact-info/', {'subject': 'MySubject',

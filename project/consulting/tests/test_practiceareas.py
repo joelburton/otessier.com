@@ -1,7 +1,7 @@
 from django.test import override_settings, TestCase
 
-from consulting.models import Consultant, PracticeArea
-from .factories import ConsultantFactory, PracticeAreaFactory, ClientWorkFactory
+from consulting.models import PracticeArea
+from .factories import PracticeAreaFactory, ClientWorkFactory, ClientFactory
 
 
 class PracticeAreaModelTests(TestCase):
@@ -78,8 +78,6 @@ class PracticeAreaViewTests(TestCase):
         self.area.save()
 
         response = self.client.get('/practices/dancing/')
-        for i, ln in enumerate(response.content.split("\n")):
-            print i, ln
         self.assertContains(response, """
             <div class="panel panel-default">
                 <div class="panel-heading"><h3 class="panel-title">Practices</h3></div>
@@ -91,8 +89,26 @@ class PracticeAreaViewTests(TestCase):
         """, status_code=200, html=True)
 
     def test_show_clients(self):
-        ibm_work = ClientWorkFactory()
-        # FIXME: add m2m and test on listing page and detail page
+        ibm = ClientFactory(status='published')
+        ibm.practiceareas.add(self.area)
+
+        self.area.status = 'published'
+        self.area.save()
+
+        response = self.client.get("/practices/")
+        self.assertContains(
+            response,
+            """<ul class="barlist"><li><a href="/clients/ibm/">IBM</a></li></ul>""",
+            html=True,
+        )
+
+        response = self.client.get("/practices/coaching/")
+        self.assertContains(
+            response,
+            """<ul><li><a href="/clients/ibm/">IBM</a></li></ul>""",
+            html=True,
+        )
+
 
 @override_settings(PREVIEW_MODE=True)
 class PracticeAreaAdminViewTests(TestCase):

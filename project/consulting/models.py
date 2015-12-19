@@ -105,12 +105,14 @@ class Client(TimeStampedModel, StatusModel, models.Model):
         source='image',
         processors=[ResizeToFit(180, 180)],
         format='PNG',
+        cachefile_strategy=imagekit.cachefiles.strategies.Optimistic,
     )
 
     image_thumbnail = ImageSpecField(
         source='image',
         processors=[ResizeToFit(90, 90)],
         format='PNG',
+        cachefile_strategy=imagekit.cachefiles.strategies.Optimistic,
     )
 
     description = models.TextField(
