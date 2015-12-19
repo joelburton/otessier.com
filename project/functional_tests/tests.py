@@ -1,20 +1,11 @@
 from django.test import LiveServerTestCase
-from selenium.webdriver.firefox.webdriver import WebDriver
 
 
 class MySeleniumTests(LiveServerTestCase):
-    fixtures = ['initial.json']
-    selenium = None
-
-    @classmethod
-    def setUpClass(cls):
-        super(MySeleniumTests, cls).setUpClass()
-        cls.selenium = WebDriver()
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super(MySeleniumTests, cls).tearDownClass()
-
-    def test_login(self):
-        self.selenium.get(self.live_server_url)
+    def test_story(self):
+        import doctest
+        self.assertEqual(
+                doctest.testfile("test_story.rst",
+                                 globs={'url': self.live_server_url}
+                                 ).failed,
+                0)
