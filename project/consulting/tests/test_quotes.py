@@ -1,6 +1,5 @@
-from django.test import override_settings, TestCase
+from django.test import TestCase
 
-from consulting.models import Quote
 from .factories import QuoteFactory
 
 

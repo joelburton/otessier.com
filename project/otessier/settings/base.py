@@ -31,14 +31,7 @@ TEMPLATES = [
     },
 ]
 
-# BUGFIX: 2015-07-22: imagekit includes a library, 'compat', which clashes with the one in the
-# debug toolbar. We need to load imagekit at the end of the installed apps -- but make sure all
-# the normal stuff appears before the developer tools, like the debug toolbar. So, for now, let's
-# split our apps into non-imagekit and imagekit, so we can add them in this very strict order
-# in development.py. At some point, this can be re-evaluated to return to a simple list, once
-# imagekit and the debugtoolbar kiss and make up.
-
-NONIMAGEKIT_INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -55,15 +48,10 @@ NONIMAGEKIT_INSTALLED_APPS = (
     'solo',  # SiteConfiguration object
     'tinymce',  # HTML editor
     'dbbackup',  # management commands for backing up DB
-)
-
-IMAGEKIT_APPS = (
     'imagekit',  # resizes images
-)
+]
 
-INSTALLED_APPS = NONIMAGEKIT_INSTALLED_APPS + IMAGEKIT_APPS
-
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -73,7 +61,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'otessier.previewmode.PreviewMiddleware',  # <-- added
-)
+]
 
 ROOT_URLCONF = 'otessier.urls'
 

@@ -103,7 +103,7 @@ class LibraryCategoryFactory(factory.DjangoModelFactory):
     title = "Sample Budgets"
     slug = factory.LazyAttribute(lambda x: slugify(x.title))
     description = "Description of LibraryCategory."
-    position = factory.Sequence(lambda x: x)
+    position = 1
 
 
 class LibraryFileFactory(factory.DjangoModelFactory):
@@ -117,4 +117,4 @@ class LibraryFileFactory(factory.DjangoModelFactory):
     description = "Description of LibraryFile."
     asset = factory.django.FileField(filename="libraryfile.txt")
     url = "http://url.com/libraryfile"
-    position = factory.Sequence(lambda x: x)
+    position = 1

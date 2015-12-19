@@ -1,6 +1,8 @@
 """
 Development settings for otessier project.
 """
+import logging
+import warnings
 
 from .base import *
 
@@ -8,21 +10,18 @@ from .base import *
 SECRET_KEY = 'i^ari$22!b+&pwhm=o7h-%vr-%us)#k=q0!g9qcaz*a#!h!k*c'
 
 DEBUG = True
-TEMPLATE_DEBUG = True
 
 
-# BUGFIX 2015-07-22: see note in base.py about why we do this weird dance
-
-INSTALLED_APPS = NONIMAGEKIT_INSTALLED_APPS + (
+INSTALLED_APPS = INSTALLED_APPS + [
     'debug_toolbar',
     'memcache_toolbar',
     'django_extensions',
-) + IMAGEKIT_APPS
+]
 
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE_CLASSES += [
     'otessier.timing.TimingMiddleware',
-)
+]
 
 
 ##################################################################################################
@@ -88,7 +87,7 @@ LOGGING = {
             'level': 'DEBUG',
             'filters': ['readable_sql'],
             'propagate': False,
-        }
+        },
     },
 }
 
