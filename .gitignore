@@ -4,3 +4,4 @@
 /backups/
 /project/env.py
 *.pyc
+/.idea/
