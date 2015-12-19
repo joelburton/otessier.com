@@ -10,6 +10,7 @@ class QuoteModelTests(TestCase):
 
     def test_model(self):
         self.quote.full_clean()
+        self.assertEqual(str(self.quote), "Oliver is love.")
 
 
 class QuoteViewTests(TestCase):

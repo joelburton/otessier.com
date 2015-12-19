@@ -11,6 +11,7 @@ class QAndAModelTests(TestCase):
 
     def test_model(self):
         self.qanda.full_clean()
+        self.assertEqual(str(self.qanda), 'Why do birds sing?')
 
     def test_ordering(self):
         why = self.qanda
@@ -96,8 +97,6 @@ class QAndAViewTests(TestCase):
         self.qanda.save()
 
         response = self.client.get('/library/')
-
-        print response.content
 
         self.assertContains(response, """
             <div class="panel panel-default">

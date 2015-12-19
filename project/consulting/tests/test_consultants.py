@@ -7,13 +7,14 @@ from .factories import ConsultantFactory
 class ConsultantModelTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.consultant = ConsultantFactory()
+        cls.joel = ConsultantFactory()
 
     def test_model(self):
-        self.consultant.full_clean()
+        self.joel.full_clean()
+        self.assertEqual(str(self.joel), 'Joel Burton')
 
     def test_ordering(self):
-        joel = self.consultant
+        joel = self.joel
         zed = ConsultantFactory(title="Zed Zenefits", position=1)
         albert = ConsultantFactory(title="Albert Allington", position=1)
         bob = ConsultantFactory(title="Bob Slob", position=2)
@@ -21,7 +22,7 @@ class ConsultantModelTests(TestCase):
         self.assertEqual(list(Consultant.objects.all()), [albert, joel, zed, bob])
 
     def test_url(self):
-        self.assertEqual(self.consultant.get_absolute_url(), '/consultants/joel-burton/')
+        self.assertEqual(self.joel.get_absolute_url(), '/consultants/joel-burton/')
 
 
 class ConsultantViewTests(TestCase):
@@ -32,7 +33,7 @@ class ConsultantViewTests(TestCase):
         management.call_command("installwatson")
 
     def setUp(self):
-        self.consultant = ConsultantFactory()
+        self.joel = ConsultantFactory()
 
     def test_missing(self):
         response = self.client.get('/consultants/')
@@ -42,8 +43,8 @@ class ConsultantViewTests(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_published(self):
-        self.consultant.status = 'published'
-        self.consultant.save()
+        self.joel.status = 'published'
+        self.joel.save()
 
         response = self.client.get('/consultants/')
         self.assertContains(response, '<a href="/consultants/joel-burton/">Joel Burton</a>', status_code=200)
@@ -58,8 +59,8 @@ class ConsultantViewTests(TestCase):
 
     def test_search_published(self):
         # we only index published stuff, so this needs to be published
-        self.consultant.status = 'published'
-        self.consultant.save()
+        self.joel.status = 'published'
+        self.joel.save()
         response = self.client.get('/search/?q=joel')
         self.assertContains(response, 'Joel Burton', status_code=200)
         self.assertContains(response, 'Description of Consultant', status_code=200)
@@ -71,8 +72,8 @@ class ConsultantViewTests(TestCase):
 
         self.assertNotContains(response, "Joel Burton", status_code=200)
 
-        self.consultant.status = 'published'
-        self.consultant.save()
+        self.joel.status = 'published'
+        self.joel.save()
 
         response = self.client.get('/consultants/oliver-tessier/')
         self.assertContains(response, """
@@ -97,7 +98,7 @@ class ConsultantAdminViewTests(TestCase):
         management.call_command("installwatson")
 
     def setUp(self):
-        self.consultant = ConsultantFactory()
+        self.joel = ConsultantFactory()
 
     def test_admin_there(self):
         response = self.client.get('/consultants/')

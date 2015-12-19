@@ -11,6 +11,7 @@ class PracticeAreaModelTests(TestCase):
 
     def test_model(self):
         self.area.full_clean()
+        self.assertEqual(str(self.area), 'Coaching')
 
     def test_ordering(self):
         coaching = self.area

@@ -15,10 +15,16 @@ class LibraryModelTests(TestCase):
         bad = LibraryFileFactory.build()
         self.assertRaises(ValidationError, bad.full_clean)
 
+        bad = LibraryFileFactory.build(url='', asset=None)
+        self.assertRaises(ValidationError, bad.full_clean)
+
     def test_model(self):
         self.cat.full_clean()
         self.file.full_clean()
         self.web.full_clean()
+        self.assertEqual(str(self.cat), 'Sample Budgets')
+        self.assertEqual(str(self.file), 'File Budget')
+        self.assertEqual(str(self.web), 'Web Budget')
 
     def test_urls(self):
         self.assertEqual(self.cat.get_absolute_url(), '/library/sample-budgets/')
@@ -27,6 +33,11 @@ class LibraryModelTests(TestCase):
         self.assertRegexpMatches(
                 self.file.get_absolute_url(),
                 r'^/media/library/file-budget.*txt$')
+
+    def test_upload_to(self):
+        from ..models import file_upload_to
+
+        self.assertEqual(file_upload_to(self.file, 'hello.csv'), 'library/file-budget.csv')
 
 
 class LibraryCategoryViewTests(TestCase):
@@ -83,8 +94,6 @@ class LibraryCategoryViewTests(TestCase):
         self.cat.save()
 
         response = self.client.get('/library/movies/')
-
-        print response.content
 
         self.assertContains(response, """
             <div class="panel panel-default">

@@ -11,6 +11,7 @@ class ClientModelTests(TestCase):
 
     def test_model(self):
         self.ibm.full_clean()
+        self.assertEqual(str(self.ibm), 'IBM')
 
     def test_ordering(self):
         ibm = self.ibm
@@ -31,6 +32,7 @@ class ClientReferenceModelTests(TestCase):
 
     def test_model(self):
         self.herman.full_clean()
+        self.assertEqual(str(self.herman), 'Herman Miller')
 
     def test_ordering(self):
         herman = self.herman
@@ -47,6 +49,7 @@ class ClientWorkModelTests(TestCase):
 
     def test_model(self):
         self.coaching.full_clean()
+        self.assertEqual(str(self.coaching), 'Coaching Project')
 
     def test_ordering(self):
         coaching = self.coaching
