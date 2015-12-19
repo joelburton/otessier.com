@@ -5,3 +5,5 @@
 /project/env.py
 *.pyc
 /.idea/
+htmlcov
+.coverage
