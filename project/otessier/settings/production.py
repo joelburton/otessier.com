@@ -8,12 +8,8 @@ from .base import *
 SECRET_KEY = os.environ['SECRET_KEY']
 
 ALLOWED_HOSTS = [
-    'otessier.com',
-    'www.otessier.com',
     'admin.otessier.com',
-
     'olivertessier.com',
-    'www.olivertessier.com',
     'admin.olivertessier.com',
 ]
 
@@ -110,9 +106,9 @@ CACHES = {
 }
 
 MIDDLEWARE_CLASSES = (
-    ('otessier.cache.PreviewAwareUpdateCacheMiddleware',) +
+    ['otessier.cache.PreviewAwareUpdateCacheMiddleware'] +
     MIDDLEWARE_CLASSES +
-    ('django.middleware.cache.FetchFromCacheMiddleware',)
+    ['django.middleware.cache.FetchFromCacheMiddleware']
 )
 
 CACHE_MIDDLEWARE_ALIAS = 'default'
@@ -126,9 +122,8 @@ CACHE_MIDDLEWARE_KEY_PREFIX = 'otessier-com-site'
 # This is a performance improvement; it does mean we don't see template changes until
 # the process is restarted.
 
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
-)
+TEMPLATES[0]['OPTIONS']['loaders'] = [
+    ('django.template.loaders.cached.Loader',
+     ('django.template.loaders.filesystem.Loader', 'django.template.loaders.app_directories.Loader')
+     )
+]
