@@ -2,6 +2,7 @@ Django==1.8.3
 Pillow==2.9.0
 django-bootstrap3==6.1.0
 django-imagekit==3.2.6
+pilkit==1.1.13
 django-model-utils==2.3.1
 django-watson==1.1.8
 psycopg2==2.6.1
@@ -9,5 +10,5 @@ six==1.9.0
 wsgiref==0.1.2
 django-solo==1.1.0
 django-admin-bootstrapped==2.5.4
-django-tinymce==1.5.3
+django-tinymce==2.0.4
 django-dbbackup==2.0.4
