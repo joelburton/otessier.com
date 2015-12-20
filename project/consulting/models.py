@@ -361,7 +361,8 @@ class QAndA(TimeStampedModel, StatusModel, models.Model):
     )
 
     class Meta:
-        verbose_name = 'Question and Answer'
+        verbose_name = 'Question and answer'
+        verbose_name_plural = 'Questions and answers'
         ordering = ['position', '-id']
 
     def __str__(self):
@@ -537,7 +538,7 @@ class SiteConfiguration(SingletonModel):
     )
 
     class Meta:
-        verbose_name = "Site Configuration"
+        verbose_name = "Site configuration"
 
     def __str__(self):
         return u"Site Configuration"
