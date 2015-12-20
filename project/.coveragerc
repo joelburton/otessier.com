@@ -1,0 +1,15 @@
+[run]
+
+omit = 
+    otessier/wsgi.py
+    otessier/settings/production.py
+    otessier/settings/staging.py
+
+source = 
+    consulting
+    otessier
+
+[report]
+
+exclude_lines =
+    pragma: no cover
