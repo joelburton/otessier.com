@@ -13,8 +13,6 @@ MIDDLEWARE_CLASSES += [
     'otessier.timing.TimingMiddleware',
 ]
 
-ALLOWED_HOSTS = ['localhost', 'admin.localhost', '127.0.0.1']
-
 ##################################################################################################
 # Database
 #

@@ -6,10 +6,7 @@ from .base import *
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = [
-    'olivertessier.com',
-    'admin.olivertessier.com',
-]
+ALLOWED_HOSTS = ['*']  # nginx sanitizes our hosts
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
@@ -23,7 +20,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'otessier',
         'HOST': 'localhost',
-        'USER': 'otessier',
+        'USER': os.environ.get('PG_USER', 'otessier'),
         'PASSWORD': os.environ.get('PG_PASSWORD'),
         'PORT': os.environ.get('PG_PORT'),
         'CONN_MAX_AGE': None,
@@ -35,7 +32,7 @@ DATABASES = {
 #
 # By default, we write reasonably important things (INFO and above) to the console
 # We email admins on a site error or a security issue and also propagate
-# this up to the Heroku logs. This is obviously overriden in the development settings.
+# this up to the Heroku logs. This is obviously overridden in the development settings.
 
 LOGGING = {
     'disable_existing_loggers': False,
@@ -52,12 +49,12 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['console', 'mail_admins'],
             'level': 'ERROR',
             'propagate': True,
         },
         'django.security': {
-            'handlers': ['mail_admins'],
+            'handlers': ['console', 'mail_admins'],
             'level': 'WARNING',
             'propagate': True,
         },
@@ -113,8 +110,7 @@ CACHE_MIDDLEWARE_KEY_PREFIX = 'otessier-com-site'
 ##################################################################################################
 # Template Loaders
 #
-# This is a performance improvement; it does mean we don't see template changes until
-# the process is restarted.
+# Performance improvement; template changes not effective until the process is restarted.
 
 TEMPLATES[0]['OPTIONS']['loaders'] = [
     ('django.template.loaders.cached.Loader', ('django.template.loaders.filesystem.Loader',
