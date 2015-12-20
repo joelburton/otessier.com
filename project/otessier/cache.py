@@ -9,11 +9,8 @@ There are two parts to Django's cache middleware. This subclasses the "Store thi
 in cache" and doesn't update the cache when in preview mode.
 """
 
-# FIXME: does this mean we can still retrieve things cache in preview mode?
-# FIXME: might we get outdated results, then?
 
-
-from django.middleware.cache import UpdateCacheMiddleware
+from django.middleware.cache import UpdateCacheMiddleware, FetchFromCacheMiddleware
 
 
 class PreviewAwareUpdateCacheMiddleware(UpdateCacheMiddleware):
@@ -29,3 +26,16 @@ class PreviewAwareUpdateCacheMiddleware(UpdateCacheMiddleware):
         return super(
                 PreviewAwareUpdateCacheMiddleware,
                 self)._should_update_cache(request, response)
+
+
+class PreviewAwareFetchFromCacheMiddleware(FetchFromCacheMiddleware):
+    """If we're in preview mode, don't use cache."""
+
+    def process_request(self, request):
+
+        preview_mode = getattr(request, 'preview_mode', False)
+
+        if preview_mode:
+            return
+
+        return super(PreviewAwareFetchFromCacheMiddleware, self).process_request(request)

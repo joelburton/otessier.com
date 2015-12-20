@@ -108,7 +108,7 @@ CACHES = {
 MIDDLEWARE_CLASSES = (
     ['otessier.cache.PreviewAwareUpdateCacheMiddleware'] +
     MIDDLEWARE_CLASSES +
-    ['django.middleware.cache.FetchFromCacheMiddleware']
+    ['otessier.cache.PreviewAwareFetchFromCacheMiddleware']
 )
 
 CACHE_MIDDLEWARE_ALIAS = 'default'
