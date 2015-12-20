@@ -122,7 +122,7 @@ DEFAULT_FROM_EMAIL = 'joel@joelburton.com'
 #
 # Simplify the TinyMCE to remove a lot of un-needed UI complexity
 
-TINYMCE_JS_URL = "http://tinymce.cachefly.net/4.3/tinymce.min.js"
+TINYMCE_JS_URL = "https://tinymce.cachefly.net/4.3/tinymce.min.js"
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "paste,link",
     'cleanup_on_startup': True,
