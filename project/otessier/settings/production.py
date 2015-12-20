@@ -4,7 +4,7 @@ Deployment settings for otessier project.
 
 from .base import *
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ALLOWED_HOSTS = [
     'olivertessier.com',
@@ -24,8 +24,8 @@ DATABASES = {
         'NAME': 'otessier',
         'HOST': 'localhost',
         'USER': 'otessier',
-        'PASSWORD': os.environ['PG_PASSWORD'],
-        'PORT': os.environ['PG_PORT'],
+        'PASSWORD': os.environ.get('PG_PASSWORD'),
+        'PORT': os.environ.get('PG_PORT'),
         'CONN_MAX_AGE': None,
     }
 }
@@ -38,6 +38,7 @@ DATABASES = {
 # this up to the Heroku logs. This is obviously overriden in the development settings.
 
 LOGGING = {
+    'disable_existing_loggers': False,
     'version': 1,
     'handlers': {
         'console': {
@@ -74,7 +75,7 @@ LOGGING = {
 
 EMAIL_HOST = "email-smtp.us-east-1.amazonaws.com"
 EMAIL_HOST_USER = "AKIAIDQJEDLNTSM73G7A"
-EMAIL_HOST_PASSWORD = os.environ['AWS_EMAIL_PASSWORD']
+EMAIL_HOST_PASSWORD = os.environ.get('AWS_EMAIL_PASSWORD')
 EMAIL_USE_TLS = True
 
 ##################################################################################################
