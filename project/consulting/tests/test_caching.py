@@ -28,7 +28,7 @@ CACHE = {'default':
 # This tests using Django's LocMemCache; if you wanted to be even closer to a
 # production-like setup, you should use this for the MIDDLEWARE_CLASSES
 
-if os.environ.get("TEST_MEMCACHE"):
+if os.environ.get("TEST_MEMCACHE"):    # pragma: no cover
     CACHE = {'default':
         {
             'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
