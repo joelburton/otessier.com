@@ -5,10 +5,11 @@ These are mostly to handle TinyMCE appearance.
 
 
 from django.forms import Form, CharField, EmailField, Textarea, ModelForm
+from django.forms.widgets import TextInput
 from tinymce.widgets import TinyMCE
 
 from .models import PracticeArea, ClientWork, Consultant, QAndA, Client, \
-    LibraryCategory, LibraryFile, SiteConfiguration
+    LibraryCategory, LibraryFile, SiteConfiguration, ClientReference
 
 
 class ContactUsForm(Form):
@@ -112,4 +113,17 @@ class SiteConfigurationForm(ModelForm):
         widgets = {
             'about_footer': TinyMCE(mce_attrs={'height': 50}),
             'about_homepage': TinyMCE(mce_attrs={'height': 50}),
+        }
+
+
+class ClientReferenceForm(ModelForm):
+    class Meta:
+        model = ClientReference
+        exclude = []
+        widgets = {
+            'title': TextInput(attrs={'size': 20}),
+            'job_title': TextInput(attrs={'size': 30}),
+            'phone': TextInput(attrs={'size': 15}),
+            'email': TextInput(attrs={'size': 25}),
+            'position': TextInput(attrs={'size': 3}),
         }

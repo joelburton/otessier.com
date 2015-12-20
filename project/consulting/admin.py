@@ -5,7 +5,7 @@ from django.db import models
 from solo.admin import SingletonModelAdmin
 
 from .forms import PracticeAreaForm, ClientWorkForm, ClientForm, ConsultantForm, QAndAForm, \
-    LibraryCategoryForm, LibraryFileForm, SiteConfigurationForm
+    LibraryCategoryForm, LibraryFileForm, SiteConfigurationForm, ClientReferenceForm
 
 from .models import (
     PracticeArea,
@@ -77,6 +77,7 @@ class ClientReferenceInline(admin.TabularInline, SortableInline):
     model = ClientReference
     extra = 0
     fields = ['title', 'job_title', 'phone', 'email', 'position']
+    form = ClientReferenceForm
 
 
 class ClientWorkInline(admin.StackedInline, SortableInline):
