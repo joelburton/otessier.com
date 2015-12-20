@@ -7,15 +7,13 @@ like production."
 
 from .production import *
 
-
 SECRET_KEY = 'i^ari$22!b+&pwhm=o7h-%vr-%us)#k=q0!g9qcaz*a#!h!k*c'
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE_CLASSES += [
     'otessier.timing.TimingMiddleware',
-)
+]
 
 ALLOWED_HOSTS = ['localhost', 'admin.localhost', '127.0.0.1']
-
 
 ##################################################################################################
 # Database
@@ -31,7 +29,6 @@ DATABASES = {
     }
 }
 
-
 ##################################################################################################
 # Email
 #
@@ -43,8 +40,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # the hostname of the laptop. So let's hack this in:
 
 from django.core.mail.utils import DNS_NAME
-DNS_NAME._fqdn = "localhost"
 
+DNS_NAME._fqdn = "localhost"
 
 ##################################################################################################
 # Logging & Error Reporting

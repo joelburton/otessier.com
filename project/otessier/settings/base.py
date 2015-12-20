@@ -112,7 +112,7 @@ SOLO_CACHE_TIMEOUT = 60 * 5
 #
 # Email these people when errors happen on production sites
 
-ADMINS = (('Joel', 'joel@joelburton.com'),)
+ADMINS = [('Joel', 'joel@joelburton.com')]
 SERVER_EMAIL = "joel@joelburton.com"
 DEFAULT_FROM_EMAIL = 'joel@joelburton.com'
 
@@ -121,7 +121,7 @@ DEFAULT_FROM_EMAIL = 'joel@joelburton.com'
 #
 # Simplify the TinyMCE to remove a lot of un-needed UI complexity
 
-TINYMCE_JS_URL = "http://tinymce.cachefly.net/4.2/tinymce.min.js"
+TINYMCE_JS_URL = "http://tinymce.cachefly.net/4.3/tinymce.min.js"
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "paste,link",
     'cleanup_on_startup': True,
@@ -131,8 +131,6 @@ TINYMCE_DEFAULT_CONFIG = {
     'toolbar': 'undo redo | cut copy paste pastetext | styleselect | removeformat | bold italic'
                ' | bullist numlist | blockquote | link unlink',
 }
-TINYMCE_SPELLCHECKER = False
-TINYMCE_COMPRESSOR = False
 
 ##################################################################################################
 # Backup config

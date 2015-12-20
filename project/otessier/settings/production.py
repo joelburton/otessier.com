@@ -4,17 +4,14 @@ Deployment settings for otessier project.
 
 from .base import *
 
-
 SECRET_KEY = os.environ['SECRET_KEY']
 
 ALLOWED_HOSTS = [
-    'admin.otessier.com',
     'olivertessier.com',
     'admin.olivertessier.com',
 ]
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
 
 ##################################################################################################
 # Database
@@ -32,7 +29,6 @@ DATABASES = {
         'CONN_MAX_AGE': None,
     }
 }
-
 
 ##################################################################################################
 # Logging & Error Reporting
@@ -71,7 +67,6 @@ LOGGING = {
     },
 }
 
-
 ##################################################################################################
 # Email
 #
@@ -81,7 +76,6 @@ EMAIL_HOST = "email-smtp.us-east-1.amazonaws.com"
 EMAIL_HOST_USER = "AKIAIDQJEDLNTSM73G7A"
 EMAIL_HOST_PASSWORD = os.environ['AWS_EMAIL_PASSWORD']
 EMAIL_USE_TLS = True
-
 
 ##################################################################################################
 # Caches
@@ -115,7 +109,6 @@ CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_SECONDS = 600
 CACHE_MIDDLEWARE_KEY_PREFIX = 'otessier-com-site'
 
-
 ##################################################################################################
 # Template Loaders
 #
@@ -123,8 +116,8 @@ CACHE_MIDDLEWARE_KEY_PREFIX = 'otessier-com-site'
 # the process is restarted.
 
 TEMPLATES[0]['OPTIONS']['loaders'] = [
-    ('django.template.loaders.cached.Loader',
-     ('django.template.loaders.filesystem.Loader', 'django.template.loaders.app_directories.Loader')
+    ('django.template.loaders.cached.Loader', ('django.template.loaders.filesystem.Loader',
+                                               'django.template.loaders.app_directories.Loader')
      )
 ]
 del TEMPLATES[0]['APP_DIRS']
