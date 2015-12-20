@@ -1,6 +1,5 @@
-"""
-Development settings for otessier project.
-"""
+"""Development settings for otessier project."""
+
 import logging
 import warnings
 
@@ -17,7 +16,6 @@ DEBUG = True
 
 INSTALLED_APPS = INSTALLED_APPS + [
     'debug_toolbar',
-    'memcache_toolbar',
     'django_extensions',
 ]
 
@@ -105,35 +103,6 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
-
-# Uncomment to debug basic memcache stuff
-#
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-#         'LOCATION': '127.0.0.1:11211',
-#         'TIMEOUT': 600,
-#         'KEY_PREFIX': 'otessier-com',
-#     }
-# }
-#
-# DEBUG_TOOLBAR_PANELS = [
-#     'debug_toolbar.panels.versions.VersionsPanel',
-#     'debug_toolbar.panels.timer.TimerPanel',
-#     'debug_toolbar.panels.settings.SettingsPanel',
-#     'debug_toolbar.panels.headers.HeadersPanel',
-#     'debug_toolbar.panels.request.RequestPanel',
-#     'debug_toolbar.panels.sql.SQLPanel',
-#     'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-#     'debug_toolbar.panels.templates.TemplatesPanel',
-#     'debug_toolbar.panels.cache.CachePanel',
-#     'debug_toolbar.panels.signals.SignalsPanel',
-#     'debug_toolbar.panels.logging.LoggingPanel',
-#     'memcache_toolbar.panels.pylibmc.PylibmcPanel',  # <-- this is new
-#     'debug_toolbar.panels.redirects.RedirectsPanel',
-# ]
-#
-# import memcache_toolbar.panels.pylibmc
 
 
 ##################################################################################################

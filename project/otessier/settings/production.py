@@ -89,7 +89,7 @@ EMAIL_USE_TLS = True
 # We use caches in two ways:
 #
 # - in some cases, we directly put information into the cache for programmatic use
-# (like we do with the list of QanAs and Quotes we randomly pick from; see
+#   (like we do with the list of QanAs and Quotes we randomly pick from; see
 #   consulting/views.py). This is the otessier-com key.
 #
 # - for all pages on site, we use the cache middleware to cache the page and

@@ -67,10 +67,16 @@ class PortletCommonMixin(object):
             Random item from query.
         """
 
-        objs = cache.get(name)
-        if not objs:
-            objs = qs.order_by()  # don't waste time sorting
-            cache.set(name, objs)
+        if self.request.preview_mode:
+            objs = qs.order_by()
+
+        else:
+            objs = cache.get(name)
+
+            if not objs:
+                objs = qs.order_by()  # don't waste time sorting
+                cache.set(name, objs)
+
         if objs:
             return choice(objs)
 
