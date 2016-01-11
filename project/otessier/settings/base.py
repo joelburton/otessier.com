@@ -140,6 +140,8 @@ TINYMCE_DEFAULT_CONFIG = {
 
 DBBACKUP_DATE_FORMAT = ''
 DBBACKUP_BACKUP_DIRECTORY = GIT_DIR + '/backups/'
+DBBACKUP_CLEANUP_KEEP_MEDIA = 3
+DBBACKUP_CLEANUP_KEEP = 3
 
 ##################################################################################################
 # Bootstrap / Bootstrap Admin

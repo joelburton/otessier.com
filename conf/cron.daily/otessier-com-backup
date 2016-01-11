@@ -2,8 +2,8 @@
 
 cd /home/django/otessier.com/
 . venv/bin/activate
-python project/manage.py dbbackup
-python project/manage.py mediabackup
+python project/manage.py dbbackup -c
+python project/manage.py mediabackup -c
 
 # Store things in s3 with reduced redundancy (cheaper); we delete things from this bucket
 # every 30 days
