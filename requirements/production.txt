@@ -1,2 +1,2 @@
 -r base.txt
-pylibmc==1.5.0
+pylibmc==1.5.2

@@ -32,7 +32,6 @@ TEMPLATES = [
 ]
 
 INSTALLED_APPS = [
-    'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,16 +50,14 @@ INSTALLED_APPS = [
     'imagekit',  # resizes images
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-
     'otessier.previewmode.PreviewMiddleware',  # <-- added
 ]
 
@@ -146,10 +143,10 @@ DBBACKUP_CLEANUP_KEEP = 3
 ##################################################################################################
 # Bootstrap / Bootstrap Admin
 
-# Use Bootstrap for rendering admin fields
-DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
-
-# 'required' html5 attribute does not play well with FF/Chrome and TinyMCE
-BOOTSTRAP3 = {
-    'set_required': False
-}
+# # Use Bootstrap for rendering admin fields
+# DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
+#
+# # 'required' html5 attribute does not play well with FF/Chrome and TinyMCE
+# BOOTSTRAP3 = {
+#     'set_required': False
+# }

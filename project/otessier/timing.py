@@ -13,26 +13,20 @@ class TimingMiddleware(object):
 
     REQUEST_ANNOTATION_KEY = "_timing"
     REPLACE = b"<!-- RENDER_TIME -->"
-    REPLACE_TEMPLATE = b"<span>Handsomely rendered in {}ms.</span>"
+    REPLACE_TEMPLATE = b"<span>Handsomely rendered in %ims.</span>"
 
-    def process_request(self, request):
-        """Add current time to the request."""
+    def __init__(self, get_response):
+        self.get_response = get_response
+        # One-time configuration and initialization.
 
+    def __call__(self, request):
         setattr(request, self.REQUEST_ANNOTATION_KEY, time.time())
 
-        # We do not return a request; doing so would say that we want to skip
-        # all other middleware and Django processing. Instead, we return None.
-
-    def process_response(self, request, response):
-        """Compare current time to request start, and update content."""
-
-        # In unusual situations (tests, etc), it's possible that we don't have
-        # the same request, so let's check for our attribute before doing
-        # anything
+        response = self.get_response(request)
 
         then = getattr(request, self.REQUEST_ANNOTATION_KEY, None)
         if then and hasattr(response, 'content'):
             now = time.time()
-            msg = self.REPLACE_TEMPLATE.format(int((now - then) * 1000))
+            msg = self.REPLACE_TEMPLATE % (int((now - then) * 1000))
             response.content = response.content.replace(self.REPLACE, msg)
         return response

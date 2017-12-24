@@ -97,9 +97,9 @@ CACHES = {
     }
 }
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     ['otessier.cache.PreviewAwareUpdateCacheMiddleware'] +
-    MIDDLEWARE_CLASSES +
+    MIDDLEWARE +
     ['otessier.cache.PreviewAwareFetchFromCacheMiddleware']
 )
 

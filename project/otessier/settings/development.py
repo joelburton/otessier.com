@@ -19,11 +19,10 @@ INSTALLED_APPS = INSTALLED_APPS + [
     'django_extensions',
 ]
 
-
-MIDDLEWARE_CLASSES += [
+MIDDLEWARE += [
     'otessier.timing.TimingMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
-
 
 ##################################################################################################
 # Database
@@ -61,11 +60,6 @@ DNS_NAME._fqdn = "localhost"
 LOGGING = {
     'disable_existing_loggers': False,
     'version': 1,
-    'filters': {
-        'readable_sql': {
-            '()': 'project_runpy.ReadableSqlFilter',
-        },
-    },
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(name)s %(message)s'
@@ -74,7 +68,7 @@ LOGGING = {
     'handlers': {
         'console': {
             'level': 'DEBUG',
-            'class': 'project_runpy.ColorizingStreamHandler',
+            'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
     },
@@ -86,7 +80,6 @@ LOGGING = {
         'django.db.backends': {
             'handlers': ['console'],
             'level': 'DEBUG',
-            'filters': ['readable_sql'],
             'propagate': False,
         },
     },

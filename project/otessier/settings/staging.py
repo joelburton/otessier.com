@@ -9,7 +9,7 @@ from .production import *
 
 SECRET_KEY = 'i^ari$22!b+&pwhm=o7h-%vr-%us)#k=q0!g9qcaz*a#!h!k*c'
 
-MIDDLEWARE_CLASSES += [
+MIDDLEWARE += [
     'otessier.timing.TimingMiddleware',
 ]
 
@@ -20,7 +20,7 @@ MIDDLEWARE_CLASSES += [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'otessier',
         'HOST': 'localhost',
         'CONN_MAX_AGE': None,

@@ -13,7 +13,7 @@ from consulting.tests.factories import ConsultantFactory, QuoteFactory
 
 MIDDLEWARE = (
     ['otessier.cache.PreviewAwareUpdateCacheMiddleware'] +
-    settings.MIDDLEWARE_CLASSES +
+    settings.MIDDLEWARE +
     ['otessier.cache.PreviewAwareFetchFromCacheMiddleware']
 )
 
@@ -41,7 +41,7 @@ if os.environ.get("TEST_MEMCACHE"):    # pragma: no cover
 
 @override_settings(
         CACHES=CACHE,
-        MIDDLEWARE_CLASSES=MIDDLEWARE,
+        MIDDLEWARE=MIDDLEWARE,
         CACHE_MIDDLEWARE_ALIAS='default',
         CACHE_MIDDLEWARE_SECONDS=600,
         CACHE_MIDDLEWARE_KEY_PREFIX='otessier-com-site')

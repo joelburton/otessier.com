@@ -1,6 +1,6 @@
 """URLs for consulting project."""
 
-from django.conf.urls import url, include
+from django.urls import include, path, re_path
 
 from .views import ClientListView, ClientDetailView
 from .views import PracticeAreaListView, PracticeAreaDetailView
@@ -13,19 +13,21 @@ from .views import ContactUsFormView
 def make_urls(url_fragment, list_view, detail_view, namespace):
     """Register list and detail view for each type of content."""
 
-    return url(url_fragment,
-               include(
-                       [url(r'^$', list_view.as_view(), name='list'),
-                        url(r'^(?P<slug>[a-z\d-]+)/$', detail_view.as_view(), name='detail')],
-                       namespace=namespace))
+    return path(url_fragment,
+                include((
+                    [path('', list_view.as_view(), name='list'),
+                     path('<slug:slug>/', detail_view.as_view(), name='detail')],
+                    'consulting'),
+                    namespace=namespace))
 
 
 urlpatterns = [
-    make_urls(r'^clients/', ClientListView, ClientDetailView, 'client'),
-    make_urls(r'^practices/', PracticeAreaListView, PracticeAreaDetailView, 'practicearea'),
-    make_urls(r'^questions/', QAndAListView, QAndADetailView, 'qanda'),
-    make_urls(r'^consultants/', ConsultantListView, ConsultantDetailView, 'consultant'),
-    make_urls(r'^library/', LibraryCategoryListView, LibraryCategoryDetailView, 'librarycategory'),
+    make_urls('clients/', ClientListView, ClientDetailView, 'client'),
+    make_urls('practices/', PracticeAreaListView, PracticeAreaDetailView, 'practicearea'),
+    make_urls('questions/', QAndAListView, QAndADetailView, 'qanda'),
+    make_urls('consultants/', ConsultantListView, ConsultantDetailView, 'consultant'),
+    make_urls('library/', LibraryCategoryListView, LibraryCategoryDetailView,
+              'librarycategory'),
 
-    url(r'^contact-info/$', ContactUsFormView.as_view(), name='contact-us'),
+    path('contact-info/', ContactUsFormView.as_view(), name='contact-us'),
 ]

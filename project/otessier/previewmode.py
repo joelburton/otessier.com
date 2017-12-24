@@ -16,7 +16,10 @@ from django.conf import settings
 class PreviewMiddleware(object):
     """Notes on the request when we are in preview mode."""
 
-    def process_request(self, request):
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
         """Notes on the request when we are in preview mode."""
 
         request.preview_mode = (
@@ -24,5 +27,4 @@ class PreviewMiddleware(object):
             getattr(settings, 'PREVIEW_MODE', False)
         )
 
-        # We do not return a request; doing so would say that we want to skip
-        # all other middleware and Django processing. Instead, we return None.
+        return self.get_response(request)

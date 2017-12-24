@@ -1,7 +1,7 @@
 """Caching middleware.
 
 We want to be able to cache pages and use things from cache--but if we're in
-preview mode, there's ther risk that the results created for us will list things
+preview mode, there's the risk that the results created for us will list things
 the public shouldn't see, and therefore this would leak into the cache. Therefore,
 we don't want to store things in cache when in preview mode.
 
@@ -23,9 +23,7 @@ class PreviewAwareUpdateCacheMiddleware(UpdateCacheMiddleware):
         if preview_mode:
             return False
 
-        return super(
-                PreviewAwareUpdateCacheMiddleware,
-                self)._should_update_cache(request, response)
+        return super()._should_update_cache(request, response)
 
 
 class PreviewAwareFetchFromCacheMiddleware(FetchFromCacheMiddleware):
@@ -38,4 +36,4 @@ class PreviewAwareFetchFromCacheMiddleware(FetchFromCacheMiddleware):
         if preview_mode:
             return
 
-        return super(PreviewAwareFetchFromCacheMiddleware, self).process_request(request)
+        return super().process_request(request)

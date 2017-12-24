@@ -23,7 +23,7 @@ import os.path
 
 import imagekit.cachefiles.strategies
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 
 from imagekit.models import ImageSpecField
@@ -187,6 +187,7 @@ class ClientReference(TimeStampedModel, models.Model):
 
     client = models.ForeignKey(
         Client,
+        on_delete=models.CASCADE,
     )
 
     title = models.CharField(
@@ -227,7 +228,8 @@ class ClientWork(StatusModel, TimeStampedModel, models.Model):
     STATUS = WORKFLOW_STATUS
 
     client = models.ForeignKey(
-        Client
+        Client,
+        on_delete=models.CASCADE,
     )
 
     title = models.CharField(
@@ -451,6 +453,7 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
     librarycategory = models.ForeignKey(
         LibraryCategory,
         verbose_name='library category',
+        on_delete=models.CASCADE,
     )
 
     slug = models.SlugField(
@@ -500,7 +503,7 @@ class LibraryFile(TimeStampedModel, StatusModel, models.Model):
     def clean(self):
         """Ensure that either a file or URL is provided."""
 
-        super(LibraryFile, self).clean()
+        super().clean()
 
         if not self.asset and not self.url:
             raise ValidationError("Must have either a file or a URL.")

@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib import admin
-from django_admin_bootstrapped.admin.models import SortableInline
 from django.db import models
 from solo.admin import SingletonModelAdmin
 
@@ -73,14 +72,14 @@ class PracticeAreaAdmin(ModelAdmin):
 ###################################################################################################
 
 
-class ClientReferenceInline(admin.TabularInline, SortableInline):
+class ClientReferenceInline(admin.TabularInline):
     model = ClientReference
     extra = 0
     fields = ['title', 'job_title', 'phone', 'email', 'position']
     form = ClientReferenceForm
 
 
-class ClientWorkInline(admin.StackedInline, SortableInline):
+class ClientWorkInline(admin.StackedInline):
     model = ClientWork
     form = ClientWorkForm
     extra = 0
@@ -94,7 +93,8 @@ class ClientWorkInline(admin.StackedInline, SortableInline):
     def get_formset(self, request, obj=None, **kwargs):
         """Filter client references down to the ones that match this client."""
 
-        formset = super(ClientWorkInline, self).get_formset(request, obj, **kwargs)
+        # XXX upgrade note: in dj20, we can change this to the nicer formset kwargs
+        formset = super().get_formset(request, obj, **kwargs)
         references = formset.form.base_fields['references']
         references.queryset = references.queryset.filter(client=obj)
         return formset

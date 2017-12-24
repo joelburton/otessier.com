@@ -13,9 +13,9 @@ urlpatterns = [
 
     url(r'^$', HomepageView.as_view(), name='homepage'),
 
-    url(r'^', include(consulting.urls, namespace='consulting')),
-    url(r"^search/", include(watson.urls, namespace="watson")),
+    url(r'^', include((consulting.urls, 'consulting'), namespace='consulting')),
+    url(r"^search/", include((watson.urls, 'watson'), namespace="watson")),
     url(r'^tinymce/', include(tinymce.urls)),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,7 +12,7 @@ class HomepageView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         """Get practice areas and quotes for homepage."""
 
-        context = super(HomepageView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         if self.request.preview_mode:
             pas = PracticeArea.objects
