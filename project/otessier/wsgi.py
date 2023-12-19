@@ -7,14 +7,9 @@ For more information on this file, see
 https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
 """
 
-try:
-    # noinspection PyPackageRequirements,PyUnresolvedReferences
-    import env
-except ImportError:
-    pass
-
-import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "otessier.settings")
-
 from django.core.wsgi import get_wsgi_application
+from dotenv import load_dotenv
+
+load_dotenv(verbose=True)
+
 application = get_wsgi_application()

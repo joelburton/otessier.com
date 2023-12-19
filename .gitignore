@@ -7,3 +7,6 @@
 /.idea/
 htmlcov
 .coverage
+.env
+otessier.pid
+geckodriver.log
