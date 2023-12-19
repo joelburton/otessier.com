@@ -3,6 +3,8 @@ Base settings for otessier project.
 """
 
 import os
+import otessier.response_debug
+otessier.response_debug.add_debug_to_response()
 
 ##################################################################################################
 # Directories
