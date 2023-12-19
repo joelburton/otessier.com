@@ -1,6 +1,7 @@
 Let's do our setup::
 
     >>> from selenium.webdriver.firefox.webdriver import WebDriver
+    >>> from selenium.webdriver.common.by import By
     >>> s = WebDriver()
 
     >>> from consulting.tests import factories
@@ -16,15 +17,15 @@ Start at the homepage::
 
 Follow the link to coaching::
 
-    >>> s.find_element_by_css_selector(".practicearea a").click()
+    >>> s.find_element(By.CSS_SELECTOR, ".practicearea a").click()
     >>> s.current_url.replace(url, '')
-    u'/practices/coaching/'
+    '/practices/coaching/'
 
 Go from there to the client page::
 
-    >>> s.find_element_by_link_text("IBM").click()
+    >>> s.find_element(By.LINK_TEXT, "IBM").click()
     >>> s.current_url.replace(url, '')
-    u'/clients/ibm/'
+    '/clients/ibm/'
 
 This should talk about the consulting project::
 
@@ -33,10 +34,10 @@ This should talk about the consulting project::
 
 Let's go to a consultant page::
 
-    >>> s.find_element_by_partial_link_text("Who We Are").click()
-    >>> s.find_element_by_link_text("Joel Burton").click()
+    >>> s.find_element(By.PARTIAL_LINK_TEXT, "Who We Are").click()
+    >>> s.find_element(By.LINK_TEXT, "Joel Burton").click()
     >>> s.current_url.replace(url, '')
-    u'/consultants/joel-burton/'
+    '/consultants/joel-burton/'
 
     >>> "<h1>Joel Burton</h1>" in s.page_source
     True

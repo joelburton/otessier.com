@@ -66,7 +66,7 @@ ROOT_URLCONF = 'otessier.urls'
 WSGI_APPLICATION = 'otessier.wsgi.application'
 
 TIME_ZONE = 'UTC'
-USE_TZ = True
+# USE_TZ = True
 
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True

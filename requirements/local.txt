@@ -4,4 +4,4 @@ django-debug-toolbar==1.9.1
 django-extensions==1.9.8
 factory-boy==2.9.2
 Faker==0.8.8
-selenium==3.8.0
+selenium==4.16.0
