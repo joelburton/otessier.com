@@ -1,10 +1,37 @@
-#!/bin/bash
+#!/bin/bash -e
 
-cd ~/otessier.com
-git pull
-. venv/bin/activate
-pip install -r requirements.txt
-python project/manage.py collectstatic --noinput
-python project/manage.py migrate 
-touch touch-to-reload 
-echo 'Done'
+# Deploy new version on our server. Run like:
+#
+# you@yourlaptop $ ssh sis
+# admin@sis $ sis/up
+#   ... lots of output ...
+#   ... ending with error or "DONE"
+#
+# The -e above makes this script exit on any command that caused an error
+
+cd /home/django/otessier.com || (echo "This script is for production server!" && exit 1)
+git pull --ff-only
+
+# use our virtualenv and upgrade our python libraries to pinned versions
+source venv/bin/activate
+pip install -q -r requirements.txt
+
+# If any server problems are noticed, stop
+project/manage.py check --fail-level WARNING
+
+# If there are possible migrations to make, exit with error
+project/manage.py makemigrations --check --dry-run
+
+# update any CSS/JS changes and database changes
+project/manage.py collectstatic --no-input
+project/manage.py migrate
+
+# restart the app server (gunicorn)
+kill -HUP `cat otessier.pid`
+
+# output its more recent log messages in case something strange happened
+systemctl status gunicorn_otessier --no-pager
+
+echo "
+DONE: Updated reqs, collected static, migrated DB, restarted.
+"
